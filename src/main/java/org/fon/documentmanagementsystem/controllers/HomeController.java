@@ -22,4 +22,9 @@ public class HomeController {
     public ModelAndView home(){
         return new ModelAndView("home");
     }
+    
+    @RequestMapping(path = "/403", method = RequestMethod.GET)
+    public ModelAndView accessDenied(){
+        return new ModelAndView("error","error", "You do not have permission to access this page!");
+    }
 }

@@ -31,7 +31,6 @@ public class WebAppInitializer implements WebApplicationInitializer{
         ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));
         servlet.addMapping("/");
         servlet.setLoadOnStartup(1);
-        servlet.setInitParameter("throwExceptionIfNoHandlerFound", "true");
         servlet.setMultipartConfig(new MultipartConfigElement("", 1024 * 1024 * 25, 1024 * 1024 * 25, 0));
 
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
