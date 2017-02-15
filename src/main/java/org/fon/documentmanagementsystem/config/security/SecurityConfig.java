@@ -5,10 +5,53 @@
  */
 package org.fon.documentmanagementsystem.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
+
 /**
  *
  * @author Vukasin
  */
-public class SecurityConfig {
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
     
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+    
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService);
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+
+//        http.authorizeRequests()
+//                .antMatchers("/resources/**").permitAll()
+//                .antMatchers("/companies/**").hasAuthority(Role.ADMIN.name())
+//                .antMatchers("/users/**").hasAuthority(Role.ADMIN.name())
+//                .antMatchers("/processes/**").hasAuthority(Role.USER.name())
+//                .antMatchers("/documents/**").hasAuthority(Role.UPLOADER.name())
+//                .anyRequest().authenticated()
+//                .and().exceptionHandling().accessDeniedPage("/403")
+//                .and().formLogin().loginPage("/login").permitAll()
+//                .and().logout().logoutUrl("/logout");
+
+    }
 }
