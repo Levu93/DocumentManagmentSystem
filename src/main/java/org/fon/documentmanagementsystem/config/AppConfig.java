@@ -57,7 +57,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
         em.setJpaVendorAdapter(eclipseLinkJpaVendorAdapter());
-        em.setPackagesToScan("org.nst.*");
+        em.setPackagesToScan("org.fon.documentmanagementsystem.*");
         em.setJpaProperties(jpaProperties());
         return em;
     }
@@ -66,7 +66,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     public DataSource dataSource() throws NamingException {
         Context initCtx = new InitialContext();
         Context envCtx = (Context) initCtx.lookup("java:comp/env");
-        DataSource ds = (DataSource) envCtx.lookup("jdbc/dms");
+        DataSource ds = (DataSource) envCtx.lookup("jdbc/nst");
         return ds;
     }
     
