@@ -13,8 +13,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 /**
  *
@@ -22,11 +20,11 @@ import org.springframework.web.filter.CharacterEncodingFilter;
  */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
-    
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-    
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -40,18 +38,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-
-//        http.authorizeRequests()
-//                .antMatchers("/resources/**").permitAll()
-//                .antMatchers("/companies/**").hasAuthority(Role.ADMIN.name())
-//                .antMatchers("/users/**").hasAuthority(Role.ADMIN.name())
-//                .antMatchers("/processes/**").hasAuthority(Role.USER.name())
-//                .antMatchers("/documents/**").hasAuthority(Role.UPLOADER.name())
-//                .anyRequest().authenticated()
-//                .and().exceptionHandling().accessDeniedPage("/403")
-//                .and().formLogin().loginPage("/login").permitAll()
-//                .and().logout().logoutUrl("/logout");
+        http.authorizeRequests()
+                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/subsystems/**").hasAuthority("SUPERADMIN")
+                .antMatchers("/admins/**").hasAuthority("SUPERADMIN")
+                .antMatchers("/processes/**").hasAuthority("ADMIN")
+                .antMatchers("/documents/**").hasAuthority("USER")
+                .anyRequest().authenticated()
+                .and().exceptionHandling().accessDeniedPage("/403")
+                .and().formLogin().loginPage("/login").permitAll()
+                .and().logout().logoutUrl("/logout")
+                .and().csrf().disable();
 
     }
 }

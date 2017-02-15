@@ -187,6 +187,12 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>4.1.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons-core</artifactId>
+            <version>1.4.1.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
     <build>

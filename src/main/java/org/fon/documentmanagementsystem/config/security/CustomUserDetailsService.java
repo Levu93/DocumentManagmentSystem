@@ -5,6 +5,10 @@
  */
 package org.fon.documentmanagementsystem.config.security;
 
+import org.fon.documentmanagementsystem.domain.User;
+import org.fon.documentmanagementsystem.dto.UserDto;
+import org.fon.documentmanagementsystem.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,9 +19,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  */
 public class CustomUserDetailsService implements UserDetailsService{
 
+    @Autowired
+    private UserService userService;
+
     @Override
-    public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userService.findOne(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("UserName " + username + " not found");
+        }
+        UserDto userDto = new UserDto(user.getUsername(), user.getPassword(), user.getIme(),
+                user.getPrezime(), user.getIdRole());
+        return userDto;
     }
     
 }
