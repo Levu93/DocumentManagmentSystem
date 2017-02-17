@@ -20,7 +20,7 @@ public class HomeController {
     
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView home(){
-        return new ModelAndView("home");
+        return new ModelAndView("admin_home");
     }
     
     @RequestMapping(path = "/403", method = RequestMethod.GET)

@@ -21,7 +21,10 @@
                     <a class="navbar-brand" href="/dms/">Document Management System</a>
                 </div>
                 <div class="header-right"> 
-                    <a href="/dms/logout" > <i class="fa fa-sign-out fa-2x"></i> </a>
+                    <form role="form" action="/dms/logout" method="POST">
+                        <label for="mySubmit" class="btn"><i class="fa fa-sign-out fa-2x" style="padding-top: 15px"></i></label>
+                        <input id="mySubmit" type="submit" value="" class="hidden" />
+                    </form>
                 </div>
             </nav>
 
@@ -40,31 +43,27 @@
                             <a class="active-menu" href="/dms/"><i class="fa fa-dashboard "></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-sitemap"></i>Vesti <span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-sitemap"></i>Subsystems<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/cms/admin/vesti/sve-vesti">Sve vesti</a>
+                                    <a href="/dms/subsystem/overview">Subsystem overview</a>
                                 </li>
                                 <li>
-                                    <a href="/cms/admin/vesti/nova-vest">Dodaj vest</a>
+                                    <a href="/dms/#">Add new subsystem</a>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-sitemap "></i>Kategorije<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-sitemap "></i>Admin users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/cms/admin/kategorije/nova-kategorija">Dodaj kategoriju</a>
+                                    <a href="/dms/#">Admin overview</a>
                                 </li>
                                 <li>
-                                    <a href="/cms/admin/kategorije/sve-kategorije">Sve kategorije</a>
+                                    <a href="/dms/#">Add new Admin</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li>
-                            <a href="/cms/admin/statistika"><i class="fa fa-bar-chart "></i>Statistika<span class="fa arrow"></span></a>
-                        </li>
-                        
+                        </li>              
                     </ul>
                 </div>
             </nav>

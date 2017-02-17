@@ -44,7 +44,7 @@ body {
     color: #000;
     font-weight: 800;
     padding-bottom: 20px;
-    border-bottom: 2px solid #00CA79;
+    border-bottom: 2px solid #2e2873;
     margin-bottom: 10px;
 }
 
@@ -69,7 +69,7 @@ body {
     background: #202020;
     width: 260px;
     text-align: center;
-    height: 75px;
+    height: 100px;
     font-size: 20px;
     letter-spacing: 1px;
     font-weight: 900;
@@ -92,7 +92,7 @@ body {
 .user-img-div {
     min-height: 140px;
     padding: 20px;
-    background-color: #4380B8;
+    background-color: #11bb0f;
 }
 
     .user-img-div img {
@@ -108,7 +108,7 @@ body {
     }
 
 .active-menu {
-    background-color: #00CA79!important;
+    background-color: #2e2873!important;
 }
 .active-menu-top {
     background-color: #000!important;
@@ -184,7 +184,7 @@ body {
 }
 
 .navbar-cls-top {
-    background: #00CA79;
+    background: #2e2873;
     border-bottom: none;
 }
 
