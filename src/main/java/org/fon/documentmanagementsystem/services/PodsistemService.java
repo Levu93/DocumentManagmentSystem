@@ -7,7 +7,6 @@ package org.fon.documentmanagementsystem.services;
 
 import java.util.List;
 import org.fon.documentmanagementsystem.domain.Podsistem;
-
 /**
  *
  * @author Vukasin
@@ -15,4 +14,8 @@ import org.fon.documentmanagementsystem.domain.Podsistem;
 public interface PodsistemService {
     
     List<Podsistem> findAll();
+    
+    int vratiId();
+    
+    void sacuvajPodsistem(Podsistem p);
 }

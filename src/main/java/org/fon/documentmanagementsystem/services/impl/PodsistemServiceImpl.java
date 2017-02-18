@@ -18,11 +18,11 @@ import org.springframework.stereotype.Service;
  * @author Vukasin
  */
 @Service
-public class PodsistemServiceImpl implements PodsistemService{
+public class PodsistemServiceImpl implements PodsistemService {
 
     @Autowired
     private PodsistemRepository podsistemRepository;
-    
+
     @Override
     public List<Podsistem> findAll() {
         List<Podsistem> target;
@@ -30,5 +30,22 @@ public class PodsistemServiceImpl implements PodsistemService{
         podsistemRepository.findAll().forEach(target::add);
         return target;
     }
-    
+
+    @Override
+    public int vratiId() {
+        List<Podsistem> target;
+        target = new ArrayList<>();
+        podsistemRepository.findAll().forEach(target::add);
+        return target.size();
+
+    }
+
+    @Override
+    public void sacuvajPodsistem(Podsistem p) {
+        Podsistem p1 = podsistemRepository.findOne(p.getId());
+        if (p1 == null) {
+            podsistemRepository.save(p);
+        }
+    }
+
 }

@@ -54,7 +54,7 @@
                                     <a href="/dms/subsystem/overview">Subsystem overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/subsystem/add_new_subsystem">Add new subsystem</a>
+                                    <a href="/dms/add_new_subsystem">Add new subsystem</a>
                                 </li>
                             </ul>
                         </li>
@@ -77,37 +77,38 @@
                 <div id="page-inner">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="page-head-line">Subsystem overview</h1>
+                            <h1 class="page-head-line">Add new subsystem</h1>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <form action="sve-vesti" method="POST">
-                                    <table class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Code</th>
-                                                <th>Description</th>                                               
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach var="subsystem" items="${subsystems}">
-                                                <tr>
-                                                    <td>${subsystem.id}</td>
-                                                    <td>${subsystem.naziv}</td>
-                                                    <td>${subsystem.oznaka}</td>
-                                                    <td>${subsystem.opis}</td>
-                                                    </tr>                                            
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </form>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form role="form" action="/subsystem/add_new_subsystem">
+                                        <div class="form-group">
+                                            <label>Subsystem name</label>
+                                            <input class="form-control" name="subsystemname">
+                                            <p class="help-block">Example: NLB bank</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Subsystem sign</label>
+                                            <input class="form-control" name="subsystemsign">
+                                            <p class="help-block">Example: NLBBNK</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Subsystem description</label>
+                                            <textarea class="form-control" rows="5" name="subsystemdescription"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Create new subsystem</button>
+                                        <button type="reset" class="btn btn-default">Reset</button>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">
+                                    
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
                             </div>
+                            <!-- /.row (nested) -->
                         </div>
-
                     </div>
 
                 </div>
