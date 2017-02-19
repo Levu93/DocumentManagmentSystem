@@ -5,6 +5,9 @@
  */
 package org.fon.documentmanagementsystem.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.fon.documentmanagementsystem.domain.Podsistem;
 import org.fon.documentmanagementsystem.domain.User;
 import org.fon.documentmanagementsystem.repositories.UserRepository;
 import org.fon.documentmanagementsystem.services.UserService;
@@ -29,6 +32,14 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findOne(String username) {
         return  userRepository.findOne(username);
+    }
+
+    @Override
+    public List<User> findAll() {
+        List<User> target;
+        target = new ArrayList<>();
+        userRepository.findAll().forEach(target::add);
+        return target;
     }
     
     

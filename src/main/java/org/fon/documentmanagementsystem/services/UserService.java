@@ -5,6 +5,7 @@
  */
 package org.fon.documentmanagementsystem.services;
 
+import java.util.List;
 import org.fon.documentmanagementsystem.domain.User;
 
 /**
@@ -16,4 +17,6 @@ public interface UserService {
     User login(String username, String password);
     
     User findOne(String username);
+    
+    List<User>  findAll();
 }
