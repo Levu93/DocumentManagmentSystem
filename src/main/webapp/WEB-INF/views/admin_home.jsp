@@ -49,7 +49,7 @@
                                     <a href="/dms/subsystem/overview">Subsystem overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/add_new_subsystem">Add new subsystem</a>
+                                    <a href="/dms/subsystem/add_new_subsystem">Add new subsystem</a>
                                 </li>
                             </ul>
                         </li>

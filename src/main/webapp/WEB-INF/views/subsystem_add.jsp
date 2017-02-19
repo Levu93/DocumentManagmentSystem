@@ -82,7 +82,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" method="POST" id="add_sub_form" action="/subsystem/add_new_subsystem">
+                                    <form role="form" method="POST" id="add_sub_form" action="/dms/subsystem/add_new_subsystem">
                                         <div class="form-group">
                                             <label>Subsystem name</label>
                                             <input class="form-control" name="subsystemname">
