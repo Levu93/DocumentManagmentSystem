@@ -44,8 +44,7 @@ public class PodsistemController {
     }
     
         @RequestMapping(path = "/add_new_subsystem", method = RequestMethod.POST)
-    public ModelAndView addNewSubsystem(@RequestParam(value = "subsystemname") String subsystemname, 
-            @RequestParam(value = "subsystemsign") String subsystemsign, @RequestParam(value = "subsystemdescription") String subsystemdescription){
+    public ModelAndView addNewSubsystem(String subsystemname, String subsystemsign, String subsystemdescription){
         
         Podsistem ps = new Podsistem();
         int id1 = podsistemService.vratiId()+1;
