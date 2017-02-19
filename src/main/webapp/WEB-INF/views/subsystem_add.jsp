@@ -6,8 +6,17 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <c:if test="${subsystem == null}">
+            <title>Add new subsystem</title>>
+        </c:if>
+        <c:if test="${subsystem != null}">
+            <title>
+                ${subsystem.naziv}
+            </title>
+        </c:if>
         <title>Svi podsistemi</title>
         <%@include file="header.jsp" %>
+        <script src="../resources/js/scripts.js"></script>
     </head>
 
     <body>
@@ -54,7 +63,7 @@
                                     <a href="/dms/subsystem/overview">Subsystem overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/add_new_subsystem">Add new subsystem</a>
+                                    <a href="/dms/subsystem/add_new_subsystem">Add new subsystem</a>
                                 </li>
                             </ul>
                         </li>
@@ -77,48 +86,81 @@
                 <div id="page-inner">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="page-head-line">Add new subsystem</h1>
+                            <c:if test="${subsystem == null}">
+                                <h1 class="page-head-line">Add new subsystem</h1>
+                            </c:if>
+                            <c:if test="${subsystem != null}">
+                                <h1 class="page-head-line">
+                                    ${subsystem.naziv}
+                                </h1>
+                            </c:if>
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" method="POST" id="add_sub_form" action="/dms/subsystem/add_new_subsystem">
+                                    <form role="form" method="POST" id="add_sub_form" action="<c:if test="${subsystem == null}">
+                                          /dms/subsystem/add_new_subsystem                            
+                                        </c:if>
+                                        <c:if test="${subsystem != null}">
+                                            /dms/subsystem/add_new_subsystem/${subsystem.id}
+                                        </c:if>">
                                         <div class="form-group">
                                             <label>Subsystem name</label>
-                                            <input class="form-control" name="subsystemname">
-                                            <p class="help-block">Example: NLB bank</p>
+                                            <c:if test="${subsystem == null}">
+                                                <input class="form-control" name="subsystemname">
+                                                <p class="help-block">Example: NLB bank</p>
+                                            </c:if>
+                                            <c:if test="${subsystem != null}">
+                                                <input class="form-control" name="subsystemname" value="${subsystem.naziv}" id="naziv">
+                                                <p class="help-block">Example: ${subsystem.naziv}</p>
+                                            </c:if>                                            
                                         </div>
                                         <div class="form-group">
                                             <label>Subsystem sign</label>
-                                            <input class="form-control" name="subsystemsign">
-                                            <p class="help-block">Example: NLBBNK</p>
+                                            <c:if test="${subsystem == null}">
+                                                <input class="form-control" name="subsystemsign">
+                                                <p class="help-block">Example: NLBBNK</p>
+                                            </c:if>
+                                            <c:if test="${subsystem != null}">
+                                                <input class="form-control" name="subsystemsign" value="${subsystem.oznaka}" disabled="true">
+                                            </c:if>                                            
                                         </div>
                                         <div class="form-group">
                                             <label>Subsystem description</label>
-                                            <textarea class="form-control" rows="5" name="subsystemdescription"></textarea>
+                                            <c:if test="${subsystem == null}">
+                                                <textarea class="form-control" rows="5" name="subsystemdescription" onfocus="clearContents(this);">Default description</textarea>
+                                            </c:if>
+                                            <c:if test="${subsystem != null}">
+                                                <textarea class="form-control" rows="5" name="subsystemdescription" id="opis">${subsystem.opis}</textarea>
+                                            </c:if>      
                                         </div>
-                                        <button type="submit" class="btn btn-default">Create new subsystem</button>
-                                        <button type="reset" class="btn btn-default">Reset</button>
-                                    </form>
+                                        <c:if test="${subsystem == null}">
+                                            <button type="submit" class="btn btn-default">Create new subsystem</button>
+                                            <button type="reset" class="btn btn-default">Reset</button>                                                         </c:if>
+                                        <c:if test="${subsystem != null}">
+                                            <div id="editdiv">
+                                                <button type="submit" class="btn btn-default">Edit data about ${subsystem.naziv}</button>
+                                                <div>
+                                                </c:if>                                                                                              
+                                                </form>
+                                            </div>
+                                            <!-- /.col-lg-6 (nested) -->
+                                            <div class="col-lg-6">
+
+                                            </div>
+                                            <!-- /.col-lg-6 (nested) -->
+                                        </div>
+                                        <!-- /.row (nested) -->
                                 </div>
-                                <!-- /.col-lg-6 (nested) -->
-                                <div class="col-lg-6">
-                                    
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
                             </div>
-                            <!-- /.row (nested) -->
+
                         </div>
+                        <!-- /. PAGE INNER  -->
                     </div>
-
+                    <!-- /. PAGE WRAPPER  -->
                 </div>
-                <!-- /. PAGE INNER  -->
-            </div>
-            <!-- /. PAGE WRAPPER  -->
-        </div>
-        <!-- /. WRAPPER  -->
+                <!-- /. WRAPPER  -->
 
-        <%@include file="footer.jsp" %>
-    </body>
-</html>
-
+                <%@include file="footer.jsp" %>
+                </body>
+                </html>

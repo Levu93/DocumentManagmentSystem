@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Svi podsistemi</title>
+        <title>Sybsistem - overview</title>
         <%@include file="header.jsp" %>
     </head>
 
@@ -90,7 +90,8 @@
                                                 <th>ID</th>
                                                 <th>Name</th>
                                                 <th>Code</th>
-                                                <th>Description</th>                                               
+                                                <th>Description</th>
+                                                <th>Details</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -100,6 +101,7 @@
                                                     <td>${subsystem.naziv}</td>
                                                     <td>${subsystem.oznaka}</td>
                                                     <td>${subsystem.opis}</td>
+                                                    <td><a href="/dms/subsystem/details/${subsystem.id}">Details</a></td>
                                                     </tr>                                            
                                             </c:forEach>
                                         </tbody>

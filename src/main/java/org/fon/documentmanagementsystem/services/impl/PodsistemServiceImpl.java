@@ -45,6 +45,11 @@ public class PodsistemServiceImpl implements PodsistemService {
         return podsistemRepository.save(p);
     }
 
+    @Override
+    public Podsistem findOne(long id) {
+        return podsistemRepository.findOne(id);
+    }
+
 
 
 }

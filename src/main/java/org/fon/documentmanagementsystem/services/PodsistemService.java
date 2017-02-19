@@ -18,4 +18,6 @@ public interface PodsistemService {
     int vratiId();
     
     Podsistem sacuvajPodsistem(Podsistem p);
+
+    Podsistem findOne(long id);
 }
