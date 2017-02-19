@@ -41,11 +41,10 @@ public class PodsistemServiceImpl implements PodsistemService {
     }
 
     @Override
-    public void sacuvajPodsistem(Podsistem p) {
-        Podsistem p1 = podsistemRepository.findOne(p.getId());
-        if (p1 == null) {
-            podsistemRepository.save(p);
-        }
+    public Podsistem sacuvajPodsistem(Podsistem p) {
+        return podsistemRepository.save(p);
     }
+
+
 
 }

@@ -17,5 +17,5 @@ public interface PodsistemService {
     
     int vratiId();
     
-    void sacuvajPodsistem(Podsistem p);
+    Podsistem sacuvajPodsistem(Podsistem p);
 }
