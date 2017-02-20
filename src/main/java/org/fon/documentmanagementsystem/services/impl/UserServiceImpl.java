@@ -41,6 +41,11 @@ public class UserServiceImpl implements UserService{
         userRepository.findAll().forEach(target::add);
         return target;
     }
+
+    @Override
+    public User save(User admin) {
+        return userRepository.save(admin);
+    }
     
     
 }

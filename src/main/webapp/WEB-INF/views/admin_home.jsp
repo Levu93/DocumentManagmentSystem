@@ -60,7 +60,7 @@
                                     <a href="/dms/admins/overview">Admin overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/#">Add new Admin</a>
+                                    <a href="/dms/admins/add_new_admin">Add new Admin</a>
                                 </li>
                             </ul>
                         </li>              
@@ -72,8 +72,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h1 class="page-head-line">DASHBOARD</h1>
-
                         </div>
+                        
                     </div>
 
 

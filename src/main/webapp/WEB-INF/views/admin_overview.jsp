@@ -65,7 +65,7 @@
                                     <a href="/dms/admins/overview">Admin overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/#">Add new Admin</a>
+                                    <a href="/dms/admins/add_new_admin">Add new Admin</a>
                                 </li>
                             </ul>
                         </li>              

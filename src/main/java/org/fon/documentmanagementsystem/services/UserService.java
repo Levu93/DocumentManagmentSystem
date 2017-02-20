@@ -19,4 +19,6 @@ public interface UserService {
     User findOne(String username);
     
     List<User>  findAll();
+
+    User save(User admin);
 }
