@@ -6,8 +6,6 @@
 package org.fon.documentmanagementsystem.controllers;
 
 import java.util.List;
-import java.util.Optional;
-import jdk.nashorn.internal.runtime.options.Option;
 import org.fon.documentmanagementsystem.domain.Podsistem;
 import org.fon.documentmanagementsystem.services.PodsistemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +29,6 @@ public class PodsistemController {
     @RequestMapping(path = "/overview", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView mv = new ModelAndView("subsystem_overview");
-        System.out.println("U kontroleru sam za prikaz svih");
         List<Podsistem> sviPodsistemi;
         sviPodsistemi = podsistemService.findAll();
         mv.addObject("subsystems", sviPodsistemi);

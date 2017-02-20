@@ -1,0 +1,124 @@
+<%-- 
+    Document   : process_overview
+    Created on : Feb 20, 2017, 4:27:59 PM
+    Author     : nevenac
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Processes - overview</title>
+        <%@include file="header.jsp" %>
+    </head>
+
+    <body>
+    <sec:authentication var="admin" property="principal"/>
+
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/dms/">Document Management System</a>
+            </div>
+
+            <div class="header-right">
+                <form role="form" action="/dms/logout" method="POST">
+                    <label for="mySubmit" class="btn"><i class="fa fa-sign-out fa-2x" style="padding-top: 15px"></i></label>
+                    <input id="mySubmit" type="submit" value="" class="hidden" />
+                </form>
+            </div>
+        </nav>
+
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <div class="user-img-div">
+                            <div class="inner-text">
+                                ${admin.ime} ${admin.prezime}
+                                <br />
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="active-menu" href="/dms/"><i class="fa fa-dashboard "></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap"></i>Subsystems<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/dms/subsystem/overview">Subsystem overview</a>
+                            </li>
+                            <li>
+                                <a href="/dms/subsystem/add_new_subsystem">Add new subsystem</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap "></i>Admin users<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/dms/admins/overview">Admin overview</a>
+                            </li>
+                            <li>
+                                <a href="/dms/admins/add_new_admin">Add new Admin</a>
+                            </li>
+                        </ul>
+                    </li>              
+                </ul>
+            </div>
+        </nav> 
+
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-head-line">Processes overview</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <form action="sve-vesti" method="POST">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Code</th>
+                                            <th>Description</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="proces" items="${processes}">
+                                        <tr>
+                                            <td>${proces.naziv}</td>
+                                            <td>${proces.oznaka}</td>
+                                            <td>${proces.opis}</td>
+                                            <td><a href="/dms/processes/details/${subsystem.id}">Details</a></td>
+                                        </tr>                                            
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+
+    <%@include file="footer.jsp" %>
+</body>
+</html>

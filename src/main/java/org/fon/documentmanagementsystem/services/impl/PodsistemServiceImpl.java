@@ -37,7 +37,6 @@ public class PodsistemServiceImpl implements PodsistemService {
         target = new ArrayList<>();
         podsistemRepository.findAll().forEach(target::add);
         return target.size();
-
     }
 
     @Override

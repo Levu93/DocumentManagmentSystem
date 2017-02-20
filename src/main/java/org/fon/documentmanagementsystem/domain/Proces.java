@@ -55,7 +55,7 @@ public class Proces implements Serializable {
     @Column(name = "Opis")
     private String opis;
     @Column(name = "Nivo")
-    private BigInteger nivo;
+    private Long nivo;
     @OneToMany(mappedBy = "idProcesa")
     private List<Aktivnost> aktivnostList;
     @JoinColumn(name = "IdPodsistema", referencedColumnName = "Id")
@@ -106,11 +106,11 @@ public class Proces implements Serializable {
         this.opis = opis;
     }
 
-    public BigInteger getNivo() {
+    public long getNivo() {
         return nivo;
     }
 
-    public void setNivo(BigInteger nivo) {
+    public void setNivo(long nivo) {
         this.nivo = nivo;
     }
 

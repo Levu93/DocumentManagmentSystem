@@ -63,7 +63,20 @@
                                     <a href="/dms/admins/add_new_admin">Add new Admin</a>
                                 </li>
                             </ul>
-                        </li>              
+                        </li>     
+                        <!--ovo ispod cemo skloniti, trenutno je tu samo za testiranje-->
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap "></i>Processes<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/dms/process/overview">Processes overview</a>
+                                </li>
+                                <li>
+                                    <a href="/dms/process/add_new">Add new process</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--do ovde traje-->
                     </ul>
                 </div>
             </nav>
@@ -73,7 +86,7 @@
                         <div class="col-md-12">
                             <h1 class="page-head-line">DASHBOARD</h1>
                         </div>
-                        
+
                     </div>
 
 
