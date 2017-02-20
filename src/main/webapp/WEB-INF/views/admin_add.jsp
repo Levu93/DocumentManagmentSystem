@@ -101,12 +101,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Subsystem</label>
-                                        <select name="adminsubsystem">
+                                        <select name="adminsubsystem" class="chosen-select">
                                             <c:forEach var="subs" items="${subsystems}">
                                                 <option data- value="${subs.id}">${subs.naziv}</option>
                                             </c:forEach>
-                                        </select>            
-
+                                        </select>       
                                     </div>
                                     <button type="submit" class="btn btn-default">Create new subsystem</button>
                                     <button type="reset" class="btn btn-default">Reset</button>                                                                                                                                                   
@@ -128,6 +127,9 @@
     <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
+<script>
+    $.('.chosen-select').chosen();
+</script>
 <%@include file="footer.jsp" %>
 </body>
 </html>

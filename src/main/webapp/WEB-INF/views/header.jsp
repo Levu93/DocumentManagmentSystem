@@ -7,6 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- BOOTSTRAP STYLES-->
 <link href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" " rel="stylesheet" />
+<link href="<c:url value="/resources/css/bootstrap-chosen.css" />" rel="stylesheet" />
 <!-- FONTAWESOME STYLES-->
 <link href="<c:url value="/resources/css/font-awesome.css" />" rel="stylesheet" />
 <!--CUSTOM BASIC STYLES-->
