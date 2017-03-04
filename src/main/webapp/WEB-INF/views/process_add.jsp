@@ -49,27 +49,16 @@
                         <a class="active-menu" href="/dms/"><i class="fa fa-dashboard "></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-sitemap"></i>Subsystems<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-sitemap "></i>Processes<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/dms/subsystems/overview">Subsystem overview</a>
+                                <a href="/dms/process/overview">Processes overview</a>
                             </li>
                             <li>
-                                <a href="/dms/subsystems/add_new_subsystem">Add new subsystem</a>
+                                <a href="/dms/process/add_new">Add new process</a>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-sitemap "></i>Admin users<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="/dms/admins/overview">Admin overview</a>
-                            </li>
-                            <li>
-                                <a href="/dms/admins/add_new_admin">Add new Admin</a>
-                            </li>
-                        </ul>
-                    </li>              
+                    </li>           
                 </ul>
             </div>
         </nav>
@@ -98,7 +87,7 @@
                                     <label>Process description</label>
                                     <textarea class="form-control" rows="5" name="procesdescription" id="opis" onfocus="clearContents(this);">Process is for...</textarea>
                                 </div>                           
-                                
+
                                 <button type="submit" class="btn btn-default">Create new process</button>
                                 <button type="reset" class="btn btn-default">Reset</button>                                                                                                                                                   
                             </form>
