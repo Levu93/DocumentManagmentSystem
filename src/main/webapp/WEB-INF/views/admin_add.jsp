@@ -107,7 +107,7 @@
                                             </c:forEach>
                                         </select>       
                                     </div>
-                                    <button type="submit" class="btn btn-default">Create new subsystem</button>
+                                    <button type="submit" class="btn btn-default">Add new admin</button>
                                     <button type="reset" class="btn btn-default">Reset</button>                                                                                                                                                   
                                 </form>
                             </div>

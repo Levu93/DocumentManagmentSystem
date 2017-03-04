@@ -56,6 +56,13 @@ public class UserController {
     @RequestMapping(path = "/add_new_admin", method = RequestMethod.POST)
     public ModelAndView addAdmin(String adminname, String adminlastname, String adminusername, String adminpass, String adminsubsystem) {
         
+        User x = userService.findOne(adminusername);
+        if (x!=null) {
+           ModelAndView mv = new ModelAndView("error");
+           mv.addObject("error", "Username already exists!!!");
+           return mv;
+        } 
+        
         User admin = new User(adminusername);
         admin.setIme(adminname);
         admin.setPassword(adminpass);
