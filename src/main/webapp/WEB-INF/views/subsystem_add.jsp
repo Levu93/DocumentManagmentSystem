@@ -60,10 +60,10 @@
                             <a href="#"><i class="fa fa-sitemap"></i>Subsystems<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dms/subsystem/overview">Subsystem overview</a>
+                                    <a href="/dms/subsystems/overview">Subsystem overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/subsystem/add_new_subsystem">Add new subsystem</a>
+                                    <a href="/dms/subsystems/add_new_subsystem">Add new subsystem</a>
                                 </li>
                             </ul>
                         </li>
@@ -99,10 +99,10 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <form role="form" method="POST" id="add_sub_form" action="<c:if test="${subsystem == null}">
-                                          /dms/subsystem/add_new_subsystem                            
+                                          /dms/subsystems/add_new_subsystem                            
                                         </c:if>
                                         <c:if test="${subsystem != null}">
-                                            /dms/subsystem/add_new_subsystem/${subsystem.id}
+                                            /dms/subsystems/add_new_subsystem/${subsystem.id}
                                         </c:if>">
                                         <div class="form-group">
                                             <label>Subsystem name</label>

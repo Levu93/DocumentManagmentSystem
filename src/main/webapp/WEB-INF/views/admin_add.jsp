@@ -47,10 +47,10 @@
                             <a href="#"><i class="fa fa-sitemap"></i>Subsystems<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dms/subsystem/overview">Subsystem overview</a>
+                                    <a href="/dms/subsystems/overview">Subsystem overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/subsystem/add_new_subsystem">Add new subsystem</a>
+                                    <a href="/dms/subsystems/add_new_subsystem">Add new subsystem</a>
                                 </li>
                             </ul>
                         </li>
@@ -111,11 +111,11 @@
                                     <button type="reset" class="btn btn-default">Reset</button>                                                                                                                                                   
                                 </form>
                             </div>
-                            <!-- /.col-lg-6 (nested) -->
+
                             <div class="col-lg-6">
 
                             </div>
-                            <!-- /.col-lg-6 (nested) -->
+
                         </div>
                         <!-- /.row (nested) -->
                     </div>

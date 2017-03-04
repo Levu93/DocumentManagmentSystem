@@ -43,16 +43,27 @@
                             <a class="active-menu" href="/dms/"><i class="fa fa-dashboard "></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-sitemap "></i>Processes<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-sitemap"></i>Subsystems<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dms/process/overview">Processes overview</a>
+                                    <a href="/dms/subsystems/overview">Subsystem overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/process/add_new">Add new process</a>
+                                    <a href="/dms/subsystems/add_new_subsystem">Add new subsystem</a>
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap "></i>Admin users<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/dms/admins/overview">Admin overview</a>
+                                </li>
+                                <li>
+                                    <a href="/dms/admins/add_new_admin">Add new Admin</a>
+                                </li>
+                            </ul>
+                        </li>     
                     </ul>
                 </div>
             </nav>
@@ -75,3 +86,4 @@
         <%@include file="footer.jsp" %>
     </body>
 </html>
+

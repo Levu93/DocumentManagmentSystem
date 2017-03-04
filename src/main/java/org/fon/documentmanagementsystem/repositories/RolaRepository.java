@@ -7,11 +7,13 @@ package org.fon.documentmanagementsystem.repositories;
 
 import org.fon.documentmanagementsystem.domain.Rola;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author nevenac
  */
+@Repository
 public interface RolaRepository extends CrudRepository<Rola, Long>{
     
 }

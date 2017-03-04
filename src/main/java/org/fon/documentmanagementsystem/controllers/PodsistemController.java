@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Vukasin
  */
 @Controller
-@RequestMapping("/subsystem/")
+@RequestMapping("/subsystems/")
 public class PodsistemController {
 
     @Autowired

@@ -51,10 +51,10 @@
                             <a href="#"><i class="fa fa-sitemap"></i>Subsystems<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dms/subsystem/overview">Subsystem overview</a>
+                                    <a href="/dms/subsystems/overview">Subsystem overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/subsystem/add_new_subsystem">Add new subsystem</a>
+                                    <a href="/dms/subsystems/add_new_subsystem">Add new subsystem</a>
                                 </li>
                             </ul>
                         </li>
@@ -101,7 +101,7 @@
                                                     <td>${subsystem.naziv}</td>
                                                     <td>${subsystem.oznaka}</td>
                                                     <td>${subsystem.opis}</td>
-                                                    <td><a href="/dms/subsystem/details/${subsystem.id}">Details</a></td>
+                                                    <td><a href="/dms/subsystems/details/${subsystem.id}">Details</a></td>
                                                     </tr>                                            
                                             </c:forEach>
                                         </tbody>
