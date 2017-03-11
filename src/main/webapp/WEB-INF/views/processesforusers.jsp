@@ -1,4 +1,3 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
@@ -51,10 +50,7 @@
                         <a href="#"><i class="fa fa-sitemap "></i>Processes<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/dms/process/overview">Processes overview</a>
-                            </li>
-                            <li>
-                                <a href="/dms/process/add_new">Add new process</a>
+                                <a href="/dms/process/overviewusers">Processes overview</a>
                             </li>
                         </ul>
                     </li>             
@@ -87,7 +83,9 @@
                                                                 <c:forEach var="aktivnost" items="${subproces.aktivnostList}">
                                                                     <ul> 
                                                                         <li>
+                                                                            
                                                                             ${aktivnost.naziv}
+                                                                            <a href="/dms/document/add_new/${aktivnost.id}"> Add document</a>
                                                                         </li>
                                                                     </ul>
                                                                 </c:forEach>

@@ -1,10 +1,5 @@
-<%-- 
-    Document   : process_add
-    Created on : Feb 20, 2017, 4:50:10 PM
-    Author     : nevenac
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -85,11 +80,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Process description</label>
-                                    <textarea class="form-control" rows="5" name="procesdescription" id="opis" onfocus="clearContents(this);">Process is for...</textarea>
-                                </div>                           
-
+                                    <textarea class="form-control" rows="5" name="procesdescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this)">Process is for...</textarea>
+                                </div>
                                 <button type="submit" class="btn btn-default">Create new process</button>
-                                <button type="reset" class="btn btn-default">Reset</button>                                                                                                                                                   
+                                <button type="reset" class="btn btn-default">Reset</button>  
                             </form>
                         </div>
                         <!-- /.col-lg-6 (nested) -->

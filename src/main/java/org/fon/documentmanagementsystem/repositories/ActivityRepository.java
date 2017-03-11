@@ -5,9 +5,7 @@
  */
 package org.fon.documentmanagementsystem.repositories;
 
-import java.io.Serializable;
-import java.util.List;
-import org.fon.documentmanagementsystem.domain.Proces;
+import org.fon.documentmanagementsystem.domain.Aktivnost;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,8 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author nevenac
  */
 @Repository
-public interface ProcesRepository extends CrudRepository<Proces, Long>{
-    
-    List<Proces> findByNivo(int level);
+public interface ActivityRepository extends CrudRepository<Aktivnost, Long>{
     
 }

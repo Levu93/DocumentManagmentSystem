@@ -5,20 +5,15 @@
  */
 package org.fon.documentmanagementsystem.services;
 
-import java.util.List;
-import org.fon.documentmanagementsystem.domain.Proces;
+import org.fon.documentmanagementsystem.domain.Aktivnost;
+
 
 /**
  *
  * @author nevenac
  */
-public interface ProcesService {
-
-    List<Proces> findAll();
-
-    int vratiId();
-
-    Proces save(Proces p);
+public interface ActivityService {
     
-    List<Proces> findByNivo(int level);
+    Aktivnost findOne(long id);
+    
 }

@@ -44,4 +44,11 @@ public class ProcesServiceImpl implements ProcesService {
         return procesRepository.save(p);
     }
 
+    @Override
+    public List<Proces> findByNivo(int level) {
+        List<Proces> target = new ArrayList<>();
+        procesRepository.findByNivo(level).forEach(target::add);
+        return target;
+    }
+
 }

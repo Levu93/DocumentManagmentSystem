@@ -76,7 +76,6 @@ public class PodsistemController {
     @RequestMapping(path = "/details/{id}", method = RequestMethod.GET)
     public ModelAndView showSubsystem(@PathVariable("id") long id
     ) {
-        System.out.println("kontroler za prikaz sa id " + id);
         Podsistem podsistem = podsistemService.findOne(id);
         // if (podsistem == null) throw new CustomException("There is no company with id " + id, "404");
         // List<User> usersOfCompany = userService.findUsersOfCompany(company);

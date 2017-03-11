@@ -7,6 +7,10 @@ function clearContents(element) {
   element.value = '';
 }
 
+function backContents(element) {
+  element.value = 'Process is for...';
+}
+
 function showdugme(){
 
 }

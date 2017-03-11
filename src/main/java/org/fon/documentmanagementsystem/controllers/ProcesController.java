@@ -5,7 +5,9 @@
  */
 package org.fon.documentmanagementsystem.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
+import org.fon.documentmanagementsystem.domain.Aktivnost;
 import org.fon.documentmanagementsystem.domain.Proces;
 import org.fon.documentmanagementsystem.domain.User;
 import org.fon.documentmanagementsystem.dto.UserDto;
@@ -34,10 +36,18 @@ public class ProcesController {
 
     @RequestMapping(path = "/overview", method = RequestMethod.GET)
     public ModelAndView showAllProcesses() {
+        
         ModelAndView mv = new ModelAndView("process_overview");
         List<Proces> sviProcesi;
         sviProcesi = procesService.findAll();
-        mv.addObject("processes", sviProcesi);
+        List<Proces> zeljeni = new ArrayList<>();
+        for (Proces proces : sviProcesi) {
+            if (proces.getNivo() == 1) {
+                zeljeni.add(proces);
+            }
+        }
+        //ovde sam vise da ubacimo da ih trazi po nivoima, nego sve pa da izbacujemo, al nisam uspela to da uradim
+        mv.addObject("processes", zeljeni);
         return mv;
     }
 
@@ -74,4 +84,22 @@ public class ProcesController {
         mv.addObject("processes", sviProcesi);
         return mv;
     }
+    
+    @RequestMapping(path = "/overviewusers", method = RequestMethod.GET)
+    public ModelAndView getProccessOverviewForUsers(){
+        ModelAndView mv = new ModelAndView("processesforusers");
+        List<Proces> sviProcesi;
+        sviProcesi = procesService.findAll();
+        List<Proces> zeljeni = new ArrayList<>();
+        for (Proces proces : sviProcesi) {
+            if (proces.getNivo() == 1) {
+                zeljeni.add(proces);
+            }
+        }
+        //ovde sam vise da ubacimo da ih trazi po nivoima, nego sve pa da izbacujemo, al nisam uspela to da uradim
+        mv.addObject("processes", zeljeni);
+        return mv;
+    }
+    
+    
 }
