@@ -53,6 +53,17 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap "></i>Document Types<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/dms/documenttypes/overview">Document types overview</a>
+                                </li>
+                                <li>
+                                    <a href="/dms/documenttypes/add_new">Add new document type</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </nav>

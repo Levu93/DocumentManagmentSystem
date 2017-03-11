@@ -1,12 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Document Management System</title>
+        <title>Document types - overview</title>
         <%@include file="header.jsp" %>
-        <script src="../resources/js/bootstrap-select.js"></script>
     </head>
+
     <body>
         <sec:authentication var="admin" property="principal"/>
 
@@ -21,7 +24,8 @@
                     </button>
                     <a class="navbar-brand" href="/dms/">Document Management System</a>
                 </div>
-                <div class="header-right"> 
+
+                <div class="header-right">
                     <form role="form" action="/dms/logout" method="POST">
                         <label for="mySubmit" class="btn"><i class="fa fa-sign-out fa-2x" style="padding-top: 15px"></i></label>
                         <input id="mySubmit" type="submit" value="" class="hidden" />
@@ -47,65 +51,71 @@
                             <a href="#"><i class="fa fa-sitemap "></i>Processes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dms/process/overviewusers">Processes overview</a>
+                                    <a href="/dms/process/overview">Processes overview</a>
+                                </li>
+                                <li>
+                                    <a href="/dms/process/add_new">Add new process</a>
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap "></i>Document Types<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/dms/documenttypes/overview">Document types overview</a>
+                                </li>
+                                <li>
+                                    <a href="/dms/documenttypes/add_new">Add new document type</a>
+                                </li>
+                            </ul>
+                        </li>             
                     </ul>
                 </div>
-            </nav>
+            </nav> 
+
             <div id="page-wrapper">
                 <div id="page-inner">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="page-head-line">ADD NEW DOCUMENT FOR ${activity.naziv}</h1>
+                            <h1 class="page-head-line">Document type overview</h1>
                         </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <form role="form" method="POST" id="add_process_form" action="/dms/process/add_new">
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input class="form-control" name="procesname">
-                                        <p class="help-block">Example: Equipment Order</p>                                         
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Description</label>
-                                        <input class="form-control" name="processign">
-                                        <p class="help-block">Example: Order for equipment</p>                                         
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Document type</label>
-                                        <select class="form-control" rows="5" name="activities" id="activities">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <form action="sve-vesti" method="POST">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             <c:forEach var="documenttype" items="${documenttypes}">
-                                                <option value="${documenttype.idTipaDokumenta}">${documenttype.nazivTipa}</option>                                              
+                                                <tr>
+                                                    <td>${documenttype.idTipaDokumenta}</td>
+                                                    <td>${documenttype.nazivTipa}</td>
+                                                    <td><a href="/dms/documenttypes/details/${documenttype.idTipaDokumenta}">Edit</a></td>
+                                                </tr>                                            
                                             </c:forEach>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-default">Add new document</button>
-                                    <button type="reset" class="btn btn-default">Reset</button>  
+                                        </tbody>
+                                    </table>
                                 </form>
                             </div>
-                            <!-- /.col-lg-6 (nested) -->
-                            <div class="col-lg-6">
-
-                            </div>
-                            <!-- /.col-lg-6 (nested) -->
                         </div>
-                        <!-- /.row (nested) -->
+
                     </div>
+
                 </div>
+                <!-- /. PAGE INNER  -->
             </div>
+            <!-- /. PAGE WRAPPER  -->
         </div>
-        <!-- /. PAGE INNER  -->
-    </div>
-    <!-- /. PAGE WRAPPER  -->
-</div>
-<!-- /. WRAPPER  -->
-<script>
-    $.('.chosen-select').chosen();
-</script>
-<%@include file="footer.jsp" %>
-</body>
+        <!-- /. WRAPPER  -->
+
+        <%@include file="footer.jsp" %>
+    </body>
 </html>
+

@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/subsystems/**").hasAuthority("SUPERADMIN")
                 .antMatchers("/admins/**").hasAuthority("SUPERADMIN")
                 .antMatchers("/processes/**").hasAuthority("ADMIN")
+                .antMatchers("/documenttypes/**").hasAuthority("ADMIN")
                 .antMatchers("/documents/**").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and().exceptionHandling().accessDeniedPage("/403")
