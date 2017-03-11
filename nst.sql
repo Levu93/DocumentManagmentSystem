@@ -33,6 +33,8 @@ CREATE TABLE `aktivnost` (
 
 /*Data for the table `aktivnost` */
 
+insert  into `aktivnost`(`Id`,`Naziv`,`Oznaka`,`Opis`,`IdProcesa`) values (1,'asdd','ASD','asd',2),(2,'qwer','qwe','qweer',2);
+
 /*Table structure for table `dokument` */
 
 DROP TABLE IF EXISTS `dokument`;
@@ -67,7 +69,7 @@ CREATE TABLE `podsistem` (
 
 /*Data for the table `podsistem` */
 
-insert  into `podsistem`(`Id`,`Naziv`,`Oznaka`,`Opis`) values (1,'SubsystemTest1','TST1','Test 1'),(2,'SubsystemTest2','TST2','Test 2');
+insert  into `podsistem`(`Id`,`Naziv`,`Oznaka`,`Opis`) values (1,'SubsystemTest1','TST1','Test 1'),(2,'SubsystemTest2','TST2','policajac sa petlovog brda'),(3,'Subsystem3','SBS3','subssubs'),(4,'new subsystem','NSS','new subsystem test');
 
 /*Table structure for table `proces` */
 
@@ -90,6 +92,8 @@ CREATE TABLE `proces` (
 
 /*Data for the table `proces` */
 
+insert  into `proces`(`Id`,`Naziv`,`Oznaka`,`Opis`,`Nivo`,`IdNadProcesa`,`IdPodsistema`) values (1,'proces1','p1','opis procesa 1',1,NULL,2),(2,'asd','asd','asdd',2,1,2),(3,'proces2','p2','p2',1,NULL,2);
+
 /*Table structure for table `rola` */
 
 DROP TABLE IF EXISTS `rola`;
@@ -102,7 +106,7 @@ CREATE TABLE `rola` (
 
 /*Data for the table `rola` */
 
-insert  into `rola`(`IdRole`,`NazivRole`) values (1,'ADMIN'),(2,'MANAGER');
+insert  into `rola`(`IdRole`,`NazivRole`) values (1,'ADMIN'),(2,'MANAGER'),(3,'SUPERADMIN'),(4,'USER');
 
 /*Table structure for table `tipdokumenta` */
 
@@ -115,6 +119,8 @@ CREATE TABLE `tipdokumenta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `tipdokumenta` */
+
+insert  into `tipdokumenta`(`IdTipaDokumenta`,`NazivTipa`) values (1,'Narudzbenica'),(2,'Nalog za placanje');
 
 /*Table structure for table `user` */
 
@@ -136,7 +142,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`username`,`password`,`ime`,`prezime`,`IdPodsistema`,`IdRole`) values ('admin','admin','admin','admin',1,1);
+insert  into `user`(`username`,`password`,`ime`,`prezime`,`IdPodsistema`,`IdRole`) values ('admin','admin','admin','admin',1,3),('asd','asdasdasd','asd','asd',1,1),('mau','maumaumau','mau','mau',4,1),('mmilic','milosmilic','Milos','Milic',1,1),('necaceh','lepoticaizver','Nevena','Ceh',2,1),('qwer','wqer','wqer','wer',1,1),('user','user','user','user',1,4),('vulepejovic','Vulecar','Vukasin','Pejovic',4,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
