@@ -140,7 +140,12 @@
                                             </select>       
                                         </div>
                                     </c:if>
-                                    <button type="submit" class="btn btn-default">Add new admin</button>
+                                    <c:if test="${admin.rola.idRole  == 1 }">
+                                        <button type="submit" class="btn btn-default">Add new admin</button>
+                                    </c:if>      
+                                    <c:if test="${admin.rola.idRole  == 2 }">
+                                        <button type="submit" class="btn btn-default">Add new user</button>
+                                    </c:if>
                                     <button type="reset" class="btn btn-default">Reset</button>                                                                                                                                                   
                                 </form>
                             </div>
