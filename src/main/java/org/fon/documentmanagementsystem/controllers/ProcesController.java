@@ -30,13 +30,13 @@ public class ProcesController {
 
     @Autowired
     ProcesService procesService;
-    
+
     @Autowired
     UserService userService;
 
     @RequestMapping(path = "/overview", method = RequestMethod.GET)
     public ModelAndView showAllProcesses() {
-        
+
         ModelAndView mv = new ModelAndView("process_overview");
         List<Proces> sviProcesi;
         sviProcesi = procesService.findAll();
@@ -57,9 +57,25 @@ public class ProcesController {
         return mv;
     }
 
+    @RequestMapping(path = "/add_new_sub", method = RequestMethod.GET)
+    public ModelAndView addSubProcessGetPage() {           
+        ModelAndView mv = new ModelAndView("subprocesses_add");
+        List<Proces> sviProcesi;
+        sviProcesi = procesService.findAll();
+        List<Proces> zeljeni = new ArrayList<>();
+        for (Proces proces : sviProcesi) {
+            if (proces.getNivo() == 1) {
+                zeljeni.add(proces);
+            }
+        }
+        //ovde sam vise da ubacimo da ih trazi po nivoima, nego sve pa da izbacujemo, al nisam uspela to da uradim
+        mv.addObject("processes", zeljeni);
+        return mv;
+    }
+
     @RequestMapping(path = "/add_new", method = RequestMethod.POST)
     public ModelAndView addNewProcess(String procesname, String processign, String procesdescription) {
-        
+
         Proces p = new Proces();
         int id1 = procesService.vratiId() + 1;
         long x = id1;
@@ -67,26 +83,26 @@ public class ProcesController {
         p.setNaziv(procesname);
         p.setOznaka(processign);
         p.setOpis(procesdescription);
-        
+
         //ako ima laksi nacin, izmeni
-        UserDto userdetail =(UserDto)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findOne(userdetail.getUsername());
-        
+
         p.setIdPodsistema(user.getIdPodsistema());
         
-        p.setNivo(0);
-        
+        p.setNivo(1L);
+
         procesService.save(p);
-        
+
         ModelAndView mv = new ModelAndView("process_overview");
         List<Proces> sviProcesi;
         sviProcesi = procesService.findAll();
         mv.addObject("processes", sviProcesi);
         return mv;
     }
-    
+
     @RequestMapping(path = "/overviewusers", method = RequestMethod.GET)
-    public ModelAndView getProccessOverviewForUsers(){
+    public ModelAndView getProccessOverviewForUsers() {
         ModelAndView mv = new ModelAndView("processesforusers");
         List<Proces> sviProcesi;
         sviProcesi = procesService.findAll();
@@ -101,5 +117,36 @@ public class ProcesController {
         return mv;
     }
     
+    @RequestMapping(path = "/add_new_sub", method = RequestMethod.POST)
+    public ModelAndView addNewSubProcess(String procesname, String processign, String procesdescription, long procesparent, boolean isprimitive) {
+
+        Proces subp = new Proces();
+        int id1 = procesService.vratiId() + 1;
+        long x = id1;
+        subp.setId(x);
+        subp.setNaziv(procesname);
+        subp.setOznaka(processign);
+        subp.setOpis(procesdescription);
+
+        //ako ima laksi nacin, izmeni
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findOne(userdetail.getUsername());
+
+        subp.setIdPodsistema(user.getIdPodsistema());
+        
+        Proces p = procesService.findOne(procesparent);            
+        
+        subp.setIdNadProcesa(p);
+        subp.setNivo(p.getNivo()+1);
+        subp.setPrimitivan(isprimitive);
+        procesService.save(subp);
+
+        ModelAndView mv = new ModelAndView("process_overview");
+        List<Proces> sviProcesi;
+        sviProcesi = procesService.findAll();
+        mv.addObject("processes", sviProcesi);
+        return mv;
+    }
+
     
 }

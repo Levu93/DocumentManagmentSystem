@@ -21,4 +21,6 @@ public interface UserService {
     List<User>  findAll();
 
     User save(User admin);
+
+    //public List<User> findBySubsystem(Long id);
 }

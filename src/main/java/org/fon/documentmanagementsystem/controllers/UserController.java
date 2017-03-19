@@ -5,14 +5,17 @@
  */
 package org.fon.documentmanagementsystem.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.fon.documentmanagementsystem.domain.Podsistem;
 import org.fon.documentmanagementsystem.domain.Rola;
 import org.fon.documentmanagementsystem.domain.User;
+import org.fon.documentmanagementsystem.dto.UserDto;
 import org.fon.documentmanagementsystem.services.PodsistemService;
 import org.fon.documentmanagementsystem.services.RolaService;
 import org.fon.documentmanagementsystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +34,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private RolaService rolaService;
 
@@ -44,6 +47,32 @@ public class UserController {
         return mv;
     }
 
+    @RequestMapping(path = "/user_overview", method = RequestMethod.GET)
+    public ModelAndView userOverview() {
+
+        ModelAndView mv = new ModelAndView("user_overview");
+
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+
+        List<User> sviuseri = new ArrayList<>();
+        sviuseri = userService.findAll();
+
+        List<User> zeljeni = new ArrayList<>();
+
+        for (User user : sviuseri) {
+            if (user.getIdPodsistema() != null) {
+                if (user.getIdPodsistema().getId().equals(userKojiCuva.getIdPodsistema().getId())) {
+                    zeljeni.add(user);
+                }
+            }
+        }
+        zeljeni.remove(userKojiCuva);
+
+        mv.addObject("users", zeljeni);
+        return mv;
+    }
+
     @RequestMapping(path = "/add_new_admin", method = RequestMethod.GET)
     public ModelAndView addAdminPage() {
         ModelAndView mv = new ModelAndView("admin_add");
@@ -53,33 +82,89 @@ public class UserController {
         return mv;
     }
 
-    @RequestMapping(path = "/add_new_admin", method = RequestMethod.POST)
-    public ModelAndView addAdmin(String adminname, String adminlastname, String adminusername, String adminpass, String adminsubsystem) {
-        
-        User x = userService.findOne(adminusername);
-        if (x!=null) {
-           ModelAndView mv = new ModelAndView("error");
-           mv.addObject("error", "Username already exists!!!");
-           return mv;
-        } 
-        
-        User admin = new User(adminusername);
-        admin.setIme(adminname);
-        admin.setPassword(adminpass);
-        admin.setPrezime(adminlastname);
-        Rola rola = rolaService.findOne(1);
-        admin.setIdRole(rola);
-        
-        int admsubs = Integer.parseInt(adminsubsystem);
-        Podsistem subs = podsistemService.findOne(admsubs);
-        admin.setIdPodsistema(subs);
-        
-        userService.save(admin);
-        
-        ModelAndView mv = new ModelAndView("admin_overview");
+    @RequestMapping(path = "/add_new_user", method = RequestMethod.GET)
+    public ModelAndView addUserPage() {
+        ModelAndView mv = new ModelAndView("admin_add");
         List<Podsistem> sviPodsistemi;
         sviPodsistemi = podsistemService.findAll();
         mv.addObject("subsystems", sviPodsistemi);
         return mv;
     }
+
+    @RequestMapping(path = "/add_new_admin", method = RequestMethod.POST)
+    public ModelAndView addAdmin(String adminname, String adminlastname, String adminusername, String adminpass, String adminsubsystem) {
+
+        User x = userService.findOne(adminusername);
+        if (x != null) {
+            ModelAndView mv = new ModelAndView("error");
+            mv.addObject("error", "Username already exists!!!");
+            return mv;
+        }
+
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+
+        ModelAndView mv = new ModelAndView();
+
+        if (userKojiCuva.getIdRole().getNazivRole().equalsIgnoreCase("superadmin")) {
+            User admin = new User(adminusername);
+            admin.setIme(adminname);
+            admin.setPassword(adminpass);
+            admin.setPrezime(adminlastname);
+            Rola rola = rolaService.findOne(2);
+            admin.setIdRole(rola);
+
+            int admsubs = Integer.parseInt(adminsubsystem);
+            Podsistem subs = podsistemService.findOne(admsubs);
+            admin.setIdPodsistema(subs);
+
+            userService.save(admin);
+
+            mv = new ModelAndView("admin_overview");
+
+            List<Podsistem> sviPodsistemi;
+            sviPodsistemi = podsistemService.findAll();
+            for (Podsistem podsistem : sviPodsistemi) {
+                if (admin.getIdPodsistema().equals(podsistem)) {
+                    if (!podsistem.getUserList().contains(admin)) {
+                        podsistem.getUserList().add(admin);
+                    }
+                }
+            }
+
+            mv.addObject("subsystems", sviPodsistemi);
+
+        } else {
+            User user = new User(adminusername);
+            user.setIme(adminname);
+            user.setPassword(adminpass);
+            user.setPrezime(adminlastname);
+            Rola rola = rolaService.findOne(3);
+            user.setIdRole(rola);
+            user.setIdPodsistema(userKojiCuva.getIdPodsistema());
+
+            userService.save(user);
+
+            mv = new ModelAndView("user_overview");
+
+            List<User> sviUseri;
+            sviUseri = userService.findAll();
+
+            List<User> zeljeni = new ArrayList<>();
+
+            for (User us : sviUseri) {
+                if (us.getIdPodsistema() != null) {
+                    if (us.getIdPodsistema().getId().equals(userKojiCuva.getIdPodsistema().getId())) {
+                        zeljeni.add(us);
+                    }
+                }
+            }
+            zeljeni.remove(userKojiCuva);
+
+            mv.addObject("users", zeljeni);
+        }
+
+        return mv;
+    }
+
 }

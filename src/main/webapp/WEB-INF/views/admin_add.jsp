@@ -54,16 +54,42 @@
                                 </li>
                             </ul>
                         </li>
+                        <c:if test="${admin.rola.idRole  == 2 }">
+                            <li>
+                                <a href="#"><i class="fa fa-file"></i>Document Types<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/dms/documenttypes/overview">Document types overview</a>
+                                    </li>
+                                    <li>
+                                        <a href="/dms/documenttypes/add_new">Add new document type</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </c:if>
                         <li>
-                            <a href="#"><i class="fa fa-sitemap "></i>Admin users<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/dms/admins/overview">Admin overview</a>
-                                </li>
-                                <li>
-                                    <a href="/dms/admins/add_new_admin">Add new Admin</a>
-                                </li>
-                            </ul>
+                            <c:if test="${admin.rola.idRole  == 1 }">
+                                <a href="#"><i class="fa fa-sitemap "></i>Admin users<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/dms/admins/user_overview"> overview</a>
+                                    </li>
+                                    <li>
+                                        <a href="/dms/admins/add_new_admin">Add new Admin</a>
+                                    </li>
+                                </ul>
+                            </c:if>
+                            <c:if test="${admin.rola.idRole  == 2 }">                            
+                                <a href="#"><i class="fa fa-users"></i>Users<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/dms/admins/user_overview">Users overview</a>
+                                    </li>
+                                    <li>
+                                        <a href="/dms/admins/add_new_user">Add new user</a>
+                                    </li>
+                                </ul>
+                            </c:if>
                         </li>              
                     </ul>
                 </div>
@@ -72,7 +98,12 @@
                 <div id="page-inner">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="page-head-line">ADD NEW ADMIN</h1>
+                            <c:if test="${admin.rola.idRole  == 2 }">
+                                <h1 class="page-head-line">ADD NEW USER</h1>
+                            </c:if>
+                            <c:if test="${admin.rola.idRole  == 1 }">    
+                                <h1 class="page-head-line">ADD NEW ADMIN</h1>
+                            </c:if>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -99,14 +130,16 @@
                                         <input type="password" class="form-control" name="adminpass">
                                         <p class="help-block" style="color: red">8 characters minimum!!!</p>                                         
                                     </div>
-                                    <div class="form-group">
-                                        <label>Subsystem</label>
-                                        <select name="adminsubsystem" class="chosen-select">
-                                            <c:forEach var="subs" items="${subsystems}">
-                                                <option data- value="${subs.id}">${subs.naziv}</option>
-                                            </c:forEach>
-                                        </select>       
-                                    </div>
+                                    <c:if test="${admin.rola.idRole  == 1 }">
+                                        <div class="form-group">
+                                            <label>Subsystem</label>
+                                            <select name="adminsubsystem" class="chosen-select">
+                                                <c:forEach var="subs" items="${subsystems}">
+                                                    <option data- value="${subs.id}">${subs.naziv}</option>
+                                                </c:forEach>
+                                            </select>       
+                                        </div>
+                                    </c:if>
                                     <button type="submit" class="btn btn-default">Add new admin</button>
                                     <button type="reset" class="btn btn-default">Reset</button>                                                                                                                                                   
                                 </form>

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Vukasin
+ * @author nevenac
  */
 @Entity
 @Table(name = "podsistem")

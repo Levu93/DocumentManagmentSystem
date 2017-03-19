@@ -76,7 +76,18 @@
                                     <a href="/dms/documenttypes/add_new">Add new document type</a>
                                 </li>
                             </ul>
-                        </li>           
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-users"></i>Users<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/dms/admins/user_overview">Users overview</a>
+                                </li>
+                                <li>
+                                    <a href="/dms/admins/add_new_user">Add new user</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </nav> 

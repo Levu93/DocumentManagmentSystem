@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Vukasin
+ * @author nevenac
  */
 @Entity
 @Table(name = "dokument")
@@ -52,6 +53,10 @@ public class Dokument implements Serializable {
     @Size(max = 1000)
     @Column(name = "Napomena")
     private String napomena;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "Fajl")
+    private String fajl;
     @JoinColumn(name = "IdTipaDokumenta", referencedColumnName = "IdTipaDokumenta")
     @ManyToOne
     private Tipdokumenta idTipaDokumenta;
@@ -96,6 +101,14 @@ public class Dokument implements Serializable {
 
     public void setNapomena(String napomena) {
         this.napomena = napomena;
+    }
+
+    public String getFajl() {
+        return fajl;
+    }
+
+    public void setFajl(String fajl) {
+        this.fajl = fajl;
     }
 
     public Tipdokumenta getIdTipaDokumenta() {

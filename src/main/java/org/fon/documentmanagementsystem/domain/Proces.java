@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Vukasin
+ * @author nevenac
  */
 @Entity
 @Table(name = "proces")
@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Proces.findByNaziv", query = "SELECT p FROM Proces p WHERE p.naziv = :naziv")
     , @NamedQuery(name = "Proces.findByOznaka", query = "SELECT p FROM Proces p WHERE p.oznaka = :oznaka")
     , @NamedQuery(name = "Proces.findByOpis", query = "SELECT p FROM Proces p WHERE p.opis = :opis")
-    , @NamedQuery(name = "Proces.findByNivo", query = "SELECT p FROM Proces p WHERE p.nivo = :nivo")})
+    , @NamedQuery(name = "Proces.findByNivo", query = "SELECT p FROM Proces p WHERE p.nivo = :nivo")
+    , @NamedQuery(name = "Proces.findByPrimitivan", query = "SELECT p FROM Proces p WHERE p.primitivan = :primitivan")})
 public class Proces implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,6 +57,8 @@ public class Proces implements Serializable {
     private String opis;
     @Column(name = "Nivo")
     private Long nivo;
+    @Column(name = "Primitivan")
+    private Boolean primitivan;
     @OneToMany(mappedBy = "idProcesa")
     private List<Aktivnost> aktivnostList;
     @JoinColumn(name = "IdPodsistema", referencedColumnName = "Id")
@@ -106,12 +109,20 @@ public class Proces implements Serializable {
         this.opis = opis;
     }
 
-    public long getNivo() {
+    public Long getNivo() {
         return nivo;
     }
 
-    public void setNivo(long nivo) {
+    public void setNivo(Long nivo) {
         this.nivo = nivo;
+    }
+
+    public Boolean getPrimitivan() {
+        return primitivan;
+    }
+
+    public void setPrimitivan(Boolean primitivan) {
+        this.primitivan = primitivan;
     }
 
     @XmlTransient

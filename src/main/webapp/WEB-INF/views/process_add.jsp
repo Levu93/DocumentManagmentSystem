@@ -52,6 +52,9 @@
                                 <li>
                                     <a href="/dms/process/add_new">Add new process</a>
                                 </li>
+                                <li>
+                                    <a href="/dms/process/add_new_sub">Add new subprocess</a>
+                                </li>
                             </ul>
                         </li>
                         <li>
@@ -92,7 +95,7 @@
                                     <div class="form-group">
                                         <label>Process description</label>
                                         <textarea class="form-control" rows="5" name="procesdescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this)">Process is for...</textarea>
-                                    </div>
+                                    </div>                                 
                                     <button type="submit" class="btn btn-default">Create new process</button>
                                     <button type="reset" class="btn btn-default">Reset</button>  
                                 </form>

@@ -21,4 +21,6 @@ public interface ProcesService {
     Proces save(Proces p);
     
     List<Proces> findByNivo(int level);
+    
+    Proces findOne(long id);
 }

@@ -1,13 +1,13 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Processes - overview</title>
+        <title>Users - overview</title>
         <%@include file="header.jsp" %>
-        <link rel="stylesheet" href="../resources/dist/themes/default/style.min.css" />
     </head>
 
     <body>
@@ -58,11 +58,11 @@
                                 </li>
                                 <li>
                                     <a href="/dms/process/add_new_sub">Add new subprocess</a>
-                                </li>
+                                </li>                                
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-sitemap "></i>Document Types<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-file"></i>Document Types<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/dms/documenttypes/overview">Document types overview</a>
@@ -72,68 +72,47 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="#"><i class="fa fa-users"></i>Users<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/dms/admins/user_overview">Users overview</a>
+                                </li>
+                                <li>
+                                    <a href="/dms/admins/add_new_user">Add new user</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
-            </nav> 
+            </nav>
 
             <div id="page-wrapper">
                 <div id="page-inner">
+
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="page-head-line">Processes overview</h1>
+                            <h1 class="page-head-line">Users overview</h1>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <div id="jstree_demo_div">
-                                    <c:forEach var="proces" items="${processes}">
-                                        <ul>
-                                            <li>
-                                                ${proces.naziv}
-
-                                                <c:if test="${proces.procesList != null}" >
-                                                    <c:forEach var="subproces" items="${proces.procesList}">
-                                                        <ul> 
-                                                            <li>
-                                                                ${subproces.naziv}
-                                                                <c:if test="${subproces.aktivnostList != null}" >
-                                                                    <c:forEach var="aktivnost" items="${subproces.aktivnostList}">
-                                                                        <ul> 
-                                                                            <li>
-                                                                                ${aktivnost.naziv}
-                                                                            </li>
-                                                                        </ul>
-                                                                    </c:forEach>
-                                                                </c:if>
-                                                            </li>
-                                                        </ul>
-                                                    </c:forEach>
-                                                </c:if>
-                                            </li>
-                                        </ul>
-                                    </c:forEach>
-                                </div>
-
-
-                                -----------
-                                <form action="sve-vesti" method="POST">
+                                <form action="svi-useri" method="POST">
                                     <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Code</th>
-                                                <th>Description</th>
-                                                <th>Details</th>
+                                                <th>Surname</th>
+                                                <th>Username</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach var="proces" items="${processes}">
+                                            <c:forEach var="user" items="${users}">
                                                 <tr>
-                                                    <td>${proces.naziv}</td>
-                                                    <td>${proces.oznaka}</td>
-                                                    <td>${proces.opis}</td>
-                                                    <td><a href="/dms/processes/details/${subsystem.id}">Details</a></td>
+                                                    <td>${user.ime}</td>
+                                                    <td>${user.prezime}</td>
+                                                    <td>${user.username}</td>
                                                 </tr>                                            
                                             </c:forEach>
                                         </tbody>
@@ -154,3 +133,4 @@
         <%@include file="footer.jsp" %>
     </body>
 </html>
+

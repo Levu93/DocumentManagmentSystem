@@ -1,15 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Document types - overview</title>
+        <title>Document Management System</title>
         <%@include file="header.jsp" %>
+        <script src="../resources/js/scripts.js"></script>
     </head>
-
     <body>
         <sec:authentication var="admin" property="principal"/>
 
@@ -24,8 +21,7 @@
                     </button>
                     <a class="navbar-brand" href="/dms/">Document Management System</a>
                 </div>
-
-                <div class="header-right">
+                <div class="header-right"> 
                     <form role="form" action="/dms/logout" method="POST">
                         <label for="mySubmit" class="btn"><i class="fa fa-sign-out fa-2x" style="padding-top: 15px"></i></label>
                         <input id="mySubmit" type="submit" value="" class="hidden" />
@@ -56,6 +52,9 @@
                                 <li>
                                     <a href="/dms/process/add_new">Add new process</a>
                                 </li>
+                                <li>
+                                    <a href="/dms/process/add_new_sub">Add new subprocess</a>
+                                </li>
                             </ul>
                         </li>
                         <li>
@@ -69,64 +68,67 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-users"></i>Users<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="/dms/admins/user_overview">Users overview</a>
-                                </li>
-                                <li>
-                                    <a href="/dms/admins/add_new_user">Add new user</a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
                 </div>
-            </nav> 
-
+            </nav>
             <div id="page-wrapper">
                 <div id="page-inner">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="page-head-line">Document type overview</h1>
+                            <h1 class="page-head-line">ADD NEW SUBPROCESS</h1>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <form action="sve-vesti" method="POST">
-                                    <table class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach var="documenttype" items="${documenttypes}">
-                                                <tr>
-                                                    <td>${documenttype.idTipaDokumenta}</td>
-                                                    <td>${documenttype.nazivTipa}</td>
-                                                    <td><a href="/dms/documenttypes/details/${documenttype.idTipaDokumenta}">Edit</a></td>
-                                                </tr>                                            
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <form role="form" method="POST" id="add_subprocess_form" action="/dms/process/add_new_sub">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input class="form-control" name="procesname">
+                                        <p class="help-block">Example: process1</p>                                         
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sign</label>
+                                        <input class="form-control" name="processign">
+                                        <p class="help-block">Example: P1</p>                                         
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Process description</label>
+                                        <textarea class="form-control" rows="5" name="procesdescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this)">Process is for...</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Parent process</label>
+                                        <select name="procesparent">
+                                            <c:forEach var="p" items="${processes}">
+                                                <option value="${p.id}">${p.naziv}</option>
                                             </c:forEach>
-                                        </tbody>
-                                    </table>
+                                        </select>                                    
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" name = "isprimitive">Is primitive?</label>
+                                        </div>
+                                    </div>                                    
+                                    <button type="submit" class="btn btn-default">Create new process</button>
+                                    <button type="reset" class="btn btn-default">Reset</button>  
                                 </form>
                             </div>
+                            <!-- /.col-lg-6 (nested) -->
+                            <div class="col-lg-6">
+
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
                         </div>
-
+                        <!-- /.row (nested) -->
                     </div>
-
                 </div>
-                <!-- /. PAGE INNER  -->
             </div>
-            <!-- /. PAGE WRAPPER  -->
         </div>
-        <!-- /. WRAPPER  -->
-
-        <%@include file="footer.jsp" %>
-    </body>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<%@include file="footer.jsp" %>
+</body>
 </html>
-

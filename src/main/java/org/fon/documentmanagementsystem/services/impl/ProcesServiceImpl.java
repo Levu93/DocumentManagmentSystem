@@ -51,4 +51,9 @@ public class ProcesServiceImpl implements ProcesService {
         return target;
     }
 
+    @Override
+    public Proces findOne(long id) {
+        return procesRepository.findOne(id);
+    }
+
 }

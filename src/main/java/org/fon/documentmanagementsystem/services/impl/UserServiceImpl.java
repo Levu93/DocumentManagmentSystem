@@ -46,6 +46,11 @@ public class UserServiceImpl implements UserService{
     public User save(User admin) {
         return userRepository.save(admin);
     }
+
+//    @Override
+//    public List<User> findBySubsystem(Long id) {
+//        return userRepository.findBySubsystem(id);
+//    }
     
     
 }
