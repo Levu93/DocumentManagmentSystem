@@ -75,41 +75,28 @@
                 <div id="page-inner">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="page-head-line">ADD NEW SUBPROCESS <c:if test="${process != null}">FOR ${process.naziv}</c:if></h1>
+                            <h1 class="page-head-line">ADD NEW ACTIVITY FOR ${process.naziv}</h1>
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <form role="form" method="POST" id="add_subprocess_form" action="/dms/process/add_new_sub">
+                                <form role="form" method="POST" id="add_activity_form" action="/dms/activity/add_new/${process.id}">
                                     <div class="form-group">
                                         <label>Name</label>
-                                        <input class="form-control" name="procesname">
+                                        <input class="form-control" name="activityname">
                                         <p class="help-block">Example: process1</p>                                         
                                     </div>
                                     <div class="form-group">
                                         <label>Sign</label>
-                                        <input class="form-control" name="processign">
+                                        <input class="form-control" name="activitysign">
                                         <p class="help-block">Example: P1</p>                                         
                                     </div>
                                     <div class="form-group">
                                         <label>Process description</label>
-                                        <textarea class="form-control" rows="5" name="procesdescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this)">Process is for...</textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Parent process</label>
-                                        <select name="procesparent">
-                                            <c:forEach var="p" items="${processes}">
-                                                <option value="${p.id}" ${p.id == process.id ? 'selected="selected"' : ''}>${p.naziv}</option>                                                
-                                            </c:forEach>
-                                        </select>                                    
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox">
-                                            <label><input type="checkbox" name = "isprimitive">Is primitive?</label>
-                                        </div>
-                                    </div>                                    
-                                    <button type="submit" class="btn btn-default">Create new process</button>
+                                        <textarea class="form-control" rows="5" name="activitydescription" id="opis" onfocus="clearContents(this);">Process is for...</textarea>
+                                    </div>                                 
+                                    <button type="submit" class="btn btn-default">Create new activity</button>
                                     <button type="reset" class="btn btn-default">Reset</button>  
                                 </form>
                             </div>

@@ -5,6 +5,7 @@
  */
 package org.fon.documentmanagementsystem.services.impl;
 
+import java.util.List;
 import org.fon.documentmanagementsystem.domain.Aktivnost;
 import org.fon.documentmanagementsystem.repositories.ActivityRepository;
 import org.fon.documentmanagementsystem.services.ActivityService;
@@ -24,6 +25,16 @@ public class ActivityServiceImpl implements ActivityService{
     @Override
     public Aktivnost findOne(long id) {
         return activityrepository.findOne(id);
+    }
+
+    @Override
+    public List<Aktivnost> findAll() {
+        return (List<Aktivnost>) activityrepository.findAll();
+    }
+
+    @Override
+    public void save(Aktivnost aktivnost) {
+        activityrepository.save(aktivnost);
     }
     
 }

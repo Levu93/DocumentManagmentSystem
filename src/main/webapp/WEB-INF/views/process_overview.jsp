@@ -8,6 +8,7 @@
         <title>Processes - overview</title>
         <%@include file="header.jsp" %>
         <link rel="stylesheet" href="../resources/dist/themes/default/style.min.css" />
+        <script src="../resources/js/processes-tree.js"></script>
     </head>
 
     <body>
@@ -106,10 +107,26 @@
                                                                         </ul>
                                                                     </c:forEach>
                                                                 </c:if>
+                                                                <c:choose>
+                                                                    <c:when test="${subproces.primitivan == true}">
+                                                                        <a href="/dms/activity/add_new/${subproces.id}"> Add activity</a>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <a href="/dms/process/add_new_sub/${subproces.id}"> Add subprocess</a>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </li>
                                                         </ul>
                                                     </c:forEach>
                                                 </c:if>
+                                                <c:choose>
+                                                    <c:when test="${proces.primitivan == true}">
+                                                        <a href="/dms/activity/add_new/${proces.id}"> Add activity</a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a href="/dms/process/add_new_sub/${proces.id}"> Add subprocess</a>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </li>
                                         </ul>
                                     </c:forEach>

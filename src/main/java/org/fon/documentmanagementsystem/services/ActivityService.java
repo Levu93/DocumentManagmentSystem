@@ -5,6 +5,7 @@
  */
 package org.fon.documentmanagementsystem.services;
 
+import java.util.List;
 import org.fon.documentmanagementsystem.domain.Aktivnost;
 
 
@@ -15,5 +16,9 @@ import org.fon.documentmanagementsystem.domain.Aktivnost;
 public interface ActivityService {
     
     Aktivnost findOne(long id);
+    
+    List<Aktivnost> findAll();
+
+    void save(Aktivnost aktivnost);
     
 }
