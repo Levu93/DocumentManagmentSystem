@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <%@include file="header.jsp" %>
         <c:if test="${subsystem == null}">
             <title>Add new subsystem</title>>
         </c:if>
@@ -14,8 +15,7 @@
                 ${subsystem.naziv}
             </title>
         </c:if>
-        <title>Svi podsistemi</title>
-        <%@include file="header.jsp" %>
+        
         <script src="../resources/js/scripts.js"></script>
     </head>
 

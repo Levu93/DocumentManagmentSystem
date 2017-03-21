@@ -58,7 +58,10 @@
                                 </li>
                                 <li>
                                     <a href="/dms/process/add_new_sub">Add new subprocess</a>
-                                </li>                                
+                                </li>    
+                                <li>
+                                    <a href="/dms/activity/add_new">Add new activity</a>
+                                </li> 
                             </ul>
                         </li>
                         <li>

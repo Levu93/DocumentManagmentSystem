@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,7 +43,7 @@ public class Aktivnost implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "Id")
+    @Column(name = "Id", nullable = false)
     private Long id;
     @Size(max = 100)
     @Column(name = "Naziv")

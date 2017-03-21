@@ -7,3 +7,20 @@ podprocesi
 aktivnosti
 upload
 
+action kod admina??? - sta treba da radi??
+
+error page sredjen
+
+proveriti accessse
+
+js tree - u pm -.-
+
+stavljena slicica u title
+
+za generisanje id-a moramo da promenimo bazu na auto-increment, cekam tvoju potvrdu za to
+
+errori za insert ako username postoji  - vraca na tu admin add stranu!
+
+
+
+

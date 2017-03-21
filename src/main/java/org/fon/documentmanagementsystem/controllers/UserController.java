@@ -94,51 +94,50 @@ public class UserController {
     @RequestMapping(path = "/add_new_admin", method = RequestMethod.POST)
     public ModelAndView addAdmin(String adminname, String adminlastname, String adminusername, String adminpass, String adminsubsystem) {
 
+        List<Podsistem> sviPodsistemi;
+        sviPodsistemi = podsistemService.findAll();
+
         User x = userService.findOne(adminusername);
+
         if (x != null) {
-            ModelAndView mv = new ModelAndView("error");
+            ModelAndView mv = new ModelAndView("admin_add");
             mv.addObject("error", "Username already exists!!!");
+            mv.addObject("ime", adminname);
+            mv.addObject("prezime", adminlastname);
+
+            mv.addObject("subsystems", sviPodsistemi);
+
             return mv;
         }
 
         UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userKojiCuva = userService.findOne(userdetail.getUsername());
 
+        User user = new User(adminusername);
+        user.setIme(adminname);
+        user.setPassword(adminpass);
+        user.setPrezime(adminlastname);
+
         ModelAndView mv = new ModelAndView();
 
         if (userKojiCuva.getIdRole().getNazivRole().equalsIgnoreCase("superadmin")) {
-            User admin = new User(adminusername);
-            admin.setIme(adminname);
-            admin.setPassword(adminpass);
-            admin.setPrezime(adminlastname);
+
             Rola rola = rolaService.findOne(2);
-            admin.setIdRole(rola);
+            user.setIdRole(rola);
 
             int admsubs = Integer.parseInt(adminsubsystem);
             Podsistem subs = podsistemService.findOne(admsubs);
-            admin.setIdPodsistema(subs);
+            user.setIdPodsistema(subs);
 
-            userService.save(admin);
-
+            userService.save(user);
             mv = new ModelAndView("admin_overview");
 
-            List<Podsistem> sviPodsistemi;
-            sviPodsistemi = podsistemService.findAll();
-            for (Podsistem podsistem : sviPodsistemi) {
-                if (admin.getIdPodsistema().equals(podsistem)) {
-                    if (!podsistem.getUserList().contains(admin)) {
-                        podsistem.getUserList().add(admin);
-                    }
-                }
-            }
+            List<Podsistem> podsistemiposleCuvanja = podsistemService.findAll();
 
-            mv.addObject("subsystems", sviPodsistemi);
+            mv.addObject("subsystems", podsistemiposleCuvanja);
 
         } else {
-            User user = new User(adminusername);
-            user.setIme(adminname);
-            user.setPassword(adminpass);
-            user.setPrezime(adminlastname);
+
             Rola rola = rolaService.findOne(3);
             user.setIdRole(rola);
             user.setIdPodsistema(userKojiCuva.getIdPodsistema());

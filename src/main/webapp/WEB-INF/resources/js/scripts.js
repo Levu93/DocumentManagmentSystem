@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 function clearContents(element) {
-  element.value = '';
+    element.value = '';
 }
 
 function backContents(element) {
-  element.value = 'Process is for...';
+    if (element.value == '') {
+        element.value = 'Process is for...';
+    }
 }
 
-function showdugme(){
+function showdugme() {
 
 }

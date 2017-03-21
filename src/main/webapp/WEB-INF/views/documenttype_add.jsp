@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <%@include file="header.jsp" %>
         <c:if test="${documenttype == null}">
             <title>Add new document type</title>>
         </c:if>
@@ -14,7 +15,6 @@
                 ${documenttype.nazivTipa}
             </title>
         </c:if>
-        <%@include file="header.jsp" %>
         <script src="../resources/js/scripts.js"></script>
     </head>
 
@@ -64,6 +64,12 @@
                                 <li>
                                     <a href="/dms/process/add_new">Add new process</a>
                                 </li>
+                                <li>
+                                    <a href="/dms/process/add_new_sub">Add new subprocess</a>
+                                </li>
+                                <li>
+                                    <a href="/dms/activity/add_new">Add new activity</a>
+                                </li> 
                             </ul>
                         </li>
                         <li>

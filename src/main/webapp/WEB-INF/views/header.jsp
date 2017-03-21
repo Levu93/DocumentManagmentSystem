@@ -18,6 +18,10 @@
 <link href="<c:url value="/resources/css/social-buttons.css" />" rel="stylesheet" />
 <!-- GOOGLE FONTS-->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+<!--icon in title bar-->
+<link rel="icon" type="image/png" href="<c:url value="/resources/images/favicon.png" />"/>
+
 <style>
     @import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
     .naslov {

@@ -40,18 +40,57 @@ public class ActivityController {
     @Autowired
     UserService userService;
 
+    @RequestMapping(path = "/add_new", method = RequestMethod.GET)
+    public ModelAndView addActivityNoSubprocess() {
+
+        //nude se samo primitivni i iy tog podsistema
+        List<Proces> sviProcesi = procesService.findAll();
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+        Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
+
+        List<Proces> primitivni = new ArrayList<>();
+
+        for (Proces proces : sviProcesi) {
+            if (proces.getIdPodsistema().equals(podsistemusera) && proces.getPrimitivan()) {
+                primitivni.add(proces);
+            }
+        }
+        ModelAndView mv = new ModelAndView("activity_add");
+        mv.addObject("procesi", primitivni);
+        if (primitivni.isEmpty()) {
+            mv = new ModelAndView("error","error", "You can't add activities if there are no processes in the system!");
+        }
+  
+        return mv;
+    }
+
     @RequestMapping(path = "/add_new/{id}", method = RequestMethod.GET)
     public ModelAndView addActivity(@PathVariable("id") long id) {
 
         Proces target = procesService.findOne(id);
 
+        List<Proces> sviProcesi = procesService.findAll();
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+        Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
+
+        List<Proces> primitivni = new ArrayList<>();
+
+        for (Proces proces : sviProcesi) {
+            if (proces.getIdPodsistema().equals(podsistemusera) && proces.getPrimitivan()) {
+                primitivni.add(proces);
+            }
+        }
+        
         ModelAndView mv = new ModelAndView("activity_add");
         mv.addObject("process", target);
+        mv.addObject("procesi", primitivni);
         return mv;
     }
 
     @RequestMapping(path = "/add_new/{id}", method = RequestMethod.POST)
-    public ModelAndView addNewActivity(@PathVariable("id") long id, String activityname, String activitysign, String activitydescription) {
+    public ModelAndView addNewActivityForProcess(@PathVariable("id") long id, String activityname, String activitysign, String activitydescription) {
 
         long idakt = activityService.findAll().size() + 1;
 
@@ -63,7 +102,41 @@ public class ActivityController {
         aktivnost.setOznaka(activitysign);
         aktivnost.setOpis(activitydescription);
         aktivnost.setIdProcesa(target);
-        
+
+        activityService.save(aktivnost);
+
+        ModelAndView mv = new ModelAndView("process_overview");
+
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+        Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
+
+        List<Proces> sviProcesi;
+        sviProcesi = procesService.findAll();
+        List<Proces> zeljeni = new ArrayList<>();
+        for (Proces proces : sviProcesi) {
+            if (proces.getNivo() == 1 && proces.getIdPodsistema().equals(podsistemusera)) {
+                zeljeni.add(proces);
+            }
+        }
+        mv.addObject("processes", zeljeni);
+        return mv;
+    }
+
+    @RequestMapping(path = "/add_new", method = RequestMethod.POST)
+    public ModelAndView addNewActivity(String activityname, String activitysign, String activitydescription, long procesactivity) {
+
+        long idakt = activityService.findAll().size() + 1;
+
+        Proces target = procesService.findOne(procesactivity);
+
+        Aktivnost aktivnost = new Aktivnost();
+        aktivnost.setId(idakt);
+        aktivnost.setNaziv(activityname);
+        aktivnost.setOznaka(activitysign);
+        aktivnost.setOpis(activitydescription);
+        aktivnost.setIdProcesa(target);
+
         activityService.save(aktivnost);
 
         ModelAndView mv = new ModelAndView("process_overview");

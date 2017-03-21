@@ -72,7 +72,7 @@
                                 <a href="#"><i class="fa fa-sitemap "></i>Admin users<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="/dms/admins/user_overview"> overview</a>
+                                        <a href="/dms/admins/overview">Admin overview</a>
                                     </li>
                                     <li>
                                         <a href="/dms/admins/add_new_admin">Add new Admin</a>
@@ -107,33 +107,37 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div class="row">
+                        <div class="row">                            
                             <div class="col-lg-6">
+                                <c:if test="${not empty error}">
+                                    <h1 style="color: red; font-weight: bold">${error}</h1>
+                                        <br>
+                                </c:if>
                                 <form role="form" method="POST" id="add_admin_form" action="/dms/admins/add_new_admin">
                                     <div class="form-group">
                                         <label>First Name</label>
-                                        <input class="form-control" name="adminname">
-                                        <p class="help-block">Example: User</p>                                         
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Last Name</label>
-                                        <input class="form-control" name="adminlastname">
-                                        <p class="help-block">Example: User</p>                                         
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Username</label>
-                                        <input class="form-control" name="adminusername">
-                                        <p class="help-block">Example: username</p>                                         
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" class="form-control" name="adminpass">
-                                        <p class="help-block" style="color: red">8 characters minimum!!!</p>                                         
-                                    </div>
+                                        <input class="form-control" name="adminname" value="<c:if test="${not empty ime}">${ime}</c:if>">
+                                            <p class="help-block">Example: User</p>                                         
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input class="form-control" name="adminlastname" value="<c:if test="${not empty prezime}">${ime}</c:if>">
+                                            <p class="help-block">Example: User</p>                                         
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <input class="form-control" name="adminusername">
+                                            <p class="help-block">Example: username</p>                                         
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" name="adminpass">
+                                            <p class="help-block" style="color: red">8 characters minimum!!!</p>                                         
+                                        </div>
                                     <c:if test="${admin.rola.idRole  == 1 }">
                                         <div class="form-group">
                                             <label>Subsystem</label>
-                                            <select name="adminsubsystem" class="chosen-select">
+                                            <select name="adminsubsystem" class="form-control">
                                                 <c:forEach var="subs" items="${subsystems}">
                                                     <option data- value="${subs.id}">${subs.naziv}</option>
                                                 </c:forEach>

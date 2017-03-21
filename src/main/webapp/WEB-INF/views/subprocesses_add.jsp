@@ -55,6 +55,9 @@
                                 <li>
                                     <a href="/dms/process/add_new_sub">Add new subprocess</a>
                                 </li>
+                                <li>
+                                    <a href="/dms/activity/add_new">Add new activity</a>
+                                </li> 
                             </ul>
                         </li>
                         <li>
@@ -68,6 +71,17 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="#"><i class="fa fa-users"></i>Users<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/dms/admins/user_overview">Users overview</a>
+                                </li>
+                                <li>
+                                    <a href="/dms/admins/add_new_user">Add new user</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -76,39 +90,39 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h1 class="page-head-line">ADD NEW SUBPROCESS <c:if test="${process != null}">FOR ${process.naziv}</c:if></h1>
+                            </div>
                         </div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <form role="form" method="POST" id="add_subprocess_form" action="/dms/process/add_new_sub">
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input class="form-control" name="procesname">
-                                        <p class="help-block">Example: process1</p>                                         
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Sign</label>
-                                        <input class="form-control" name="processign">
-                                        <p class="help-block">Example: P1</p>                                         
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Process description</label>
-                                        <textarea class="form-control" rows="5" name="procesdescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this)">Process is for...</textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Parent process</label>
-                                        <select name="procesparent">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form role="form" method="POST" id="add_subprocess_form" action="/dms/process/add_new_sub">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input class="form-control" name="procesname">
+                                            <p class="help-block">Example: process1</p>                                         
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Sign</label>
+                                            <input class="form-control" name="processign">
+                                            <p class="help-block">Example: P1</p>                                         
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Process description</label>
+                                            <textarea class="form-control" rows="5" name="procesdescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this)">Process is for...</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Parent process</label>
+                                            <select name="procesparent" class="form-control">
                                             <c:forEach var="p" items="${processes}">
                                                 <option value="${p.id}" ${p.id == process.id ? 'selected="selected"' : ''}>${p.naziv}</option>                                                
                                             </c:forEach>
-                                        </select>                                    
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox">
-                                            <label><input type="checkbox" name = "isprimitive">Is primitive?</label>
+                                            </select>                                    
                                         </div>
-                                    </div>                                    
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name = "isprimitive">Is primitive?</label>
+                                            </div>
+                                        </div>                                    
                                     <button type="submit" class="btn btn-default">Create new process</button>
                                     <button type="reset" class="btn btn-default">Reset</button>  
                                 </form>

@@ -1,6 +1,6 @@
 /*
 SQLyog Community v11.51 (64 bit)
-MySQL - 5.7.11 : Database - nst
+MySQL - 5.7.14 : Database - nst
 *********************************************************************
 */
 
@@ -33,7 +33,7 @@ CREATE TABLE `aktivnost` (
 
 /*Data for the table `aktivnost` */
 
-insert  into `aktivnost`(`Id`,`Naziv`,`Oznaka`,`Opis`,`IdProcesa`) values (1,'asdd','ASD','asd',2),(2,'qwer','qwe','qweer',2);
+insert  into `aktivnost`(`Id`,`Naziv`,`Oznaka`,`Opis`,`IdProcesa`) values (1,'asdd','ASD','asd',2),(2,'qwer','qwe','qweer',2),(3,'act','act','act',4),(4,'act','act','act',4);
 
 /*Table structure for table `dokument` */
 
@@ -70,7 +70,7 @@ CREATE TABLE `podsistem` (
 
 /*Data for the table `podsistem` */
 
-insert  into `podsistem`(`Id`,`Naziv`,`Oznaka`,`Opis`) values (1,'SubsystemTest1','TST1','Test 1'),(2,'SubsystemTest2','TST2','policajac sa petlovog brda'),(3,'Subsystem3','SBS3','subssubs'),(4,'new subsystem','NSS','new subsystem test'),(5,'reik','RK','creo en ti'),(6,'podsistemn','pds','sjdknd');
+insert  into `podsistem`(`Id`,`Naziv`,`Oznaka`,`Opis`) values (1,'SubsystemTest1','TST1','Test 1'),(2,'SubsystemTest2','TST2','policajac sa petlovog brda'),(3,'Subsystem3','SBS3','subssubs'),(4,'new subsystem','NSS','new subsystem test'),(5,'reik','RK','creo en ti'),(6,'podsistemn','pds','sjdknd'),(7,'Saga','SG','duichscj');
 
 /*Table structure for table `proces` */
 
@@ -94,7 +94,7 @@ CREATE TABLE `proces` (
 
 /*Data for the table `proces` */
 
-insert  into `proces`(`Id`,`Naziv`,`Oznaka`,`Opis`,`Nivo`,`IdNadProcesa`,`IdPodsistema`,`Primitivan`) values (1,'proces1','p1','opis procesa 1',1,NULL,2,0),(2,'asd','asd','asdd',2,1,2,1),(3,'proces2','p2','p2',1,NULL,2,0),(4,'Subprocess1','SBPR1','Process is for...',2,3,2,1),(5,'test1','tst1','Process is for...',2,3,2,0),(6,'test2','tst2','Process is for...',2,1,2,1);
+insert  into `proces`(`Id`,`Naziv`,`Oznaka`,`Opis`,`Nivo`,`IdNadProcesa`,`IdPodsistema`,`Primitivan`) values (1,'proces1','p1','opis procesa 1',1,NULL,2,0),(2,'asd','asd','asdd',2,1,2,1),(3,'proces2','p2','p2',1,NULL,2,0),(4,'Subprocess1','SBPR1','Process is for...',2,3,2,1),(5,'test1','tst1','Process is for...',2,3,2,0),(6,'test2','tst2','Process is for...',2,1,2,1),(7,'Proces1Saga','PSG','ddd',1,NULL,7,NULL);
 
 /*Table structure for table `rola` */
 
@@ -144,7 +144,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`username`,`password`,`ime`,`prezime`,`IdPodsistema`,`IdRole`) values ('admin','admin','admin','admin',1,2),('asd','asdasdasd','asd','asd',1,3),('cehm','mirko2017','Mirko','Ceh',6,2),('dules','duledule','Dusan','Savic',5,2),('lazak','lazak','Laza','Kostic',3,2),('mau','maumaumau','mau','mau',4,3),('milicap','milicamilica','Milica','Pavlovic',1,3),('mmilic','milosmilic','Milos','Milic',1,3),('necaceh','lepoticaizver','Nevena','Ceh',2,3),('superadmin','superadmin','super','admin',NULL,1),('user','user','user','user',1,3),('vericac','necaboka','Verica','Ceh',5,2),('vulepejovic','Vulecar','Vukasin','Pejovic',4,3),('yoya91','lavcipele','Jovana','Milosavljevic',1,3),('zorank','24minuta','Zoran','Kesic',4,2);
+insert  into `user`(`username`,`password`,`ime`,`prezime`,`IdPodsistema`,`IdRole`) values ('admin','admin','admin','admin',1,2),('adminsub2','adminsub2','Admin','Admin',2,2),('asd','asdasdasd','asd','asd',1,3),('cehm','mirko2017','Mirko','Ceh',6,2),('dules','duledule','Dusan','Savic',5,2),('lazak','lazak','Laza','Kostic',3,2),('marijab','marijab','asd','asd',7,2),('markoa','markomarko','Marko','Adzic',5,2),('mau','maumaumau','mau','mau',4,3),('milicap','milicamilica','Milica','Pavlovic',1,3),('milosa','milosmilos','Milos','Apostolovic',7,2),('mmilic','milosmilic','Milos','Milic',1,3),('necaceh','lepoticaizver','Nevena','Ceh',2,3),('sandrah','sandrah','Sandra','Hinic',1,2),('superadmin','superadmin','super','admin',NULL,1),('user','user','user','user',1,3),('vericac','necaboka','Verica','Ceh',5,2),('vulepejovic','Vulecar','Vukasin','Pejovic',4,3),('yoya91','lavcipele','Jovana','Milosavljevic',1,3),('zorank','24minuta','Zoran','Kesic',4,2);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
