@@ -177,6 +177,9 @@ public class ProcesController {
         subp.setNivo(p.getNivo() + 1);
         subp.setPrimitivan(isprimitive);
         procesService.save(subp);
+        
+        p.getProcesList().add(subp);
+        procesService.save(p);
 
         ModelAndView mv = new ModelAndView("process_overview");
         List<Proces> sviProcesi;

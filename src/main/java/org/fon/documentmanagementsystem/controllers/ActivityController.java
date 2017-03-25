@@ -104,6 +104,9 @@ public class ActivityController {
         aktivnost.setIdProcesa(target);
 
         activityService.save(aktivnost);
+        
+        target.getAktivnostList().add(aktivnost);
+        procesService.save(target);
 
         ModelAndView mv = new ModelAndView("process_overview");
 
@@ -138,6 +141,9 @@ public class ActivityController {
         aktivnost.setIdProcesa(target);
 
         activityService.save(aktivnost);
+        
+        target.getAktivnostList().add(aktivnost);
+        procesService.save(target);
 
         ModelAndView mv = new ModelAndView("process_overview");
 

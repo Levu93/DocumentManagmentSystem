@@ -128,8 +128,10 @@ public class UserController {
             int admsubs = Integer.parseInt(adminsubsystem);
             Podsistem subs = podsistemService.findOne(admsubs);
             user.setIdPodsistema(subs);
+            subs.getUserList().add(user);
 
             userService.save(user);
+            podsistemService.sacuvajPodsistem(subs);
             mv = new ModelAndView("admin_overview");
 
             List<Podsistem> podsistemiposleCuvanja = podsistemService.findAll();
@@ -141,8 +143,10 @@ public class UserController {
             Rola rola = rolaService.findOne(3);
             user.setIdRole(rola);
             user.setIdPodsistema(userKojiCuva.getIdPodsistema());
+            userKojiCuva.getIdPodsistema().getUserList().add(user);
 
             userService.save(user);
+            podsistemService.sacuvajPodsistem(userKojiCuva.getIdPodsistema());
 
             mv = new ModelAndView("user_overview");
 
