@@ -1,26 +1,22 @@
-procesi i aktivnosti - probati Vuletovu ideju, pa Boze pomozi
+TODO General:
+- Brisanje objekata, analiza sta i kako brisati
+- Pretraga dokumenata
+- Istestirati sve slucajeve koriscenja
+- Dokumentacija
 
-upload fajla - Vukasin zna kako #samojako
-
-procesi
-podprocesi
-aktivnosti
-upload
-
-action kod admina??? - sta treba da radi??
-
-error page sredjen
-
-proveriti accessse
-
-js tree - u pm -.-
-
-stavljena slicica u title
-
-za generisanje id-a moramo da promenimo bazu na auto-increment, cekam tvoju potvrdu za to
-
-errori za insert ako username postoji  - vraca na tu admin add stranu!
+TODO Nevena:
+- JS Tree - u pm -.-
+- Procesi i aktivnosti - probati Vuletovu ideju, pa Boze pomozi
 
 
+TODO Vukasin:
+- Action kod admina
+- Generisanje id-a (moramo da promenimo bazu na auto-increment)
+- Pregled dokumenata
+- Proveriti accessse
 
-
+DONE:
+- Upload fajla - Vukasin zna kako #samojako Vukasin uradio :) 
+- Errori za insert ako username postoji  - vraca na tu admin add stranu!
+- Stavljena slicica u title
+- Error page sredjen

@@ -63,7 +63,7 @@ public class DocumentController {
     @RequestMapping(path = "/add_new/{id}", method = RequestMethod.POST)
     public ModelAndView addNewActivityForProcess(@PathVariable("id") long id, String documentname, String documentdescritption, long documenttype, MultipartFile file) {
 
-        long idDokumenta = activityService.findAll().size() + 1;
+        long idDokumenta = dokumentService.findAll().size() + 1;
 
         Aktivnost aktivnost = activityService.findOne(id);
 
