@@ -64,24 +64,31 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <form role="form" method="POST" id="add_process_form" action="/dms/process/add_new">
+                                <form role="form" method="POST" id="add_document_form" enctype="multipart/form-data" action="/dms/documents/add_new/${activity.id}">
                                     <div class="form-group">
                                         <label>Name</label>
-                                        <input class="form-control" name="procesname">
+                                        <input class="form-control" name="documentname">
                                         <p class="help-block">Example: Equipment Order</p>                                         
                                     </div>
                                     <div class="form-group">
                                         <label>Description</label>
-                                        <input class="form-control" name="processign">
+                                        <input class="form-control" name="documentdescritption">
                                         <p class="help-block">Example: Order for equipment</p>                                         
                                     </div>
                                     <div class="form-group">
                                         <label>Document type</label>
-                                        <select class="form-control" rows="5" name="activities" id="activities">
+                                        <select class="form-control" rows="5" name="documenttype" id="documenttype">
                                             <c:forEach var="documenttype" items="${documenttypes}">
                                                 <option value="${documenttype.idTipaDokumenta}">${documenttype.nazivTipa}</option>                                              
                                             </c:forEach>
                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Upload file</label><br/>
+                                        <label class="custom-file">
+                                            <input type="file" id="file" name="file" class="btn btn-default">
+                                            <span class="custom-file-control"></span>
+                                        </label>
                                     </div>
                                     <button type="submit" class="btn btn-default">Add new document</button>
                                     <button type="reset" class="btn btn-default">Reset</button>  
