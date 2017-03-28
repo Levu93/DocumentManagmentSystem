@@ -35,6 +35,9 @@ public class TreeDto {
         this.primitive = primitive;
     }
 
+    public TreeDto() {
+    }
+    
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
     public String getParent() { return parent; }

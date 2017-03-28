@@ -89,8 +89,9 @@ public class DocumentController {
                         dir.mkdirs();
                     }
                     String nazivFajla = file.getOriginalFilename();
-                    File serverFile = new File(dir.getAbsolutePath()
-                            + File.separator + nazivFajla);
+                    System.out.println(file.getName());
+                    File serverFile = new File(dir.getAbsolutePath()+
+                             File.separator + nazivFajla); //mozda ovde da bude ime dokumenta umesto naziv fajla
                     try (BufferedOutputStream stream = new BufferedOutputStream(
                             new FileOutputStream(serverFile))) {
                         stream.write(bytes);

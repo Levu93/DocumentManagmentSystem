@@ -1,11 +1,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Document Management System</title>
+        <title>Processes - overview</title>
         <%@include file="header.jsp" %>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+
     </head>
+
     <body>
         <sec:authentication var="admin" property="principal"/>
 
@@ -20,7 +25,8 @@
                     </button>
                     <a class="navbar-brand" href="/dms/">Document Management System</a>
                 </div>
-                <div class="header-right"> 
+
+                <div class="header-right">
                     <form role="form" action="/dms/logout" method="POST">
                         <label for="mySubmit" class="btn"><i class="fa fa-sign-out fa-2x" style="padding-top: 15px"></i></label>
                         <input id="mySubmit" type="submit" value="" class="hidden" />
@@ -56,14 +62,11 @@
                                 </li>
                                 <li>
                                     <a href="/dms/activity/add_new">Add new activity</a>
-                                </li> 
-                                <li>
-                                    <a href="/dms/process/test">Test</a>
-                                </li>  
+                                </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-file"></i>Document Types<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-sitemap "></i>Document Types<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/dms/documenttypes/overview">Document types overview</a>
@@ -86,16 +89,85 @@
                         </li>
                     </ul>
                 </div>
-            </nav>
+            </nav> 
+
             <div id="page-wrapper">
                 <div id="page-inner">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="page-head-line">DASHBOARD</h1>
+                            <h1 class="page-head-line">Test strana</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="jstree_demo_div">
+                            </div>
+                            <form action="#" method="get">
+                                <input type="submit" value="Add"> </input>
+                                <input style="margin-left: 10px;" type="text" name="procName">
+                                <input id="selectedProc" type="hidden" name="selectedProc">
+                            </form>
+
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js" type="text/javascript"></script>
+                            <script>
+                                var req;
+                                var isIE;
+
+                                function init() {
+                                    completeField = document.getElementById("complete-field");
+                                }
+                                function doCompletion() {
+                                    var url = "/dms/api/processes";
+                                    req = initRequest();
+                                    req.open("GET", url, true);
+                                    req.onreadystatechange = callback;
+                                    req.send(null);
+                                }
+
+                                function initRequest() {
+                                    if (window.XMLHttpRequest) {
+                                        if (navigator.userAgent.indexOf('MSIE') != -1) {
+                                            isIE = true;
+                                        }
+                                        return new XMLHttpRequest();
+                                    } else if (window.ActiveXObject) {
+                                        isIE = true;
+                                        return new ActiveXObject("Microsoft.XMLHTTP");
+                                    }
+                                }
+                                function callback() {
+                                    if (req.readyState == 4) {
+                                        if (req.status == 200) {
+                                            console.log(parseMessages(req.responseXML));
+                                        }
+                                    }
+                                }
+                            </script>
+                            <script>
+                                $('#jstree_demo_div').jstree({
+                                    'core': {
+                                        'url': '<spring:url value="/api/processes"/>',
+                                        'data': function (node) {
+                                            return {'id': node.id};
+                                        },
+                                        "multiple": false,
+                                        "themes": {
+                                            "variant": "large"
+                                        },
+                                        "plugins": ["wholerow"]
+
+                                    }});
+
+                                $('#jstree_demo_div').on("changed.jstree", function (e, data) {
+                                    console.log(data.selected);
+                                    $('#selectedProc').val(data.selected);
+                                });
+
+                            </script>
+
                         </div>
 
                     </div>
-
 
                 </div>
                 <!-- /. PAGE INNER  -->
@@ -103,6 +175,7 @@
             <!-- /. PAGE WRAPPER  -->
         </div>
         <!-- /. WRAPPER  -->
+
         <%@include file="footer.jsp" %>
     </body>
 </html>

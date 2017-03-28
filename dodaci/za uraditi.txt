@@ -3,10 +3,11 @@ TODO General:
 - Pretraga dokumenata
 - Istestirati sve slucajeve koriscenja
 - Dokumentacija
+-Update
 
 TODO Nevena:
-- JS Tree - u pm -.-
-- Procesi i aktivnosti - probati Vuletovu ideju, pa Boze pomozi
+- JS Tree - u 3 pm -.-
+- Procesi i aktivnosti - probati Vuletovu ideju, pa Boze pomozi - ideja radi, al mislim da neke stvari treba izmeniti
 
 
 TODO Vukasin:
@@ -16,7 +17,7 @@ TODO Vukasin:
 - Proveriti accessse
 
 DONE:
-- Upload fajla - Vukasin zna kako #samojako Vukasin uradio :) 
+- Upload fajla - Vukasin zna kako #samojako Vukasin uradio :)  - nesto sam promenila, jer mi nije radio upload, proveri
 - Errori za insert ako username postoji  - vraca na tu admin add stranu!
 - Stavljena slicica u title
 - Error page sredjen
