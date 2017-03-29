@@ -7,136 +7,179 @@
         <%@include file="header.jsp" %>
         <script src="../resources/js/scripts.js"></script>
     </head>
-        <body>
-            <sec:authentication var="admin" property="principal"/>
-        
-        <div id="wrapper">
-        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
-                                        <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/dms/">Document Management System</a>
-                                        </div>
-                                    <div class="header-right"> 
-                                    <form role="form" action="/dms/logout" method="POST">
-        <label for="mySubmit" class="btn"><i class="fa fa-sign-out fa-2x" style="padding-top: 15px"></i></label>
-        <input id="mySubmit" type="submit" value="" class="hidden" />
-        </form>
-        </div>
-        </nav>
+    <body>
+        <sec:authentication var="admin" property="principal"/>
 
-                                        <nav class="navbar-default navbar-side" role="navigation">
-                                    <div class="sidebar-collapse">
-                                    <ul class="nav" id="main-menu">
-        <li>
-        <div class="user-img-div">
-        <div class="inner-text">
-            ${admin.ime} ${admin.prezime}
-        <br />
-        </div>
-        </div>
-        </li>
-        <li>
-                                        <a class="active-menu" href="/dms/"><i class="fa fa-dashboard "></i>Dashboard</a>
-                                    </li>
-                                    <li>
-                                    <a href="#"><i class="fa fa-sitemap "></i>Processes<span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level">
-        <li>
-        <a href="/dms/process/overview">Processes overview</a>
-                                        </li>
-                                        <li>
-                                        <a href="/dms/process/add_new">Add new process</a>
-                                    </li>
-                                    <li>
+        <div id="wrapper">
+            <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/dms/">Document Management System</a>
+                </div>
+                <div class="header-right"> 
+                    <form role="form" action="/dms/logout" method="POST">
+                        <label for="mySubmit" class="btn"><i class="fa fa-sign-out fa-2x" style="padding-top: 15px"></i></label>
+                        <input id="mySubmit" type="submit" value="" class="hidden" />
+                    </form>
+                </div>
+            </nav>
+
+            <nav class="navbar-default navbar-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="main-menu">
+                        <li>
+                            <div class="user-img-div">
+                                <div class="inner-text">
+                                    ${admin.ime} ${admin.prezime}
+                                    <br />
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="active-menu" href="/dms/"><i class="fa fa-dashboard "></i>Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap "></i>Processes<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/dms/process/overview">Processes overview</a>
+                                </li>
+                                <li>
+                                    <a href="/dms/process/add_new">Add new process</a>
+                                </li>
+                                <li>
                                     <a href="/dms/process/add_new_sub">Add new subprocess</a>
-        </li>
-        <li>
-        <a href="/dms/activity/add_new">Add new activity</a>
-                                        </li>
-                                        </ul>
-                                        </li>
-                                        <li>
-                                    <a href="#"><i class="fa fa-sitemap "></i>Document Types<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-second-level">
-        <li>
-        <a href="/dms/documenttypes/overview">Document types overview</a>
-                                        </li>
-                                        <li>
-                                        <a href="/dms/documenttypes/add_new">Add new document type</a>
-                                    </li>
-                                    </ul>
-                                    </li>
-                                    </ul>
-        </div>
-        </nav>
-        <div id="page-wrapper">
-                                        <div id="page-inner">
-                                        <div class="row">
-                                        <div class="col-md-12">
-                                        <h1 class="page-head-line">
-            <c:choose>
-                <c:when test="${process != null}">
-                                    ADD NEW ACTIVITY FOR ${process.naziv}
-                </c:when>
-                <c:otherwise>
+                                </li>
+                                <li>
+                                    <a href="/dms/activity/add_new">Add new activity</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap "></i>Document Types<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/dms/documenttypes/overview">Document types overview</a>
+                                </li>
+                                <li>
+                                    <a href="/dms/documenttypes/add_new">Add new document type</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="page-wrapper">
+                <div id="page-inner">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="page-head-line">
+                                <c:choose>
+                                    <c:when test="${process != null}">
+                                        ADD NEW ACTIVITY FOR ${process.naziv}
+                                    </c:when>
+                                    <c:when test="${aktivnost != null}">
+                                        ${aktivnost.naziv} DETAILS
+                                    </c:when>
+                                    <c:otherwise>
                                         ADD NEW ACTIVITY
-                </c:otherwise>
-            </c:choose>
-                                        </h1>
+                                    </c:otherwise>
+                                </c:choose>
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <form role="form" method="POST" id="add_activity_form" action="<c:choose>
+                                          <c:when test="${aktivnost != null}">
+                                              /dms/activity/update/${aktivnost.id}
+                                          </c:when>
+                                          <c:otherwise>
+                                              /dms/activity/add_new/${process.id}
+                                          </c:otherwise>
+                                      </c:choose>">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <c:if test="${aktivnost == null}">
+                                            <input class="form-control" name="activityname" id="ajdi">
+                                            <p class="help-block">Example: activity 1</p> 
+                                        </c:if>        
+                                        <c:if test="${aktivnost != null}">
+                                            <input class="form-control" name="activityname" id="ajdi" value="${aktivnost.naziv}">
+                                            <p class="help-block">Example: ${aktivnost.naziv}</p> 
+                                        </c:if>
                                     </div>
-                                    </div>
-                                    <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                        <form role="form" method="POST" id="add_activity_form" action="/dms/activity/add_new/${process.id}">
-                                        <div class="form-group">
-                                    <label>Name</label>
-                                    <input class="form-control" name="activityname" id="ajdi">
-                                    <p class="help-block">Example: process1</p>                                         
-                                        </div>
-                                        <div class="form-group">
+                                    <div class="form-group">
                                         <label>Sign</label>
-                                        <input class="form-control" name="activitysign">
-                                    <p class="help-block">Example: P1</p>                                         
+                                        <c:if test="${aktivnost == null}">
+                                            <input class="form-control" name="activitysign">
+                                            <p class="help-block">Example: A1</p> 
+                                        </c:if>
+                                        <c:if test="${aktivnost != null}">
+                                            <input class="form-control" name="activitysign" value="${aktivnost.oznaka}">
+                                            <p class="help-block">Example: ${aktivnost.oznaka}</p> 
+                                        </c:if>                                        
                                     </div>
                                     <div class="form-group">
                                         <label>Activity description</label>
-                                        <textarea class="form-control" rows="5" name="activitydescription" id="opis" onfocus="clearContents(this);">Activity is for...</textarea>
+                                        <c:if test="${aktivnost == null}">
+                                            <textarea class="form-control" rows="5" name="activitydescription" id="opis" onfocus="clearContents(this);">Activity is for...</textarea>
+                                        </c:if>
+                                        <c:if test="${aktivnost != null}">
+                                            <textarea class="form-control" rows="5" name="activitydescription" id="opis" onfocus="clearContents(this);">${aktivnost.opis}</textarea>
+                                        </c:if>
                                     </div>
-             
-                                                <div class="form-group">
-                                    <label>Activity is for process</label>
-                                    <select name="procesactivity" class="form-control" <c:if test="${process != null}">disabled="disabled"</c:if>>
-            <c:forEach var="p" items="${procesi}">
-                                        <option data- value="${p.id}" ${p.id == process.id ? 'selected="selected"' : ''}>${p.naziv}</option>
-            </c:forEach>
-                                    </select>                                    
+
+                                    <div class="form-group">
+                                        <label>Activity is for process</label>
+                                        <c:if test="${aktivnost == null}">
+                                            <select name="procesactivity" class="form-control" <c:if test="${process != null}">disabled="disabled"</c:if>>
+                                                <c:forEach var="p" items="${procesi}">
+                                                    <option data- value="${p.id}" ${p.id == process.id ? 'selected="selected"' : ''}>${p.naziv}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </c:if>
+                                        <c:if test="${aktivnost != null}">
+                                            <select name="procesactivity" class="form-control" disabled="disabled">
+                                                <c:forEach var="p" items="${procesi}">
+                                                    <option data- value="${p.id}" ${p.id == aktivnost.idProcesa.id ? 'selected="selected"' : ''}>${p.naziv}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </c:if>
                                     </div>
-                                    <button type="submit" class="btn btn-default">Create new activity</button>
+                                    <button type="submit" class="btn btn-default"><c:choose>
+                                          <c:when test="${aktivnost != null}">
+                                              Edit ${aktivnost.naziv}
+                                          </c:when>
+                                          <c:otherwise>
+                                              Create new activity
+                                          </c:otherwise>
+                                      </c:choose></button>
                                     <button type="reset" class="btn btn-default">Reset</button>  
-                                        </form>
-                                        </div>
-                                        <!-- /.col-lg-6 (nested) -->
-                                        <div class="col-lg-6">
-                                    
-                                    </div>
-                                    <!-- /.col-lg-6 (nested) -->
-                                    </div>
-                                    <!-- /.row (nested) -->
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                        <!-- /. PAGE INNER  -->
-                                        </div>
-<!-- /. PAGE WRAPPER  -->
-                                        </div>
-                                        <!-- /. WRAPPER  -->
-            <%@include file="footer.jsp" %>
-                                        </body>
-                                    </html>
+                                </form>
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+                            <div class="col-lg-6">
+
+                            </div>
+                            <!-- /.col-lg-6 (nested) -->
+                        </div>
+                        <!-- /.row (nested) -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<%@include file="footer.jsp" %>
+</body>
+</html>

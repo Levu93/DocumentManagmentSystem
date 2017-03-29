@@ -115,7 +115,7 @@
                                                                     <c:forEach var="aktivnost" items="${subproces.aktivnostList}">
                                                                         <ul> 
                                                                             <li>
-                                                                                ${aktivnost.naziv}
+                                                                                <a href="/dms/activity/details/${aktivnost.id}"> ${aktivnost.naziv}</a>
                                                                             </li>
                                                                         </ul>
                                                                     </c:forEach>

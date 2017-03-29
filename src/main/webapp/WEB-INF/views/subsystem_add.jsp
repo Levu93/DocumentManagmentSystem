@@ -15,7 +15,7 @@
                 ${subsystem.naziv}
             </title>
         </c:if>
-        
+
         <script src="../resources/js/scripts.js"></script>
     </head>
 
@@ -140,28 +140,28 @@
                                         <c:if test="${subsystem != null}">
                                             <div id="editdiv">
                                                 <button type="submit" class="btn btn-default">Edit data about ${subsystem.naziv}</button>
-                                                <div>
-                                                </c:if>                                                                                              
-                                                </form>
                                             </div>
-                                            <!-- /.col-lg-6 (nested) -->
-                                            <div class="col-lg-6">
-
-                                            </div>
-                                            <!-- /.col-lg-6 (nested) -->
-                                        </div>
-                                        <!-- /.row (nested) -->
+                                        </c:if>                                                                                              
+                                    </form>
                                 </div>
-                            </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">
 
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
                         </div>
-                        <!-- /. PAGE INNER  -->
                     </div>
-                    <!-- /. PAGE WRAPPER  -->
+
                 </div>
-                <!-- /. WRAPPER  -->
+                <!-- /. PAGE INNER  -->
             </div>
+            <!-- /. PAGE WRAPPER  -->
         </div>
-        <%@include file="footer.jsp" %>
-    </body>
+        <!-- /. WRAPPER  -->
+    </div>
+</div>
+<%@include file="footer.jsp" %>
+</body>
 </html>

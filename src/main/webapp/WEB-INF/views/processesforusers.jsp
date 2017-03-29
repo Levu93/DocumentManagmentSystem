@@ -85,6 +85,7 @@
                                                                         <li>
                                                                             
                                                                             ${aktivnost.naziv}
+                                                                            <a href="/dms/activity/userdetails/${aktivnost.id}">Details</a>
                                                                             <a href="/dms/documents/add_new/${aktivnost.id}"> Add document</a>
                                                                         </li>
                                                                     </ul>

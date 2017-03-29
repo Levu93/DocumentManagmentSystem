@@ -23,10 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- *
- * @author nevenac
- */
 @Controller
 @RequestMapping("/activity/")
 public class ActivityController {
@@ -59,9 +55,37 @@ public class ActivityController {
         ModelAndView mv = new ModelAndView("activity_add");
         mv.addObject("procesi", primitivni);
         if (primitivni.isEmpty()) {
-            mv = new ModelAndView("error","error", "You can't add activities if there are no processes in the system!");
+            mv = new ModelAndView("error", "error", "You can't add activities if there are no processes in the system!");
         }
-  
+
+        return mv;
+    }
+
+    @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
+    public ModelAndView update(@PathVariable("id") long id, String activityname, String activitysign, String activitydescription) {
+        Aktivnost a = activityService.findOne(id);
+
+        a.setNaziv(activityname);
+        a.setOpis(activitydescription);
+        a.setOznaka(activitysign);
+        activityService.save(a);
+        
+        ModelAndView mv = new ModelAndView("process_overview");
+        
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+        Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
+
+        List<Proces> sviProcesi;
+        sviProcesi = procesService.findAll();
+        List<Proces> zeljeni = new ArrayList<>();
+        for (Proces proces : sviProcesi) {
+            if (proces.getNivo() == 1 && proces.getIdPodsistema().equals(podsistemusera)) {
+                zeljeni.add(proces);
+            }
+        }
+        //ovde sam vise da ubacimo da ih trazi po nivoima, nego sve pa da izbacujemo, al nisam uspela to da uradim
+        mv.addObject("processes", zeljeni);
         return mv;
     }
 
@@ -82,10 +106,49 @@ public class ActivityController {
                 primitivni.add(proces);
             }
         }
-        
+
         ModelAndView mv = new ModelAndView("activity_add");
         mv.addObject("process", target);
         mv.addObject("procesi", primitivni);
+        return mv;
+    }
+
+    @RequestMapping(path = "/details/{id}", method = RequestMethod.GET)
+    public ModelAndView activityDetails(@PathVariable("id") long id) {
+
+        Aktivnost target = activityService.findOne(id);
+
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+        Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
+
+        List<Proces> sviProcesi;
+        sviProcesi = procesService.findAll();
+        List<Proces> zeljeni = new ArrayList<>();
+        for (Proces proces : sviProcesi) {
+            if (proces.getPrimitivan() && proces.getIdPodsistema().equals(podsistemusera)) {
+                zeljeni.add(proces);
+            }
+        }
+
+        ModelAndView mv = new ModelAndView("activity_add");
+        mv.addObject("aktivnost", target);
+        mv.addObject("procesi", zeljeni);
+        return mv;
+    }
+    
+    @RequestMapping(path = "/userdetails/{id}", method = RequestMethod.GET)
+    public ModelAndView activityDetailsForUsers(@PathVariable("id") long id) {
+
+        Aktivnost target = activityService.findOne(id);
+
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+        Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
+
+        ModelAndView mv = new ModelAndView("activity_details");
+        mv.addObject("aktivnost", target);
+
         return mv;
     }
 
@@ -104,7 +167,7 @@ public class ActivityController {
         aktivnost.setIdProcesa(target);
 
         activityService.save(aktivnost);
-        
+
         target.getAktivnostList().add(aktivnost);
         procesService.save(target);
 
@@ -141,7 +204,7 @@ public class ActivityController {
         aktivnost.setIdProcesa(target);
 
         activityService.save(aktivnost);
-        
+
         target.getAktivnostList().add(aktivnost);
         procesService.save(target);
 

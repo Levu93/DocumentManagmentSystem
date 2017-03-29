@@ -22,6 +22,10 @@ import org.fon.documentmanagementsystem.services.ActivityService;
 import org.fon.documentmanagementsystem.services.DokumentService;
 import org.fon.documentmanagementsystem.services.TipdokumentaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,31 +39,31 @@ import org.springframework.web.servlet.ModelAndView;
  * @author nevenac
  */
 @Controller
-@RequestMapping("/documents")
+@RequestMapping("/documents/")
 public class DocumentController {
-    
+
     @Autowired
     DokumentService dokumentService;
-    
+
     @Autowired
     ActivityService activityService;
-    
+
     @Autowired
     TipdokumentaService tipDokumentaService;
-    
+
     @RequestMapping(path = "/add_new/{id}", method = RequestMethod.GET)
     public ModelAndView addDocument(@PathVariable("id") long id) {
-        
+
         Aktivnost target = activityService.findOne(id);
-        
+
         List<Tipdokumenta> documenttypes = tipDokumentaService.findAll();
-        
+
         ModelAndView mv = new ModelAndView("document_add");
         mv.addObject("documenttypes", documenttypes);
         mv.addObject("activity", target);
         return mv;
     }
-    
+
     @RequestMapping(path = "/add_new/{id}", method = RequestMethod.POST)
     public ModelAndView addNewActivityForProcess(@PathVariable("id") long id, String documentname, String documentdescritption, long documenttype, MultipartFile file) {
 
@@ -73,57 +77,69 @@ public class DocumentController {
         doc.setNapomena(documentdescritption);
         doc.setDatumKreiranja(new Date());
         doc.setIdAktivnosti(aktivnost);
-        
+
         Tipdokumenta docType = tipDokumentaService.findOne(documenttype);
         doc.setIdTipaDokumenta(docType);
-        
+
         String putanja = "n/a";
         if (!daLiJePrazan(file)) {
-            
-        
-            try {
-                    byte[] bytes = file.getBytes();
-                    putanja = "C:" + File.separator + "wamp" + File.separator + "www" + File.separator + "DMS"+ File.separator + "files";
-                    File dir = new File(putanja);
-                    if (!dir.exists()) {
-                        dir.mkdirs();
-                    }
-                    String nazivFajla = file.getOriginalFilename();
-                    System.out.println(file.getName());
-                    File serverFile = new File(dir.getAbsolutePath()+
-                             File.separator + nazivFajla); //mozda ovde da bude ime dokumenta umesto naziv fajla
-                    try (BufferedOutputStream stream = new BufferedOutputStream(
-                            new FileOutputStream(serverFile))) {
-                        stream.write(bytes);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return new ModelAndView("error", "error", "Error uploading file! " + " => " + e.getMessage());
 
+            try {
+                byte[] bytes = file.getBytes();
+                putanja = "C:" + File.separator + "wamp" + File.separator + "www" + File.separator + "DMS" + File.separator + "files";
+                File dir = new File(putanja);
+                if (!dir.exists()) {
+                    dir.mkdirs();
                 }
+                String nazivFajla = file.getOriginalFilename();
+                
+                System.out.println(file.getName() + " je original ime fajla");
+                
+                String n = file.getName();
+                System.out.println(n+" je name fajla");
+                
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + nazivFajla); //mozda ovde da bude ime dokumenta umesto naziv fajla
+                try (BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile))) {
+                    stream.write(bytes);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ModelAndView("error", "error", "Error uploading file! " + " => " + e.getMessage());
+
+            }
         }
-        
-        doc.setFajl(putanja);
+
+        doc.setFajl(putanja+File.separator+file.getOriginalFilename());
         dokumentService.save(doc);
-        
+
         aktivnost.getDokumentList().add(doc);
         activityService.save(aktivnost);
-        
+
         ModelAndView mv = new ModelAndView("process_overview");
 
         return mv;
     }
-    
+
     //@RequestParam(value = "file") MultipartFile[] files
-    
     private boolean daLiJePrazan(MultipartFile file) {
-            if (file.isEmpty()) {
-                System.out.println("Fajl prazan");
-                return true;
-            } else {
-                System.out.println("naziv:" + file.getName());
-            }
+        if (file.isEmpty()) {
+            System.out.println("Fajl prazan");
+            return true;
+        } else {
+            System.out.println("naziv:" + file.getName());
+        }
         return false;
     }
-    
+
+//    @RequestMapping(path = "/download/{id}", method = RequestMethod.GET)
+//    public ResponseEntity<byte[]> downloadFile(@PathVariable("id") long id) {
+//        Dokument document = dokumentService.findOne(id);
+//        HttpHeaders header = new HttpHeaders();
+//        //header.setContentType(MediaType.valueOf(document.getFileType()));
+//        header.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + document.getNaziv());
+//       // header.setContentLength(document.getFajl().length);
+//        return new ResponseEntity<>(document.getFajl(), header, HttpStatus.OK);
+//    }
 }
