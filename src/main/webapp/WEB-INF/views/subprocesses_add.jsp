@@ -47,13 +47,13 @@
                             <a href="#"><i class="fa fa-sitemap "></i>Processes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dms/process/overview">Processes overview</a>
+                                    <a href="/dms/processes/adm/overview">Processes overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/process/add_new">Add new process</a>
+                                    <a href="/dms/processes/adm/add_new">Add new process</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/process/add_new_sub">Add new subprocess</a>
+                                    <a href="/dms/processes/adm/add_new_sub">Add new subprocess</a>
                                 </li>
                                 <li>
                                     <a href="/dms/activity/add_new">Add new activity</a>
@@ -75,10 +75,10 @@
                             <a href="#"><i class="fa fa-users"></i>Users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dms/admins/user_overview">Users overview</a>
+                                    <a href="/dms/admins/usr/user_overview">Users overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/admins/add_new_user">Add new user</a>
+                                    <a href="/dms/admins/usr/add_new_user">Add new user</a>
                                 </li>
                             </ul>
                         </li>
@@ -95,7 +95,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" method="POST" id="add_subprocess_form" action="/dms/process/add_new_sub">
+                                    <form role="form" method="POST" id="add_subprocess_form" action="/dms/processes/adm/add_new_sub">
                                         <div class="form-group">
                                             <label>Name</label>
                                             <input class="form-control" name="procesname">

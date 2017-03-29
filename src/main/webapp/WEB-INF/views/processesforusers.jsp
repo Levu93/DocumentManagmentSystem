@@ -50,7 +50,7 @@
                         <a href="#"><i class="fa fa-sitemap "></i>Processes<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/dms/process/overviewusers">Processes overview</a>
+                                <a href="/dms/processes/usr/overviewusers">Processes overview</a>
                             </li>
                         </ul>
                     </li>             
@@ -102,7 +102,7 @@
 
 
                             -----------
-                            <form action="sve-vesti" method="POST">
+                            <form action="sve" method="POST">
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -118,7 +118,7 @@
                                                 <td>${proces.naziv}</td>
                                                 <td>${proces.oznaka}</td>
                                                 <td>${proces.opis}</td>
-                                                <td><a href="/dms/processes/details/${subsystem.id}">Details</a></td>
+                                                <td><a href="/dms/processes/adm/details/${subsystem.id}">Details</a></td>
                                             </tr>                                            
                                         </c:forEach>
                                     </tbody>

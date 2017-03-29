@@ -46,7 +46,7 @@
                             <a href="#"><i class="fa fa-sitemap "></i>Processes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dms/process/overviewusers">Processes overview</a>
+                                    <a href="/dms/processes/usr/overviewusers">Processes overview</a>
                                 </li>
                             </ul>
                         </li>
@@ -68,7 +68,7 @@
                             <h4>${aktivnost.naziv}</h4>
 
                             <div class="table-responsive">
-                                <form action="sve-vesti" method="POST">
+                                <form action="sve" method="POST">
                                     <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>

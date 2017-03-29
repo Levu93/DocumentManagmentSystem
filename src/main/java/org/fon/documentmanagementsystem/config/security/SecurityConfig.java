@@ -8,7 +8,6 @@ package org.fon.documentmanagementsystem.config.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,9 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/subsystems/**").hasAuthority("SUPERADMIN")
-               // .antMatchers("/admins/**").hasAuthority("SUPERADMIN")
-               // .antMatchers("/admins/**").hasAuthority("ADMIN")
-                .antMatchers("/processes/**").hasAuthority("ADMIN")
+                .antMatchers("/admins/adm/**").hasAuthority("SUPERADMIN")
+                .antMatchers("/admins/usr/**").hasAuthority("ADMIN")
+                .antMatchers("/processes/adm/**").hasAuthority("ADMIN")
+                .antMatchers("/processes/usr/**").hasAuthority("USER")
                 .antMatchers("/documenttypes/**").hasAuthority("ADMIN")
                 .antMatchers("/documents/**").hasAuthority("USER")
                 .anyRequest().authenticated()

@@ -47,7 +47,7 @@
                             <a href="#"><i class="fa fa-sitemap "></i>Processes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dms/process/overviewusers">Processes overview</a>
+                                    <a href="/dms/processes/usr/overviewusers">Processes overview</a>
                                 </li>
                             </ul>
                         </li>

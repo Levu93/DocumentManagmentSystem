@@ -27,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author nevenac
  */
 @Controller
-@RequestMapping("/process/")
+@RequestMapping("/processes/")
 public class ProcesController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class ProcesController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(path = "/overview", method = RequestMethod.GET)
+    @RequestMapping(path = "adm/overview", method = RequestMethod.GET)
     public ModelAndView showAllProcesses() {
 
         ModelAndView mv = new ModelAndView("process_overview");
@@ -58,7 +58,7 @@ public class ProcesController {
         return mv;
     }
     
-    @RequestMapping(path = "/test", method = RequestMethod.GET)
+    @RequestMapping(path = "adm/test", method = RequestMethod.GET)
     public ModelAndView showAllProcessesTest() {
 
         ModelAndView mv = new ModelAndView("teststrana");
@@ -116,13 +116,13 @@ public class ProcesController {
         return mv;
     }
 
-    @RequestMapping(path = "/add_new", method = RequestMethod.GET)
+    @RequestMapping(path = "adm/add_new", method = RequestMethod.GET)
     public ModelAndView addProcessGetPage() {
         ModelAndView mv = new ModelAndView("process_add");
         return mv;
     }
 
-    @RequestMapping(path = "/add_new_sub", method = RequestMethod.GET)
+    @RequestMapping(path = "adm/add_new_sub", method = RequestMethod.GET)
     public ModelAndView addSubProcessGetPage() {
         
         UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -143,7 +143,7 @@ public class ProcesController {
         return mv;
     }
 
-    @RequestMapping(path = "/add_new_sub/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "adm/add_new_sub/{id}", method = RequestMethod.GET)
     public ModelAndView addSubproccessForProcess(@PathVariable("id") long id) {
 
         UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -169,7 +169,7 @@ public class ProcesController {
         return mv;
     }
 
-    @RequestMapping(path = "/add_new", method = RequestMethod.POST)
+    @RequestMapping(path = "adm/add_new", method = RequestMethod.POST)
     public ModelAndView addNewProcess(String procesname, String processign, String procesdescription) {
 
         Proces p = new Proces();
@@ -196,7 +196,7 @@ public class ProcesController {
         return mv;
     }
 
-    @RequestMapping(path = "/overviewusers", method = RequestMethod.GET)
+    @RequestMapping(path = "usr/overviewusers", method = RequestMethod.GET)
     public ModelAndView getProccessOverviewForUsers() {
         ModelAndView mv = new ModelAndView("processesforusers");
         List<Proces> sviProcesi;
@@ -212,7 +212,7 @@ public class ProcesController {
         return mv;
     }
 
-    @RequestMapping(path = "/add_new_sub", method = RequestMethod.POST)
+    @RequestMapping(path = "adm/add_new_sub", method = RequestMethod.POST)
     public ModelAndView addNewSubProcess(String procesname, String processign, String procesdescription, long procesparent, boolean isprimitive) {
 
         Proces subp = new Proces();

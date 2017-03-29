@@ -51,13 +51,13 @@
                             <a href="#"><i class="fa fa-sitemap "></i>Processes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dms/process/overview">Processes overview</a>
+                                    <a href="/dms/processes/adm/overview">Processes overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/process/add_new">Add new process</a>
+                                    <a href="/dms/processes/adm/add_new">Add new process</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/process/add_new_sub">Add new subprocess</a>
+                                    <a href="/dms/processes/adm/add_new_sub">Add new subprocess</a>
                                 </li>
                                 <li>
                                     <a href="/dms/activity/add_new">Add new activity</a>
@@ -79,10 +79,10 @@
                             <a href="#"><i class="fa fa-users"></i>Users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dms/admins/user_overview">Users overview</a>
+                                    <a href="/dms/admins/usr/user_overview">Users overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/admins/add_new_user">Add new user</a>
+                                    <a href="/dms/admins/usr/add_new_user">Add new user</a>
                                 </li>
                             </ul>
                         </li>
@@ -125,7 +125,7 @@
                                                                         <a href="/dms/activity/add_new/${subproces.id}"> Add activity</a>
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                        <a href="/dms/process/add_new_sub/${subproces.id}"> Add subprocess</a>
+                                                                        <a href="/dms/processes/adm/add_new_sub/${subproces.id}"> Add subprocess</a>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </li>
@@ -137,7 +137,7 @@
                                                         <a href="/dms/activity/add_new/${proces.id}"> Add activity</a>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <a href="/dms/process/add_new_sub/${proces.id}"> Add subprocess</a>
+                                                        <a href="/dms/processes/adm/add_new_sub/${proces.id}"> Add subprocess</a>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </li>
@@ -163,7 +163,7 @@
                                                     <td>${proces.naziv}</td>
                                                     <td>${proces.oznaka}</td>
                                                     <td>${proces.opis}</td>
-                                                    <td><a href="/dms/processes/details/${subsystem.id}">Details</a></td>
+                                                    <td><a href="/dms/processes/adm/details/${subsystem.id}">Details</a></td>
                                                 </tr>                                            
                                             </c:forEach>
                                         </tbody>

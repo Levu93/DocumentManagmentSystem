@@ -57,10 +57,10 @@
                             <a href="#"><i class="fa fa-sitemap "></i>Admin users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/dms/admins/overview">Admin overview</a>
+                                    <a href="/dms/admins/adm/overview">Admin overview</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/admins/add_new_admin">Add new Admin</a>
+                                    <a href="/dms/admins/adm/add_new_admin">Add new Admin</a>
                                 </li>
                             </ul>
                         </li>     

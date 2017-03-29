@@ -38,7 +38,7 @@ public class UserController {
     @Autowired
     private RolaService rolaService;
 
-    @RequestMapping(path = "/overview", method = RequestMethod.GET)
+    @RequestMapping(path = "adm/overview", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView mv = new ModelAndView("admin_overview");
         List<Podsistem> sviPodsistemi;
@@ -47,7 +47,7 @@ public class UserController {
         return mv;
     }
 
-    @RequestMapping(path = "/user_overview", method = RequestMethod.GET)
+    @RequestMapping(path = "usr/user_overview", method = RequestMethod.GET)
     public ModelAndView userOverview() {
 
         ModelAndView mv = new ModelAndView("user_overview");
@@ -73,7 +73,7 @@ public class UserController {
         return mv;
     }
 
-    @RequestMapping(path = "/add_new_admin", method = RequestMethod.GET)
+    @RequestMapping(path = "adm/add_new_admin", method = RequestMethod.GET)
     public ModelAndView addAdminPage() {
         ModelAndView mv = new ModelAndView("admin_add");
         List<Podsistem> sviPodsistemi;
@@ -82,16 +82,16 @@ public class UserController {
         return mv;
     }
 
-    @RequestMapping(path = "/add_new_user", method = RequestMethod.GET)
+    @RequestMapping(path = "usr/add_new_user", method = RequestMethod.GET)
     public ModelAndView addUserPage() {
-        ModelAndView mv = new ModelAndView("admin_add");
-        List<Podsistem> sviPodsistemi;
-        sviPodsistemi = podsistemService.findAll();
-        mv.addObject("subsystems", sviPodsistemi);
+        ModelAndView mv = new ModelAndView("user_add");
+//        List<Podsistem> sviPodsistemi;
+//        sviPodsistemi = podsistemService.findAll();
+//        mv.addObject("subsystems", sviPodsistemi);
         return mv;
     }
 
-    @RequestMapping(path = "/add_new_admin", method = RequestMethod.POST)
+    @RequestMapping(path = "adm/add_new_admin", method = RequestMethod.POST)
     public ModelAndView addAdmin(String adminname, String adminlastname, String adminusername, String adminpass, String adminsubsystem) {
 
         List<Podsistem> sviPodsistemi;
@@ -120,8 +120,6 @@ public class UserController {
 
         ModelAndView mv = new ModelAndView();
 
-        if (userKojiCuva.getIdRole().getNazivRole().equalsIgnoreCase("superadmin")) {
-
             Rola rola = rolaService.findOne(2);
             user.setIdRole(rola);
 
@@ -137,37 +135,65 @@ public class UserController {
             List<Podsistem> podsistemiposleCuvanja = podsistemService.findAll();
 
             mv.addObject("subsystems", podsistemiposleCuvanja);
-
-        } else {
-
-            Rola rola = rolaService.findOne(3);
-            user.setIdRole(rola);
-            user.setIdPodsistema(userKojiCuva.getIdPodsistema());
-            userKojiCuva.getIdPodsistema().getUserList().add(user);
-
-            userService.save(user);
-            podsistemService.sacuvajPodsistem(userKojiCuva.getIdPodsistema());
-
-            mv = new ModelAndView("user_overview");
-
-            List<User> sviUseri;
-            sviUseri = userService.findAll();
-
-            List<User> zeljeni = new ArrayList<>();
-
-            for (User us : sviUseri) {
-                if (us.getIdPodsistema() != null) {
-                    if (us.getIdPodsistema().getId().equals(userKojiCuva.getIdPodsistema().getId())) {
-                        zeljeni.add(us);
-                    }
-                }
-            }
-            zeljeni.remove(userKojiCuva);
-
-            mv.addObject("users", zeljeni);
-        }
-
+            
         return mv;
     }
 
+    @RequestMapping(path = "usr/add_new_user", method = RequestMethod.POST)
+    public ModelAndView addUser(String adminname, String adminlastname, String adminusername, String adminpass, String adminsubsystem) {
+
+        List<Podsistem> sviPodsistemi;
+        sviPodsistemi = podsistemService.findAll();
+
+        User x = userService.findOne(adminusername);
+
+        if (x != null) {
+            ModelAndView mv = new ModelAndView("user_add");
+            mv.addObject("error", "Username already exists!!!");
+            mv.addObject("ime", adminname);
+            mv.addObject("prezime", adminlastname);
+
+            mv.addObject("subsystems", sviPodsistemi);
+
+            return mv;
+        }
+
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+
+        User user = new User(adminusername);
+        user.setIme(adminname);
+        user.setPassword(adminpass);
+        user.setPrezime(adminlastname);
+
+        ModelAndView mv = new ModelAndView();
+
+        Rola rola = rolaService.findOne(3);
+        user.setIdRole(rola);
+        user.setIdPodsistema(userKojiCuva.getIdPodsistema());
+        userKojiCuva.getIdPodsistema().getUserList().add(user);
+
+        userService.save(user);
+        podsistemService.sacuvajPodsistem(userKojiCuva.getIdPodsistema());
+
+        mv = new ModelAndView("user_overview");
+
+        List<User> sviUseri;
+        sviUseri = userService.findAll();
+
+        List<User> zeljeni = new ArrayList<>();
+
+        for (User us : sviUseri) {
+            if (us.getIdPodsistema() != null) {
+                if (us.getIdPodsistema().getId().equals(userKojiCuva.getIdPodsistema().getId())) {
+                    zeljeni.add(us);
+                }
+            }
+        }
+        zeljeni.remove(userKojiCuva);
+
+        mv.addObject("users", zeljeni);
+
+        return mv;
+    }
 }

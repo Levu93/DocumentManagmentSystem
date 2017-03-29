@@ -5,7 +5,7 @@
     <head>
         <title>Document Management System</title>
         <%@include file="header.jsp" %>
-        <script src="../resources/js/scripts.js"></script>
+        <script src="../resources/js/bootstrap-select.js"></script>
     </head>
     <body>
         <sec:authentication var="admin" property="principal"/>
@@ -57,11 +57,11 @@
                                 </li>
                                 <li>
                                     <a href="/dms/activity/add_new">Add new activity</a>
-                                </li> 
+                                </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-sitemap "></i>Document Types<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-file"></i>Document Types<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="/dms/documenttypes/overview">Document types overview</a>
@@ -71,7 +71,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li>                          
                             <a href="#"><i class="fa fa-users"></i>Users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -81,7 +81,7 @@
                                     <a href="/dms/admins/usr/add_new_user">Add new user</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>              
                     </ul>
                 </div>
             </nav>
@@ -89,47 +89,61 @@
                 <div id="page-inner">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="page-head-line">ADD NEW PROCESS</h1>
+                            <h1 class="page-head-line">ADD NEW USER</h1>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div class="row">
+                        <div class="row">                            
                             <div class="col-lg-6">
-                                <form role="form" method="POST" id="add_process_form" action="/dms/processes/adm/add_new">
+                                <c:if test="${not empty error}">
+                                    <h1 style="color: red; font-weight: bold">${error}</h1>
+                                    <br>
+                                </c:if>
+                                <form role="form" method="POST" id="add_admin_form" action="/dms/admins/usr/add_new_user">
                                     <div class="form-group">
-                                        <label>Name</label>
-                                        <input class="form-control" name="procesname">
-                                        <p class="help-block">Example: process1</p>                                         
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Sign</label>
-                                        <input class="form-control" name="processign">
-                                        <p class="help-block">Example: P1</p>                                         
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Process description</label>
-                                        <textarea class="form-control" rows="5" name="procesdescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this)">Process is for...</textarea>
-                                    </div>                                 
-                                    <button type="submit" class="btn btn-default">Create new process</button>
-                                    <button type="reset" class="btn btn-default">Reset</button>  
-                                </form>
-                            </div>
-                            <!-- /.col-lg-6 (nested) -->
-                            <div class="col-lg-6">
+                                        <label>First Name</label>
+                                        <input class="form-control" name="adminname" value="<c:if test="${not empty ime}">${ime}</c:if>">
+                                            <p class="help-block">Example: User</p>                                         
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input class="form-control" name="adminlastname" value="<c:if test="${not empty prezime}">${ime}</c:if>">
+                                            <p class="help-block">Example: User</p>                                         
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <input class="form-control" name="adminusername">
+                                            <p class="help-block">Example: username</p>                                         
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" name="adminpass">
+                                            <p class="help-block" style="color: red">8 characters minimum!!!</p>                                         
+                                        </div>    
+
+                                        <button type="submit" class="btn btn-default">Add new user</button>
+                                        <button type="reset" class="btn btn-default">Reset</button>                                                                                                                                                   
+                                    </form>
+                                </div>
+
+                                <div class="col-lg-6">
+
+                                </div>
 
                             </div>
-                            <!-- /.col-lg-6 (nested) -->
+                            <!-- /.row (nested) -->
                         </div>
-                        <!-- /.row (nested) -->
                     </div>
                 </div>
             </div>
+            <!-- /. PAGE INNER  -->
         </div>
-        <!-- /. PAGE INNER  -->
+        <!-- /. PAGE WRAPPER  -->
     </div>
-    <!-- /. PAGE WRAPPER  -->
-</div>
-<!-- /. WRAPPER  -->
+    <!-- /. WRAPPER  -->
+    <script>
+        $.('.chosen-select').chosen();
+    </script>
 <%@include file="footer.jsp" %>
 </body>
 </html>
