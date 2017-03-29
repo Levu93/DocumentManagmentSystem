@@ -82,6 +82,7 @@ public class DocumentController {
         doc.setIdTipaDokumenta(docType);
 
         String putanja = "n/a";
+        String nazivFajla = "n/a";
         if (!daLiJePrazan(file)) {
 
             try {
@@ -91,12 +92,10 @@ public class DocumentController {
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
-                String nazivFajla = file.getOriginalFilename();
-                
-                System.out.println(file.getName() + " je original ime fajla");
-                
-                String n = file.getName();
-                System.out.println(n+" je name fajla");
+
+                nazivFajla = file.getOriginalFilename();
+                int li = nazivFajla.lastIndexOf("\\");
+                //nazivFajla = nazivFajla.substring(li+1, nazivFajla.length());
                 
                 File serverFile = new File(dir.getAbsolutePath()
                         + File.separator + nazivFajla); //mozda ovde da bude ime dokumenta umesto naziv fajla
@@ -111,7 +110,7 @@ public class DocumentController {
             }
         }
 
-        doc.setFajl(putanja+File.separator+file.getOriginalFilename());
+        doc.setFajl(putanja + File.separator + nazivFajla);
         dokumentService.save(doc);
 
         aktivnost.getDokumentList().add(doc);

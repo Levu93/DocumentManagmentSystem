@@ -21,3 +21,4 @@ DONE:
 - Errori za insert ako username postoji  - vraca na tu admin add stranu!
 - Stavljena slicica u title
 - Error page sredjen
+update aktivitija radi
