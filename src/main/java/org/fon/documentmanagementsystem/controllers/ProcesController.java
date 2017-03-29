@@ -5,14 +5,12 @@
  */
 package org.fon.documentmanagementsystem.controllers;
 
-import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.fon.documentmanagementsystem.domain.Aktivnost;
 import org.fon.documentmanagementsystem.domain.Podsistem;
 import org.fon.documentmanagementsystem.domain.Proces;
 import org.fon.documentmanagementsystem.domain.User;
-import org.fon.documentmanagementsystem.dto.TreeDto;
 import org.fon.documentmanagementsystem.dto.UserDto;
 import org.fon.documentmanagementsystem.services.ProcesService;
 import org.fon.documentmanagementsystem.services.UserService;
@@ -175,21 +173,20 @@ public class ProcesController {
     public ModelAndView addNewProcess(String procesname, String processign, String procesdescription) {
 
         Proces p = new Proces();
-        int id1 = procesService.vratiId() + 1;
-        long x = id1;
-        p.setId(x);
+//        int id1 = procesService.vratiId() + 1;
+//        long x = id1;
+//        p.setId(x);
         p.setNaziv(procesname);
         p.setOznaka(processign);
         p.setOpis(procesdescription);
 
-        //ako ima laksi nacin, izmeni
         UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findOne(userdetail.getUsername());
 
         p.setIdPodsistema(user.getIdPodsistema());
-
         p.setNivo(1L);
-
+        p.setPrimitivan(false);
+        
         procesService.save(p);
 
         ModelAndView mv = new ModelAndView("process_overview");
@@ -219,9 +216,9 @@ public class ProcesController {
     public ModelAndView addNewSubProcess(String procesname, String processign, String procesdescription, long procesparent, boolean isprimitive) {
 
         Proces subp = new Proces();
-        int id1 = procesService.vratiId() + 1;
-        long x = id1;
-        subp.setId(x);
+//        int id1 = procesService.vratiId() + 1;
+//        long x = id1;
+//        subp.setId(x);
         subp.setNaziv(procesname);
         subp.setOznaka(processign);
         subp.setOpis(procesdescription);

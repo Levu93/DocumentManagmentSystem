@@ -46,9 +46,9 @@ public class TipdokumentaController {
     @RequestMapping(path = "/add_new", method = RequestMethod.POST)
     public ModelAndView addNewSubsystem(String documenttypename) {
         Tipdokumenta tipdokumenta = new Tipdokumenta();
-        int id1 = tipDokumentaService.vratiId() + 1;
-        long x = id1;
-        tipdokumenta.setIdTipaDokumenta(x);
+//        int id1 = tipDokumentaService.vratiId() + 1;
+//        long x = id1;
+//        tipdokumenta.setIdTipaDokumenta(x);
         tipdokumenta.setNazivTipa(documenttypename);
         tipDokumentaService.sacuvajTipDokumenta(tipdokumenta);
         ModelAndView mv = new ModelAndView("documenttype_overview");

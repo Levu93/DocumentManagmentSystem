@@ -3,7 +3,7 @@ TODO General:
 - Pretraga dokumenata
 - Istestirati sve slucajeve koriscenja
 - Dokumentacija
--Update
+- Update (cega?)
 
 TODO Nevena:
 - JS Tree - u 3 pm -.-
@@ -12,13 +12,10 @@ TODO Nevena:
 
 TODO Vukasin:
 - Action kod admina
-- Generisanje id-a (moramo da promenimo bazu na auto-increment)
-- Pregled dokumenata
+- Pregled dokumenata (najbolje kroz aktivnosti i tree)
 - Proveriti accessse
 
 DONE:
 - Upload fajla - Vukasin zna kako #samojako Vukasin uradio :)  - nesto sam promenila, jer mi nije radio upload, proveri
 - Errori za insert ako username postoji  - vraca na tu admin add stranu!
-- Stavljena slicica u title
-- Error page sredjen
-update aktivitija radi
+- Generisanje id-a (moramo da promenimo bazu na auto-increment)

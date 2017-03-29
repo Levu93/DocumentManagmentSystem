@@ -155,12 +155,12 @@ public class ActivityController {
     @RequestMapping(path = "/add_new/{id}", method = RequestMethod.POST)
     public ModelAndView addNewActivityForProcess(@PathVariable("id") long id, String activityname, String activitysign, String activitydescription) {
 
-        long idakt = activityService.findAll().size() + 1;
+        //long idakt = activityService.findAll().size() + 1;
 
         Proces target = procesService.findOne(id);
 
         Aktivnost aktivnost = new Aktivnost();
-        aktivnost.setId(idakt);
+        //aktivnost.setId(idakt);
         aktivnost.setNaziv(activityname);
         aktivnost.setOznaka(activitysign);
         aktivnost.setOpis(activitydescription);
