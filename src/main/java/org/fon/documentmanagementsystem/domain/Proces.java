@@ -6,6 +6,7 @@
 package org.fon.documentmanagementsystem.domain;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -19,7 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -43,9 +43,8 @@ public class Proces implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "Id")
     private Long id;
     @Size(max = 100)
@@ -58,7 +57,7 @@ public class Proces implements Serializable {
     @Column(name = "Opis")
     private String opis;
     @Column(name = "Nivo")
-    private Long nivo;
+    private int nivo;
     @Column(name = "Primitivan")
     private Boolean primitivan;
     @OneToMany(mappedBy = "idProcesa")
@@ -111,11 +110,11 @@ public class Proces implements Serializable {
         this.opis = opis;
     }
 
-    public Long getNivo() {
+    public int getNivo() {
         return nivo;
     }
 
-    public void setNivo(Long nivo) {
+    public void setNivo(int nivo) {
         this.nivo = nivo;
     }
 

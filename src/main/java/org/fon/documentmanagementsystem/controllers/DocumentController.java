@@ -87,6 +87,7 @@ public class DocumentController {
 
         String putanja = "n/a";
         String nazivFajla = "n/a";
+        String ct = "n/a";
         if (!daLiJePrazan(file)) {
 
             try {
@@ -101,7 +102,7 @@ public class DocumentController {
                 
                 int li = nazivFajla.lastIndexOf("\\");
                 //nazivFajla = nazivFajla.substring(li+1, nazivFajla.length());
-
+                
                 File serverFile = new File(dir.getAbsolutePath()
                         + File.separator + nazivFajla); //mozda ovde da bude ime dokumenta umesto naziv fajla
                 try (BufferedOutputStream stream = new BufferedOutputStream(
@@ -116,6 +117,7 @@ public class DocumentController {
         }
 
         doc.setFajl(putanja + File.separator + nazivFajla);
+
         dokumentService.save(doc);
 
         aktivnost.getDokumentList().add(doc);
@@ -140,25 +142,34 @@ public class DocumentController {
     @RequestMapping(path = "/download/{id}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> downloadFile(@PathVariable("id") long id) {
         try {
-            
-            Dokument document = dokumentService.findOne(id);
-            
-            HttpHeaders header = new HttpHeaders();
-            //header.setContentType(MediaType.valueOf(document.getFileType()));
-            header.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + document.getNaziv());
-            // header.setContentLength(document.getFajl().length);            
 
-            File file = new File(document.getFajl());
+            Dokument document = dokumentService.findOne(id);
+
+            HttpHeaders header = new HttpHeaders();
+            //header.setContentType(MediaType.valueOf(document.getFajlTip()));
+                       
+            
+            String nazivfajla = document.getFajl();
+            int li = nazivfajla.lastIndexOf('\\');
+            String subsnaziv = nazivfajla.substring(li+1, nazivfajla.length());
+            header.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + subsnaziv); 
+            File file = new File(nazivfajla);
             
             Path path = file.toPath();
-            
 
             byte[] outputByte = Files.readAllBytes(path);
-         
+            
+            String fajltype = Files.probeContentType(path);
+            System.out.println(fajltype+" je tip");
+            
+            header.setContentType(MediaType.valueOf(fajltype));
+            
+            header.setContentLength(outputByte.length);
+
             return new ResponseEntity<>(outputByte, header, HttpStatus.OK);
         } catch (Exception e) {
             return null;
-        }        
+        }
     }
 
     @RequestMapping(path = "/delete/{id}", method = RequestMethod.GET)

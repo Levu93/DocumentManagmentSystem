@@ -190,7 +190,7 @@ public class ProcesController {
         User user = userService.findOne(userdetail.getUsername());
 
         p.setIdPodsistema(user.getIdPodsistema());
-        p.setNivo(1L);
+        p.setNivo(1);
         p.setPrimitivan(false);
         
         procesService.save(p);
