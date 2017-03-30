@@ -56,7 +56,7 @@
                                     <a href="/dms/processes/adm/add_new_sub">Add new subprocess</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/activity/add_new">Add new activity</a>
+                                    <a href="/dms/activity/adm/add_new">Add new activity</a>
                                 </li> 
                             </ul>
                         </li>
@@ -109,7 +109,12 @@
                                     <div class="form-group">
                                         <label>Process description</label>
                                         <textarea class="form-control" rows="5" name="procesdescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this)">Process is for...</textarea>
-                                    </div>                                 
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" name = "isprimitive">Is primitive?</label>
+                                        </div>
+                                    </div>  
                                     <button type="submit" class="btn btn-default">Create new process</button>
                                     <button type="reset" class="btn btn-default">Reset</button>  
                                 </form>

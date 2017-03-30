@@ -56,7 +56,7 @@
                                     <a href="/dms/processes/adm/add_new_sub">Add new subprocess</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/activity/add_new">Add new activity</a>
+                                    <a href="/dms/activity/adm/add_new">Add new activity</a>
                                 </li> 
                             </ul>
                         </li>

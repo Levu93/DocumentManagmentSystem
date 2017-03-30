@@ -60,7 +60,7 @@
                                     <a href="/dms/processes/adm/add_new_sub">Add new subprocess</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/activity/add_new">Add new activity</a>
+                                    <a href="/dms/activity/adm/add_new">Add new activity</a>
                                 </li>
                             </ul>
                         </li>
@@ -115,14 +115,14 @@
                                                                     <c:forEach var="aktivnost" items="${subproces.aktivnostList}">
                                                                         <ul> 
                                                                             <li>
-                                                                                <a href="/dms/activity/details/${aktivnost.id}"> ${aktivnost.naziv}</a>
+                                                                                <a href="/dms/activity/adm/details/${aktivnost.id}"> ${aktivnost.naziv}</a>
                                                                             </li>
                                                                         </ul>
                                                                     </c:forEach>
                                                                 </c:if>
                                                                 <c:choose>
                                                                     <c:when test="${subproces.primitivan == true}">
-                                                                        <a href="/dms/activity/add_new/${subproces.id}"> Add activity</a>
+                                                                        <a href="/dms/activity/adm/add_new/${subproces.id}"> Add activity</a>
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         <a href="/dms/processes/adm/add_new_sub/${subproces.id}"> Add subprocess</a>
@@ -134,7 +134,7 @@
                                                 </c:if>
                                                 <c:choose>
                                                     <c:when test="${proces.primitivan == true}">
-                                                        <a href="/dms/activity/add_new/${proces.id}"> Add activity</a>
+                                                        <a href="/dms/activity/adm/add_new/${proces.id}"> Add activity</a>
                                                     </c:when>
                                                     <c:otherwise>
                                                         <a href="/dms/processes/adm/add_new_sub/${proces.id}"> Add subprocess</a>

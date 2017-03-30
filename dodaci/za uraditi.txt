@@ -1,14 +1,14 @@
 TODO General:
 - Brisanje objekata, analiza sta i kako brisati
+-Admin overview - action???
 - Pretraga dokumenata
 - Istestirati sve slucajeve koriscenja
 - Dokumentacija
-- Update (cega?)
+-update procesa
+-download da se sredi
 
 TODO Nevena:
 - JS Tree - u 3 pm -.-
-- Procesi i aktivnosti - probati Vuletovu ideju, pa Boze pomozi - ideja radi, al mislim da neke stvari treba izmeniti
-
 
 TODO Vukasin:
 - Action kod admina
@@ -20,3 +20,9 @@ DONE:
 - Errori za insert ako username postoji  - vraca na tu admin add stranu!
 - Generisanje id-a (moramo da promenimo bazu na auto-increment)
 - Proveriti accessse (moze se podvuce neka greska)
+-Update activity		
+-Update document type
+-update subsystem
+-delete dokumenata
+
+

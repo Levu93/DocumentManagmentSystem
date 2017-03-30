@@ -56,7 +56,7 @@
                                     <a href="/dms/processes/adm/add_new_sub">Add new subprocess</a>
                                 </li>
                                 <li>
-                                    <a href="/dms/activity/add_new">Add new activity</a>
+                                    <a href="/dms/activity/adm/add_new">Add new activity</a>
                                 </li>
                             </ul>
                         </li>
@@ -109,10 +109,10 @@
                             <div class="col-lg-6">
                                 <form role="form" method="POST" id="add_activity_form" action="<c:choose>
                                           <c:when test="${aktivnost != null}">
-                                              /dms/activity/update/${aktivnost.id}
+                                              /dms/activity/adm/update/${aktivnost.id}
                                           </c:when>
                                           <c:otherwise>
-                                              /dms/activity/add_new/${process.id}
+                                              /dms/activity/adm/add_new/${process.id}
                                           </c:otherwise>
                                       </c:choose>">
                                     <div class="form-group">

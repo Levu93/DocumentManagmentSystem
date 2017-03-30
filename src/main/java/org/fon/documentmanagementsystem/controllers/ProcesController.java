@@ -6,11 +6,14 @@
 package org.fon.documentmanagementsystem.controllers;
 
 
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
+import org.fon.documentmanagementsystem.domain.Aktivnost;
 import org.fon.documentmanagementsystem.domain.Podsistem;
 import org.fon.documentmanagementsystem.domain.Proces;
 import org.fon.documentmanagementsystem.domain.User;
+import org.fon.documentmanagementsystem.dto.TreeDto;
 import org.fon.documentmanagementsystem.dto.UserDto;
 import org.fon.documentmanagementsystem.services.ProcesService;
 import org.fon.documentmanagementsystem.services.UserService;
@@ -61,58 +64,60 @@ public class ProcesController {
     @RequestMapping(path = "adm/test", method = RequestMethod.GET)
     public ModelAndView showAllProcessesTest() {
 
-        ModelAndView mv = new ModelAndView("teststrana");
+        ModelAndView mv = new ModelAndView("tree");
 
-//        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User userKojiCuva = userService.findOne(userdetail.getUsername());
-//        Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
-//
-//        List<Proces> sviProcesi;
-//        sviProcesi = procesService.findAll();
-//        List<Proces> zeljeni = new ArrayList<>();
-//        for (Proces proces : sviProcesi) {
-//            if (proces.getIdPodsistema().equals(podsistemusera)) {
-//                zeljeni.add(proces);
-//            }
-//        }
-//        List<TreeDto> drvece = new ArrayList<>();
-//        for (Proces proces : zeljeni) {
-//            TreeDto drvoproces = new TreeDto();
-//            drvoproces.setId(proces.getId());
-//            drvoproces.setActivity(false);
-//            drvoproces.setIcon(TreeDto.PROCESS_ICON);
-//            if (proces.getIdNadProcesa() == null) {
-//                drvoproces.setParent("#");
-//            }else{
-//                drvoproces.setParent(proces.getIdNadProcesa().getId()+"");
-//            }
-//            drvoproces.setText(proces.getNaziv());
-//            if (proces.getPrimitivan()) {
-//                drvoproces.setPrimitive(true);
-//                if (!proces.getAktivnostList().isEmpty()) {
-//                    for (Aktivnost aktivnost : proces.getAktivnostList()) {
-//                        TreeDto drvoaktivnost = new TreeDto();
-//                        drvoaktivnost.setActivity(true);
-//                        drvoaktivnost.setIcon(TreeDto.ACTIVITY_ICON);
-//                        drvoaktivnost.setId(aktivnost.getId());
-//                        drvoaktivnost.setParent(proces.getId()+"");
-//                        drvoaktivnost.setText(aktivnost.getNaziv());
-//                        
-//                        drvece.add(drvoaktivnost);
-//                    }
-//                }
-//            }else{
-//                drvoproces.setPrimitive(false);
-//            }
-//            drvece.add(drvoproces);
-//        }
-//        
-//        Gson gson = new Gson();
-//        String jsonformat = gson.toJson(drvece);
-//        System.out.println(jsonformat);
-//        //ovde sam vise da ubacimo da ih trazi po nivoima, nego sve pa da izbacujemo, al nisam uspela to da uradim
-//        mv.addObject("processes", zeljeni);
-//        mv.addObject("drvo", jsonformat);
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+        Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
+
+        List<Proces> sviProcesi;
+        sviProcesi = procesService.findAll();
+        List<Proces> zeljeni = new ArrayList<>();
+        for (Proces proces : sviProcesi) {
+            if (proces.getIdPodsistema().equals(podsistemusera)) {
+                zeljeni.add(proces);
+            }
+        }
+        List<TreeDto> drvece = new ArrayList<>();
+        for (Proces proces : zeljeni) {
+            TreeDto drvoproces = new TreeDto();
+            drvoproces.setId(proces.getId());
+            //drvoproces.setActivity(false);
+            drvoproces.setIcon(TreeDto.PROCESS_ICON);
+            if (proces.getIdNadProcesa() == null) {
+                drvoproces.setParent("#");
+            }else{
+                drvoproces.setParent(proces.getIdNadProcesa().getId()+"");
+            }
+            drvoproces.setText(proces.getNaziv());
+            if (proces.getPrimitivan()) {
+              //  drvoproces.setPrimitive(true);
+                if (!proces.getAktivnostList().isEmpty()) {
+                    for (Aktivnost aktivnost : proces.getAktivnostList()) {
+                        TreeDto drvoaktivnost = new TreeDto();
+                //        drvoaktivnost.setActivity(true);
+                        drvoaktivnost.setIcon(TreeDto.ACTIVITY_ICON);
+                        drvoaktivnost.setId(aktivnost.getId());
+                        drvoaktivnost.setParent(proces.getId()+"");
+                        drvoaktivnost.setText(aktivnost.getNaziv());
+                        
+                        drvece.add(drvoaktivnost);
+                    }
+                }
+            }else{
+                drvoproces.setPrimitive(false);
+            }
+            drvece.add(drvoproces);
+        }
+        
+        Gson gson = new Gson();
+        String jsonformat = gson.toJson(drvece);
+        jsonformat = jsonformat.replace('[', ' ');
+        jsonformat = jsonformat.replace(']', ' ');
+        System.out.println(jsonformat);
+        //ovde sam vise da ubacimo da ih trazi po nivoima, nego sve pa da izbacujemo, al nisam uspela to da uradim
+        mv.addObject("processes", zeljeni);
+        mv.addObject("drvo", jsonformat);
         return mv;
     }
 
@@ -170,7 +175,7 @@ public class ProcesController {
     }
 
     @RequestMapping(path = "adm/add_new", method = RequestMethod.POST)
-    public ModelAndView addNewProcess(String procesname, String processign, String procesdescription) {
+    public ModelAndView addNewProcess(String procesname, String processign, String procesdescription, boolean isprimitive) {
 
         Proces p = new Proces();
 //        int id1 = procesService.vratiId() + 1;
@@ -179,6 +184,7 @@ public class ProcesController {
         p.setNaziv(procesname);
         p.setOznaka(processign);
         p.setOpis(procesdescription);
+        p.setPrimitivan(isprimitive);
 
         UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findOne(userdetail.getUsername());

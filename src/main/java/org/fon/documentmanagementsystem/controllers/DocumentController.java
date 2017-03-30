@@ -7,10 +7,15 @@ package org.fon.documentmanagementsystem.controllers;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import org.fon.documentmanagementsystem.domain.Aktivnost;
 import org.fon.documentmanagementsystem.domain.Dokument;
 import org.fon.documentmanagementsystem.domain.Podsistem;
@@ -68,7 +73,6 @@ public class DocumentController {
     public ModelAndView addNewActivityForProcess(@PathVariable("id") long id, String documentname, String documentdescritption, long documenttype, MultipartFile file) {
 
         //long idDokumenta = dokumentService.findAll().size() + 1;
-
         Aktivnost aktivnost = activityService.findOne(id);
 
         Dokument doc = new Dokument();
@@ -94,9 +98,10 @@ public class DocumentController {
                 }
 
                 nazivFajla = file.getOriginalFilename();
+                
                 int li = nazivFajla.lastIndexOf("\\");
                 //nazivFajla = nazivFajla.substring(li+1, nazivFajla.length());
-                
+
                 File serverFile = new File(dir.getAbsolutePath()
                         + File.separator + nazivFajla); //mozda ovde da bude ime dokumenta umesto naziv fajla
                 try (BufferedOutputStream stream = new BufferedOutputStream(
@@ -116,7 +121,7 @@ public class DocumentController {
         aktivnost.getDokumentList().add(doc);
         activityService.save(aktivnost);
 
-        ModelAndView mv = new ModelAndView("process_overview");
+        ModelAndView mv = new ModelAndView("processesforusers");
 
         return mv;
     }
@@ -132,13 +137,42 @@ public class DocumentController {
         return false;
     }
 
-//    @RequestMapping(path = "/download/{id}", method = RequestMethod.GET)
-//    public ResponseEntity<byte[]> downloadFile(@PathVariable("id") long id) {
-//        Dokument document = dokumentService.findOne(id);
-//        HttpHeaders header = new HttpHeaders();
-//        //header.setContentType(MediaType.valueOf(document.getFileType()));
-//        header.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + document.getNaziv());
-//       // header.setContentLength(document.getFajl().length);
-//        return new ResponseEntity<>(document.getFajl(), header, HttpStatus.OK);
-//    }
+    @RequestMapping(path = "/download/{id}", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> downloadFile(@PathVariable("id") long id) {
+        try {
+            
+            Dokument document = dokumentService.findOne(id);
+            
+            HttpHeaders header = new HttpHeaders();
+            //header.setContentType(MediaType.valueOf(document.getFileType()));
+            header.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + document.getNaziv());
+            // header.setContentLength(document.getFajl().length);            
+
+            File file = new File(document.getFajl());
+            
+            Path path = file.toPath();
+            
+
+            byte[] outputByte = Files.readAllBytes(path);
+         
+            return new ResponseEntity<>(outputByte, header, HttpStatus.OK);
+        } catch (Exception e) {
+            return null;
+        }        
+    }
+
+    @RequestMapping(path = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteFile(@PathVariable("id") long id) {
+
+        Dokument document = dokumentService.findOne(id);
+        Aktivnost njegovaakt = document.getIdAktivnosti();
+        dokumentService.delete(document);
+        njegovaakt.getDokumentList().remove(document);
+        activityService.save(njegovaakt);
+
+        ModelAndView mv = new ModelAndView("activity_details");
+        mv.addObject("aktivnost", njegovaakt);
+
+        return mv;
+    }
 }

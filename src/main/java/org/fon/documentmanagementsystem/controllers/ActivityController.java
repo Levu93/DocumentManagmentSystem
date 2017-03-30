@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/activity/")
+@RequestMapping("/activity")
 public class ActivityController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class ActivityController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(path = "/add_new", method = RequestMethod.GET)
+    @RequestMapping(path = "/adm/add_new", method = RequestMethod.GET)
     public ModelAndView addActivityNoSubprocess() {
 
         //nude se samo primitivni i iy tog podsistema
@@ -61,7 +61,7 @@ public class ActivityController {
         return mv;
     }
 
-    @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(path = "/adm/update/{id}", method = RequestMethod.POST)
     public ModelAndView update(@PathVariable("id") long id, String activityname, String activitysign, String activitydescription) {
         Aktivnost a = activityService.findOne(id);
 
@@ -89,7 +89,7 @@ public class ActivityController {
         return mv;
     }
 
-    @RequestMapping(path = "/add_new/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/adm/add_new/{id}", method = RequestMethod.GET)
     public ModelAndView addActivity(@PathVariable("id") long id) {
 
         Proces target = procesService.findOne(id);
@@ -113,7 +113,7 @@ public class ActivityController {
         return mv;
     }
 
-    @RequestMapping(path = "/details/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/adm/details/{id}", method = RequestMethod.GET)
     public ModelAndView activityDetails(@PathVariable("id") long id) {
 
         Aktivnost target = activityService.findOne(id);
@@ -137,7 +137,7 @@ public class ActivityController {
         return mv;
     }
     
-    @RequestMapping(path = "/userdetails/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/user/userdetails/{id}", method = RequestMethod.GET)
     public ModelAndView activityDetailsForUsers(@PathVariable("id") long id) {
 
         Aktivnost target = activityService.findOne(id);
@@ -152,7 +152,7 @@ public class ActivityController {
         return mv;
     }
 
-    @RequestMapping(path = "/add_new/{id}", method = RequestMethod.POST)
+    @RequestMapping(path = "/adm/add_new/{id}", method = RequestMethod.POST)
     public ModelAndView addNewActivityForProcess(@PathVariable("id") long id, String activityname, String activitysign, String activitydescription) {
 
         //long idakt = activityService.findAll().size() + 1;

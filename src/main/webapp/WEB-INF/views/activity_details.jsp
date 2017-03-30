@@ -66,7 +66,7 @@
                             <h4> ${aktivnost.naziv} </h4>
                             <h4>${aktivnost.oznaka}</h4>
                             <h4>${aktivnost.naziv}</h4>
-
+                            <button class="btn btn-github"><a href="/dms/documents//add_new/${aktivnost.id}">Add document</a></button>
                             <div class="table-responsive">
                                 <form action="sve" method="POST">
                                     <table class="table table-striped table-bordered table-hover">
@@ -75,7 +75,8 @@
                                                 <th>Name</th>
                                                 <th>Code</th>
                                                 <th>Description</th>
-                                                <th>Action</th>
+                                                <th>Download</th>
+                                                <th>Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -85,6 +86,7 @@
                                                     <td>${dokument.datumKreiranja}</td>
                                                     <td>${dokument.napomena}</td>
                                                     <td><a href="/dms/documents/download/${dokument.idDokumenta}">Download</a></td>
+                                                    <td><a href="/dms/documents/delete/${dokument.idDokumenta}">Delete</a></td>
                                                 </tr>                                            
                                             </c:forEach>
                                         </tbody>

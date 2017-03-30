@@ -36,4 +36,9 @@ public class DokumentServiceImpl implements DokumentService {
     public void save(Dokument aktivnost) {
         dokumentRepository.save(aktivnost);
     }
+
+    @Override
+    public void delete(Dokument document) {
+        dokumentRepository.delete(document);
+    }
 }

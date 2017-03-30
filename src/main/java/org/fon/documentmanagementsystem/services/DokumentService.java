@@ -19,4 +19,6 @@ public interface DokumentService {
     List<Dokument> findAll();
 
     void save(Dokument dokument);
+
+    public void delete(Dokument document);
 }
