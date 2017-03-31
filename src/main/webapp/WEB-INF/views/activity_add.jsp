@@ -5,7 +5,17 @@
     <head>
         <title>Document Management System</title>
         <%@include file="header.jsp" %>
-        <script src="../resources/js/scripts.js"></script>
+        <script>
+            function confirmDelete() { // <--- changed here
+                var answer = confirm("Are you sure you want to delete ${aktivnost.naziv}? It may have documents connected!!!");
+                if (answer) {
+                    document.myForm.action = "/dms/activity/adm/delete/${aktivnost.id}";
+                    document.myForm.submit();
+                    return true;
+                } else
+                    return false;
+            }
+        </script>
     </head>
     <body>
         <sec:authentication var="admin" property="principal"/>
@@ -96,24 +106,36 @@
                                     </c:when>
                                     <c:when test="${aktivnost != null}">
                                         ${aktivnost.naziv} DETAILS
+                                        <form onsubmit="confirmDelete()" method="GET" name="myForm">
+                                            <input type="submit" class="btn btn-default" value="Delete activity">
+                                        </form>
                                     </c:when>
                                     <c:otherwise>
                                         ADD NEW ACTIVITY
                                     </c:otherwise>
                                 </c:choose>
                             </h1>
+                            <c:if test="${aktivnost != null}">
+                            </c:if>
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <form role="form" method="POST" id="add_activity_form" action="<c:choose>
+                                <form role="form" method="POST" id="add_activity_form" action="
+                                      <c:choose>
+                                          <c:when test="${aktivnost == null}">
+                                              <c:if test="${process == null}">
+                                                  /dms/activity/adm/add_new
+                                              </c:if>
+                                              <c:if test="${process != null}">
+                                                  /dms/activity/adm/add_new/${process.id}
+                                              </c:if>
+
+                                          </c:when>
                                           <c:when test="${aktivnost != null}">
                                               /dms/activity/adm/update/${aktivnost.id}
                                           </c:when>
-                                          <c:otherwise>
-                                              /dms/activity/adm/add_new/${process.id}
-                                          </c:otherwise>
                                       </c:choose>">
                                     <div class="form-group">
                                         <label>Name</label>

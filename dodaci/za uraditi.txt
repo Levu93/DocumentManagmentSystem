@@ -1,11 +1,13 @@
 TODO General:
+!!!!!main!!! - prikaz procesa, aktivnosti!!!!
 - Brisanje objekata, analiza sta i kako brisati
+	-brisanje - procesi, admini, useri
+-display dokumenata - ako stignemo
 -Admin overview - action???
-- Pretraga dokumenata
+- Pretraga dokumenata - i live search bi bio super
 - Istestirati sve slucajeve koriscenja
 - Dokumentacija
--update procesa
--download da se sredi
+
 
 TODO Nevena:
 - JS Tree - u 3 pm -.-
@@ -23,6 +25,8 @@ DONE:
 -Update activity		
 -Update document type
 -update subsystem
--delete dokumenata
+-delete dokumenata, aktivnosti - aktivnosti te pita za potvrdu!
+-download dokumenata
+-update procesa
 
 

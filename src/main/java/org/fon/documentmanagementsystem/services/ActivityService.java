@@ -20,5 +20,7 @@ public interface ActivityService {
     List<Aktivnost> findAll();
 
     void save(Aktivnost aktivnost);
+
+    void delete(Aktivnost akt);
     
 }

@@ -104,7 +104,7 @@
                                     <c:forEach var="proces" items="${processes}">
                                         <ul>
                                             <li>
-                                                ${proces.naziv}
+                                                <a href="/dms/processes/adm/update/${proces.id}">${proces.naziv}</a>    
 
                                                 <c:if test="${proces.procesList != null}" >
                                                     <c:forEach var="subproces" items="${proces.procesList}">

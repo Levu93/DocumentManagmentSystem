@@ -36,5 +36,10 @@ public class ActivityServiceImpl implements ActivityService{
     public void save(Aktivnost aktivnost) {
         activityrepository.save(aktivnost);
     }
+
+    @Override
+    public void delete(Aktivnost akt) {
+        activityrepository.delete(akt);
+    }
     
 }

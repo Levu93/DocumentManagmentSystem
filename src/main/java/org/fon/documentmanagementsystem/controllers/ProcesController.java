@@ -5,7 +5,6 @@
  */
 package org.fon.documentmanagementsystem.controllers;
 
-
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +14,7 @@ import org.fon.documentmanagementsystem.domain.Proces;
 import org.fon.documentmanagementsystem.domain.User;
 import org.fon.documentmanagementsystem.dto.TreeDto;
 import org.fon.documentmanagementsystem.dto.UserDto;
+import org.fon.documentmanagementsystem.services.PodsistemService;
 import org.fon.documentmanagementsystem.services.ProcesService;
 import org.fon.documentmanagementsystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +38,9 @@ public class ProcesController {
 
     @Autowired
     UserService userService;
+    
+    @Autowired
+    PodsistemService subsystemService;
 
     @RequestMapping(path = "adm/overview", method = RequestMethod.GET)
     public ModelAndView showAllProcesses() {
@@ -60,7 +63,16 @@ public class ProcesController {
         mv.addObject("processes", zeljeni);
         return mv;
     }
-    
+
+    @RequestMapping(path = "adm/update/{id}", method = RequestMethod.GET)
+    public ModelAndView updateProcess(@PathVariable("id") long id) {
+
+        ModelAndView mv = new ModelAndView("process_add");
+        Proces trazeni = procesService.findOne(id);
+        mv.addObject("trazeni", trazeni);        
+        return mv;
+    }
+
     @RequestMapping(path = "adm/test", method = RequestMethod.GET)
     public ModelAndView showAllProcessesTest() {
 
@@ -86,30 +98,30 @@ public class ProcesController {
             drvoproces.setIcon(TreeDto.PROCESS_ICON);
             if (proces.getIdNadProcesa() == null) {
                 drvoproces.setParent("#");
-            }else{
-                drvoproces.setParent(proces.getIdNadProcesa().getId()+"");
+            } else {
+                drvoproces.setParent(proces.getIdNadProcesa().getId() + "");
             }
             drvoproces.setText(proces.getNaziv());
             if (proces.getPrimitivan()) {
-              //  drvoproces.setPrimitive(true);
+                //  drvoproces.setPrimitive(true);
                 if (!proces.getAktivnostList().isEmpty()) {
                     for (Aktivnost aktivnost : proces.getAktivnostList()) {
                         TreeDto drvoaktivnost = new TreeDto();
-                //        drvoaktivnost.setActivity(true);
+                        //        drvoaktivnost.setActivity(true);
                         drvoaktivnost.setIcon(TreeDto.ACTIVITY_ICON);
                         drvoaktivnost.setId(aktivnost.getId());
-                        drvoaktivnost.setParent(proces.getId()+"");
+                        drvoaktivnost.setParent(proces.getId() + "");
                         drvoaktivnost.setText(aktivnost.getNaziv());
-                        
+
                         drvece.add(drvoaktivnost);
                     }
                 }
-            }else{
+            } else {
                 drvoproces.setPrimitive(false);
             }
             drvece.add(drvoproces);
         }
-        
+
         Gson gson = new Gson();
         String jsonformat = gson.toJson(drvece);
         jsonformat = jsonformat.replace('[', ' ');
@@ -129,11 +141,11 @@ public class ProcesController {
 
     @RequestMapping(path = "adm/add_new_sub", method = RequestMethod.GET)
     public ModelAndView addSubProcessGetPage() {
-        
+
         UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userKojiCuva = userService.findOne(userdetail.getUsername());
         Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
-        
+
         ModelAndView mv = new ModelAndView("subprocesses_add");
         List<Proces> sviProcesi;
         sviProcesi = procesService.findAll();
@@ -154,7 +166,7 @@ public class ProcesController {
         UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userKojiCuva = userService.findOne(userdetail.getUsername());
         Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
-        
+
         Proces target = procesService.findOne(id);
 
         List<Proces> sviProcesi;
@@ -191,9 +203,29 @@ public class ProcesController {
 
         p.setIdPodsistema(user.getIdPodsistema());
         p.setNivo(1);
-        p.setPrimitivan(false);
-        
+       // p.setPrimitivan(false);
+
         procesService.save(p);
+
+        ModelAndView mv = new ModelAndView("process_overview");
+        List<Proces> sviProcesi;
+        sviProcesi = procesService.findAll();
+        mv.addObject("processes", sviProcesi);
+        return mv;
+    }
+    
+    @RequestMapping(path = "adm/update/{id}", method = RequestMethod.POST)
+    public ModelAndView update(@PathVariable("id") long id, String procesname, String procesdescription, boolean isprimitive) {
+
+        Proces p = procesService.findOne(id);
+
+        p.setNaziv(procesname);
+        p.setOpis(procesdescription);
+        p.setPrimitivan(isprimitive);
+
+        procesService.save(p);
+        Podsistem ps = p.getIdPodsistema();
+        subsystemService.sacuvajPodsistem(ps);
 
         ModelAndView mv = new ModelAndView("process_overview");
         List<Proces> sviProcesi;
@@ -241,7 +273,7 @@ public class ProcesController {
         subp.setNivo(p.getNivo() + 1);
         subp.setPrimitivan(isprimitive);
         procesService.save(subp);
-        
+
         p.getProcesList().add(subp);
         procesService.save(p);
 

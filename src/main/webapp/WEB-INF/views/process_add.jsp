@@ -89,33 +89,71 @@
                 <div id="page-inner">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="page-head-line">ADD NEW PROCESS</h1>
+                            <h1 class="page-head-line">
+                                <c:choose>
+                                    <c:when test="${trazeni != null}">
+                                        UPDATE ${trazeni.naziv}
+                                    </c:when>
+                                    <c:otherwise>
+                                        ADD NEW PROCESS
+                                    </c:otherwise>
+                                </c:choose>                              
+                            </h1>
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <form role="form" method="POST" id="add_process_form" action="/dms/processes/adm/add_new">
+                                <form role="form" method="POST" id="add_process_form" action="
+                                      <c:choose>
+                                          <c:when test="${trazeni != null}">
+                                              /dms/processes/adm/update/${trazeni.id}
+                                          </c:when>
+                                          <c:otherwise>
+                                              /dms/processes/adm/add_new
+                                          </c:otherwise>
+                                      </c:choose>
+                                      ">
                                     <div class="form-group">
                                         <label>Name</label>
-                                        <input class="form-control" name="procesname">
-                                        <p class="help-block">Example: process1</p>                                         
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Sign</label>
-                                        <input class="form-control" name="processign">
-                                        <p class="help-block">Example: P1</p>                                         
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Process description</label>
-                                        <textarea class="form-control" rows="5" name="procesdescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this)">Process is for...</textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox">
-                                            <label><input type="checkbox" name = "isprimitive">Is primitive?</label>
+                                        <input class="form-control" name="procesname" <c:if test="${trazeni != null}">value="${trazeni.naziv}"</c:if> >
+                                            <p class="help-block">Example: process1</p>                                         
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Sign</label>
+                                            <input class="form-control" name="processign" <c:if test="${trazeni != null}">value="${trazeni.oznaka}" disabled="disabled"</c:if>>
+                                            <p class="help-block">Example: P1</p>                                         
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Process description</label>
+                                            <textarea class="form-control" rows="5" name="procesdescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this)"><c:if test="${trazeni != null}">${trazeni.opis}</c:if><c:if test="${trazeni == null}">Process is for...</c:if></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name = "isprimitive" 
+                                                    <c:if test="${trazeni != null}">
+                                                        <c:if test="${trazeni.primitivan == true}">
+                                                            checked="checked"
+                                                        </c:if>
+                                                        <c:if test="${not empty trazeni.procesList || not empty trazeni.aktivnostList }">
+                                                            disabled="disabled"
+                                                        </c:if>
+                                                    </c:if>
+                                                    >
+                                                Is primitive?
+                                            </label>
                                         </div>
                                     </div>  
-                                    <button type="submit" class="btn btn-default">Create new process</button>
+                                    <button type="submit" class="btn btn-default">
+                                        <c:choose>
+                                            <c:when test="${trazeni != null}">
+                                                Edit ${trazeni.naziv}
+                                            </c:when>
+                                            <c:otherwise>
+                                                Create new process
+                                            </c:otherwise>
+                                        </c:choose>                                        
+                                    </button>
                                     <button type="reset" class="btn btn-default">Reset</button>  
                                 </form>
                             </div>

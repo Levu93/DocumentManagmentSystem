@@ -13,6 +13,7 @@ import org.fon.documentmanagementsystem.domain.Proces;
 import org.fon.documentmanagementsystem.domain.User;
 import org.fon.documentmanagementsystem.dto.UserDto;
 import org.fon.documentmanagementsystem.services.ActivityService;
+import org.fon.documentmanagementsystem.services.PodsistemService;
 import org.fon.documentmanagementsystem.services.ProcesService;
 import org.fon.documentmanagementsystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class ActivityController {
 
     @Autowired
     UserService userService;
+    
+    @Autowired
+    PodsistemService podsistemService;
 
     @RequestMapping(path = "/adm/add_new", method = RequestMethod.GET)
     public ModelAndView addActivityNoSubprocess() {
@@ -69,9 +73,9 @@ public class ActivityController {
         a.setOpis(activitydescription);
         a.setOznaka(activitysign);
         activityService.save(a);
-        
+
         ModelAndView mv = new ModelAndView("process_overview");
-        
+
         UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userKojiCuva = userService.findOne(userdetail.getUsername());
         Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
@@ -136,7 +140,7 @@ public class ActivityController {
         mv.addObject("procesi", zeljeni);
         return mv;
     }
-    
+
     @RequestMapping(path = "/user/userdetails/{id}", method = RequestMethod.GET)
     public ModelAndView activityDetailsForUsers(@PathVariable("id") long id) {
 
@@ -155,12 +159,9 @@ public class ActivityController {
     @RequestMapping(path = "/adm/add_new/{id}", method = RequestMethod.POST)
     public ModelAndView addNewActivityForProcess(@PathVariable("id") long id, String activityname, String activitysign, String activitydescription) {
 
-        //long idakt = activityService.findAll().size() + 1;
-
         Proces target = procesService.findOne(id);
 
         Aktivnost aktivnost = new Aktivnost();
-        //aktivnost.setId(idakt);
         aktivnost.setNaziv(activityname);
         aktivnost.setOznaka(activitysign);
         aktivnost.setOpis(activitydescription);
@@ -189,7 +190,7 @@ public class ActivityController {
         return mv;
     }
 
-    @RequestMapping(path = "/add_new", method = RequestMethod.POST)
+    @RequestMapping(path = "/adm/add_new", method = RequestMethod.POST)
     public ModelAndView addNewActivity(String activityname, String activitysign, String activitydescription, long procesactivity) {
 
         long idakt = activityService.findAll().size() + 1;
@@ -226,4 +227,22 @@ public class ActivityController {
         return mv;
     }
 
+    @RequestMapping(path = "/adm/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteFile(@PathVariable("id") long id) {
+
+        Aktivnost akt = activityService.findOne(id);
+        Proces p = akt.getIdProcesa();
+        activityService.delete(akt);
+        p.getAktivnostList().remove(akt);
+        procesService.save(p);
+        Podsistem sub = p.getIdPodsistema();
+        podsistemService.sacuvajPodsistem(sub);
+
+        ModelAndView mv = new ModelAndView("admin_home");
+       // mv.addObject("aktivnost", njegovaakt);
+
+        return mv;
+    }
+
+    
 }
