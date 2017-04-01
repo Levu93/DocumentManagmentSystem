@@ -51,6 +51,11 @@ public class UserServiceImpl implements UserService{
 //    public List<User> findBySubsystem(Long id) {
 //        return userRepository.findBySubsystem(id);
 //    }
+
+    @Override
+    public void delete(User u) {
+        userRepository.delete(u);
+    }
     
     
 }

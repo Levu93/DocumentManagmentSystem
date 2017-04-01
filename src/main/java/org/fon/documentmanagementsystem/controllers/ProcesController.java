@@ -38,7 +38,7 @@ public class ProcesController {
 
     @Autowired
     UserService userService;
-    
+
     @Autowired
     PodsistemService subsystemService;
 
@@ -69,7 +69,7 @@ public class ProcesController {
 
         ModelAndView mv = new ModelAndView("process_add");
         Proces trazeni = procesService.findOne(id);
-        mv.addObject("trazeni", trazeni);        
+        mv.addObject("trazeni", trazeni);
         return mv;
     }
 
@@ -203,7 +203,7 @@ public class ProcesController {
 
         p.setIdPodsistema(user.getIdPodsistema());
         p.setNivo(1);
-       // p.setPrimitivan(false);
+        // p.setPrimitivan(false);
 
         procesService.save(p);
 
@@ -213,7 +213,7 @@ public class ProcesController {
         mv.addObject("processes", sviProcesi);
         return mv;
     }
-    
+
     @RequestMapping(path = "adm/update/{id}", method = RequestMethod.POST)
     public ModelAndView update(@PathVariable("id") long id, String procesname, String procesdescription, boolean isprimitive) {
 
@@ -281,6 +281,26 @@ public class ProcesController {
         List<Proces> sviProcesi;
         sviProcesi = procesService.findAll();
         mv.addObject("processes", sviProcesi);
+        return mv;
+    }
+
+    @RequestMapping(path = "adm/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteProcess(@PathVariable("id") long id) {
+        Proces akt = procesService.findOne(id);
+        ModelAndView mv = new ModelAndView();
+        try {
+                Podsistem p = akt.getIdPodsistema();
+                procesService.delete(akt);
+                p.getProcesList().remove(akt);
+                subsystemService.sacuvajPodsistem(p);
+
+                mv = new ModelAndView("admin_home");
+                return mv;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            mv = new ModelAndView("error");
+            mv.addObject("error", akt.getNaziv() + " cannot be deleted! This process has subprocesses or activities connected!!!");
+        }
         return mv;
     }
 

@@ -16,6 +16,19 @@
                     return false;
             }
         </script>
+        <script>
+            function clearContents(element) {
+                if (element.value == 'Activity is for...') {
+                    element.value = '';
+                }
+            }
+
+            function backContents(element) {
+                if (element.value == '') {
+                    element.value = 'Activity is for...';
+                }
+            }
+        </script>
     </head>
     <body>
         <sec:authentication var="admin" property="principal"/>
@@ -162,7 +175,7 @@
                                     <div class="form-group">
                                         <label>Activity description</label>
                                         <c:if test="${aktivnost == null}">
-                                            <textarea class="form-control" rows="5" name="activitydescription" id="opis" onfocus="clearContents(this);">Activity is for...</textarea>
+                                            <textarea class="form-control" rows="5" name="activitydescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this);">Activity is for...</textarea>
                                         </c:if>
                                         <c:if test="${aktivnost != null}">
                                             <textarea class="form-control" rows="5" name="activitydescription" id="opis" onfocus="clearContents(this);">${aktivnost.opis}</textarea>

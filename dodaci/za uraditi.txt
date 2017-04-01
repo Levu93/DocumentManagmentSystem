@@ -1,9 +1,10 @@
 TODO General:
 !!!!!main!!! - prikaz procesa, aktivnosti!!!!
 - Brisanje objekata, analiza sta i kako brisati
-	-brisanje - procesi, admini, useri
+	-brisanje - useri
 -display dokumenata - ako stignemo
 -Admin overview - action???
+validacija
 - Pretraga dokumenata - i live search bi bio super
 - Istestirati sve slucajeve koriscenja
 - Dokumentacija

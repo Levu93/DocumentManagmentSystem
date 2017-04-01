@@ -95,54 +95,56 @@
                                                         <td style="width: 93%">${subsystem.naziv}</td>
                                                     </tr>
                                                     <tr>                   
-                                                            <td colspan="12" class="hiddenRow"><div class="accordian-body collapse" id="${subsystem.id}"> 
-                                                                    <table class="table table-striped">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <td>Username</td>
-                                                                                <td>Name</td>
-                                                                                <td>Surname</td>
-                                                                                <td>Role</td>
-                                                                                <td>Action</td>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <c:set var="admins" value="${subsystem.userList}"/>
-                                                                            <c:forEach var="users" items="${admins}">
-                                                                               <c:set var="rola" value="${users.idRole}"/>
-                                                                               <c:if test="${rola.nazivRole == 'ADMIN'}">
-                                                                            <tr>
-                                                                                <td>${users.username}</td>
-                                                                                <td>${users.ime}</td>
-                                                                                <td>${users.prezime}</td>
-                                                                                <td>${rola.nazivRole}</td>
-                                                                                <td><a href="#" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-cog"></i></a></td>
-                                                                            </tr>
+                                                        <td colspan="12" class="hiddenRow"><div class="accordian-body collapse" id="${subsystem.id}"> 
+                                                                <table class="table table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <td>Username</td>
+                                                                            <td>Name</td>
+                                                                            <td>Surname</td>
+                                                                            <td>Role</td>
+                                                                            <td>Action</td>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <c:set var="admins" value="${subsystem.userList}"/>
+                                                                        <c:forEach var="users" items="${admins}">
+                                                                            <c:set var="rola" value="${users.idRole}"/>
+                                                                            <c:if test="${rola.nazivRole == 'ADMIN'}">
+                                                                                <tr>
+                                                                                    <td>${users.username}</td>
+                                                                                    <td>${users.ime}</td>
+                                                                                    <td>${users.prezime}</td>
+                                                                                    <td>${rola.nazivRole}</td>
+                                                                                    <td><a href="#" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-cog"></i></a></td>
+                                                                                    <td><a href="/dms/admins/adm/delete/${users.username}" class="btn btn-default btn-sm"><i class="fa fa-trash-o fa-fw"></i></a></td>
+
+                                                                                </tr>
                                                                             </c:if>
-                                                                            </c:forEach>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </td>
+                                                                        </c:forEach>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
                                         </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
-
+                <!-- /. PAGE INNER  -->
             </div>
-            <!-- /. PAGE INNER  -->
+            <!-- /. PAGE WRAPPER  -->
         </div>
-        <!-- /. PAGE WRAPPER  -->
-    </div>
-    <!-- /. WRAPPER  -->
+        <!-- /. WRAPPER  -->
 
-    <%@include file="footer.jsp" %>
-</body>
+        <%@include file="footer.jsp" %>
+    </body>
 </html>
 

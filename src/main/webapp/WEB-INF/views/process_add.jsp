@@ -5,7 +5,29 @@
     <head>
         <title>Document Management System</title>
         <%@include file="header.jsp" %>
-        <script src="../resources/js/scripts.js"></script>
+        <script>
+            function clearContents(element) {
+                if (element.value == 'Process is for...') {
+                    element.value = '';
+                }
+            }
+            function backContents(element) {
+                if (element.value == '') {
+                    element.value = 'Process is for...';
+                }
+            }
+        </script>
+        <script>
+            function confirmDelete() { 
+                        var answer = confirm("Are you sure you want to delete ${trazeni.naziv}???");
+                if (answer) {
+                            document.myForm.action = "/dms/processes/adm/delete/${trazeni.id}";
+                    document.myForm.submit();
+                    return true;
+                } else
+                    return false;
+            }
+        </script>
     </head>
     <body>
         <sec:authentication var="admin" property="principal"/>
@@ -92,7 +114,10 @@
                             <h1 class="page-head-line">
                                 <c:choose>
                                     <c:when test="${trazeni != null}">
-                                        UPDATE ${trazeni.naziv}
+                                        ${trazeni.naziv} DETAILS    
+                                        <form onsubmit="confirmDelete()" method="GET" name="myForm">
+                                            <input type="submit" class="btn btn-default" value="Delete process">
+                                        </form>
                                     </c:when>
                                     <c:otherwise>
                                         ADD NEW PROCESS

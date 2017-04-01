@@ -108,6 +108,7 @@
                                                 <th>Name</th>
                                                 <th>Surname</th>
                                                 <th>Username</th>
+                                                <th>Delete user</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -116,6 +117,7 @@
                                                     <td>${user.ime}</td>
                                                     <td>${user.prezime}</td>
                                                     <td>${user.username}</td>
+                                                    <td><a href="/dms/admins/usr/delete/${user.username}">Delete</a></td>
                                                 </tr>                                            
                                             </c:forEach>
                                         </tbody>

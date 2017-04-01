@@ -56,4 +56,9 @@ public class ProcesServiceImpl implements ProcesService {
         return procesRepository.findOne(id);
     }
 
+    @Override
+    public void delete(Proces akt) {
+        procesRepository.delete(akt);
+    }
+
 }

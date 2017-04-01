@@ -13,6 +13,3 @@ function backContents(element) {
     }
 }
 
-function showdugme() {
-
-}

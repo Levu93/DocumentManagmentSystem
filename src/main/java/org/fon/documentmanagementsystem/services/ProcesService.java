@@ -23,4 +23,6 @@ public interface ProcesService {
     List<Proces> findByNivo(int level);
     
     Proces findOne(long id);
+
+    void delete(Proces akt);
 }

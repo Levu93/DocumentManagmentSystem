@@ -23,4 +23,6 @@ public interface UserService {
     User save(User admin);
 
     //public List<User> findBySubsystem(Long id);
+
+    void delete(User u);
 }

@@ -17,6 +17,7 @@ import org.fon.documentmanagementsystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -120,22 +121,22 @@ public class UserController {
 
         ModelAndView mv = new ModelAndView();
 
-            Rola rola = rolaService.findOne(2);
-            user.setIdRole(rola);
+        Rola rola = rolaService.findOne(2);
+        user.setIdRole(rola);
 
-            int admsubs = Integer.parseInt(adminsubsystem);
-            Podsistem subs = podsistemService.findOne(admsubs);
-            user.setIdPodsistema(subs);
-            subs.getUserList().add(user);
+        int admsubs = Integer.parseInt(adminsubsystem);
+        Podsistem subs = podsistemService.findOne(admsubs);
+        user.setIdPodsistema(subs);
+        subs.getUserList().add(user);
 
-            userService.save(user);
-            podsistemService.sacuvajPodsistem(subs);
-            mv = new ModelAndView("admin_overview");
+        userService.save(user);
+        podsistemService.sacuvajPodsistem(subs);
+        mv = new ModelAndView("admin_overview");
 
-            List<Podsistem> podsistemiposleCuvanja = podsistemService.findAll();
+        List<Podsistem> podsistemiposleCuvanja = podsistemService.findAll();
 
-            mv.addObject("subsystems", podsistemiposleCuvanja);
-            
+        mv.addObject("subsystems", podsistemiposleCuvanja);
+
         return mv;
     }
 
@@ -192,6 +193,58 @@ public class UserController {
         }
         zeljeni.remove(userKojiCuva);
 
+        mv.addObject("users", zeljeni);
+
+        return mv;
+    }
+
+    @RequestMapping(path = "/adm/delete/{username}", method = RequestMethod.GET)
+    public ModelAndView deleteFile(@PathVariable("username") String username) {
+
+        User u = userService.findOne(username);
+
+        userService.delete(u);
+
+        Podsistem sub = u.getIdPodsistema();
+        sub.getUserList().remove(u);
+        podsistemService.sacuvajPodsistem(sub);
+
+        ModelAndView mv = new ModelAndView("admin_overview");
+
+        List<Podsistem> podsistemiposleCuvanja = podsistemService.findAll();
+
+        mv.addObject("subsystems", podsistemiposleCuvanja);
+
+        return mv;
+    }
+
+    @RequestMapping(path = "/usr/delete/{username}", method = RequestMethod.GET)
+    public ModelAndView deleteUsers(@PathVariable("username") String username) {
+
+        User u = userService.findOne(username);
+
+        userService.delete(u);
+
+        Podsistem sub = u.getIdPodsistema();
+        sub.getUserList().remove(u);
+        podsistemService.sacuvajPodsistem(sub);
+
+        ModelAndView mv = new ModelAndView("user_overview");
+
+        List<User> useripodsistema = userService.findAll();
+        
+        List<User> zeljeni = new ArrayList<>();
+        
+        for (User user : useripodsistema) {
+            if (user.getIdPodsistema() != null) {
+                if (user.getIdPodsistema().getId().equals(sub.getId())) {
+                    zeljeni.add(user);
+                }
+            }
+        }
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+        zeljeni.remove(userKojiCuva);
         mv.addObject("users", zeljeni);
 
         return mv;
