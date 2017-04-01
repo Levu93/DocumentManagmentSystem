@@ -6,8 +6,6 @@
     <head>
         <title>Processes - overview</title>
         <%@include file="header.jsp" %>
-        <link rel="stylesheet" href="../resources/dist/themes/default/style.min.css" />
-        <script src="../resources/js/processes-tree.js"></script>
     </head>
 
     <body>
@@ -98,78 +96,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <div id="jstree_demo_div">
-                                    <c:forEach var="proces" items="${processes}">
-                                        <ul>
-                                            <li>
-                                                <a href="/dms/processes/adm/update/${proces.id}">${proces.naziv}</a>    
-
-                                                <c:if test="${proces.procesList != null}" >
-                                                    <c:forEach var="subproces" items="${proces.procesList}">
-                                                        <ul> 
-                                                            <li>
-                                                                ${subproces.naziv}
-                                                                <c:if test="${subproces.aktivnostList != null}" >
-                                                                    <c:forEach var="aktivnost" items="${subproces.aktivnostList}">
-                                                                        <ul> 
-                                                                            <li>
-                                                                                <a href="/dms/activity/adm/details/${aktivnost.id}"> ${aktivnost.naziv}</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </c:forEach>
-                                                                </c:if>
-                                                                <c:choose>
-                                                                    <c:when test="${subproces.primitivan == true}">
-                                                                        <a href="/dms/activity/adm/add_new/${subproces.id}"> Add activity</a>
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <a href="/dms/processes/adm/add_new_sub/${subproces.id}"> Add subprocess</a>
-                                                                    </c:otherwise>
-                                                                </c:choose>
-                                                            </li>
-                                                        </ul>
-                                                    </c:forEach>
-                                                </c:if>
-                                                <c:choose>
-                                                    <c:when test="${proces.primitivan == true}">
-                                                        <a href="/dms/activity/adm/add_new/${proces.id}"> Add activity</a>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <a href="/dms/processes/adm/add_new_sub/${proces.id}"> Add subprocess</a>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </li>
-                                        </ul>
-                                    </c:forEach>
-                                </div>
-
-
-                                -----------
-                                <form action="sve-vesti" method="POST">
-                                    <table class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Code</th>
-                                                <th>Description</th>
-                                                <th>Details</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach var="proces" items="${processes}">
-                                                <tr>
-                                                    <td>${proces.naziv}</td>
-                                                    <td>${proces.oznaka}</td>
-                                                    <td>${proces.opis}</td>
-                                                    <td><a href="/dms/processes/adm/details/${subsystem.id}">Details</a></td>
-                                                </tr>                                            
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </form>
-                            </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-default" onclick="add()">Add</button>
+                            <br/>
+                            <br/>
+                            <%@include file="tree_process.jsp" %>
+                        </div>
+                        <div class="col-md-6">
+                            <%@include file="tree_form_process.jsp" %>
+                            <%@include file="tree_form_activity.jsp" %>
                         </div>
 
                     </div>

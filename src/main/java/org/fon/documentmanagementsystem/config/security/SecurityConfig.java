@@ -49,6 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/activity/adm/**").hasAuthority("ADMIN")
                 .antMatchers("/activity/user/**").hasAuthority("USER")
                 .antMatchers("/documents/**").hasAuthority("USER")
+//                .antMatchers("/api/processes/**").hasAuthority("ADMIN")
+//                .antMatchers("/api/processes/**").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and().exceptionHandling().accessDeniedPage("/403")
                 .and().formLogin().loginPage("/login").permitAll()

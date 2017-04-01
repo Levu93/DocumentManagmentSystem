@@ -36,7 +36,7 @@ public class ActivityController {
 
     @Autowired
     UserService userService;
-    
+
     @Autowired
     PodsistemService podsistemService;
 
@@ -91,6 +91,17 @@ public class ActivityController {
         //ovde sam vise da ubacimo da ih trazi po nivoima, nego sve pa da izbacujemo, al nisam uspela to da uradim
         mv.addObject("processes", zeljeni);
         return mv;
+    }
+
+    @RequestMapping(path = "/adm/update", method = RequestMethod.POST)
+    public String updateFromTree(long id, String name, String sign, String description) {
+        System.out.println(id+" je id");
+        Aktivnost a = activityService.findOne(id);
+        a.setNaziv(name);
+        a.setOpis(description);
+        activityService.save(a);
+
+        return "redirect:/processes/adm/overview";
     }
 
     @RequestMapping(path = "/adm/add_new/{id}", method = RequestMethod.GET)
@@ -226,6 +237,33 @@ public class ActivityController {
         mv.addObject("processes", zeljeni);
         return mv;
     }
+    
+    @RequestMapping(path = "/adm/add_new_tree", method = RequestMethod.POST)
+    public String addNewActivityTree(String name, String sign, String description, long parent) {
+
+        Proces target = procesService.findOne(parent);
+
+        Aktivnost aktivnost = new Aktivnost();
+        aktivnost.setNaziv(name);
+        aktivnost.setOznaka(sign);
+        aktivnost.setOpis(description);
+        aktivnost.setIdProcesa(target);
+
+        activityService.save(aktivnost);
+
+        target.getAktivnostList().add(aktivnost);
+        procesService.save(target);
+
+        ModelAndView mv = new ModelAndView("process_overview");
+
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+        Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
+
+        podsistemService.sacuvajPodsistem(podsistemusera);
+        
+        return "redirect:/processes/adm/overview";
+    }
 
     @RequestMapping(path = "/adm/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteFile(@PathVariable("id") long id) {
@@ -239,10 +277,9 @@ public class ActivityController {
         podsistemService.sacuvajPodsistem(sub);
 
         ModelAndView mv = new ModelAndView("admin_home");
-       // mv.addObject("aktivnost", njegovaakt);
+        // mv.addObject("aktivnost", njegovaakt);
 
         return mv;
     }
 
-    
 }

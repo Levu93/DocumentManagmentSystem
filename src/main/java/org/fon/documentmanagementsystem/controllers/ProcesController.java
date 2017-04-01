@@ -91,36 +91,36 @@ public class ProcesController {
             }
         }
         List<TreeDto> drvece = new ArrayList<>();
-        for (Proces proces : zeljeni) {
-            TreeDto drvoproces = new TreeDto();
-            drvoproces.setId(proces.getId());
-            //drvoproces.setActivity(false);
-            drvoproces.setIcon(TreeDto.PROCESS_ICON);
-            if (proces.getIdNadProcesa() == null) {
-                drvoproces.setParent("#");
-            } else {
-                drvoproces.setParent(proces.getIdNadProcesa().getId() + "");
-            }
-            drvoproces.setText(proces.getNaziv());
-            if (proces.getPrimitivan()) {
-                //  drvoproces.setPrimitive(true);
-                if (!proces.getAktivnostList().isEmpty()) {
-                    for (Aktivnost aktivnost : proces.getAktivnostList()) {
-                        TreeDto drvoaktivnost = new TreeDto();
-                        //        drvoaktivnost.setActivity(true);
-                        drvoaktivnost.setIcon(TreeDto.ACTIVITY_ICON);
-                        drvoaktivnost.setId(aktivnost.getId());
-                        drvoaktivnost.setParent(proces.getId() + "");
-                        drvoaktivnost.setText(aktivnost.getNaziv());
-
-                        drvece.add(drvoaktivnost);
-                    }
-                }
-            } else {
-                drvoproces.setPrimitive(false);
-            }
-            drvece.add(drvoproces);
-        }
+//        for (Proces proces : zeljeni) {
+//            TreeDto drvoproces = new TreeDto();
+//            drvoproces.setId(proces.getId());
+//            //drvoproces.setActivity(false);
+//            drvoproces.setIcon(TreeDto.PROCESS_ICON);
+//            if (proces.getIdNadProcesa() == null) {
+//                drvoproces.setParent("#");
+//            } else {
+//                drvoproces.setParent(proces.getIdNadProcesa().getId() + "");
+//            }
+//            drvoproces.setText(proces.getNaziv());
+//            if (proces.getPrimitivan()) {
+//                //  drvoproces.setPrimitive(true);
+//                if (!proces.getAktivnostList().isEmpty()) {
+//                    for (Aktivnost aktivnost : proces.getAktivnostList()) {
+//                        TreeDto drvoaktivnost = new TreeDto();
+//                        //        drvoaktivnost.setActivity(true);
+//                        drvoaktivnost.setIcon(TreeDto.ACTIVITY_ICON);
+//                        drvoaktivnost.setId(aktivnost.getId());
+//                        drvoaktivnost.setParent(proces.getId() + "");
+//                        drvoaktivnost.setText(aktivnost.getNaziv());
+//
+//                        drvece.add(drvoaktivnost);
+//                    }
+//                }
+//            } else {
+//                drvoproces.setPrimitive(false);
+//            }
+//            drvece.add(drvoproces);
+//        }
 
         Gson gson = new Gson();
         String jsonformat = gson.toJson(drvece);
@@ -128,8 +128,8 @@ public class ProcesController {
         jsonformat = jsonformat.replace(']', ' ');
         System.out.println(jsonformat);
         //ovde sam vise da ubacimo da ih trazi po nivoima, nego sve pa da izbacujemo, al nisam uspela to da uradim
-        mv.addObject("processes", zeljeni);
-        mv.addObject("drvo", jsonformat);
+        // mv.addObject("processes", zeljeni);
+        //  mv.addObject("drvo", jsonformat);
         return mv;
     }
 
@@ -214,6 +214,61 @@ public class ProcesController {
         return mv;
     }
 
+    @RequestMapping(path = "adm/add_new_tree", method = RequestMethod.POST)
+    public String addNewProcessTree(String name, String sign, String description, boolean primitive) {
+        Proces p = new Proces();
+        p.setNaziv(name);
+        p.setOznaka(sign);
+        p.setOpis(description);
+        p.setPrimitivan(primitive);
+
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findOne(userdetail.getUsername());
+
+        p.setIdPodsistema(user.getIdPodsistema());
+        p.setNivo(1);
+        // p.setPrimitivan(false);
+
+        procesService.save(p);
+        user.getIdPodsistema().getProcesList().add(p);
+        subsystemService.sacuvajPodsistem(user.getIdPodsistema());
+
+        return "redirect:/processes/adm/overview";
+    }
+
+    @RequestMapping(path = "adm/add_new_sub_tree", method = RequestMethod.POST)
+    public String addNewSubProcessTree(String name, String sign, String description, long parent, boolean primitive) {
+
+        Proces subp = new Proces();
+//        int id1 = procesService.vratiId() + 1;
+//        long x = id1;
+//        subp.setId(x);
+        subp.setNaziv(name);
+        subp.setOznaka(sign);
+        subp.setOpis(description);
+
+        //ako ima laksi nacin, izmeni
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findOne(userdetail.getUsername());
+
+        subp.setIdPodsistema(user.getIdPodsistema());
+
+        Proces p = procesService.findOne(parent);
+
+        subp.setIdNadProcesa(p);
+        subp.setNivo(p.getNivo() + 1);
+        subp.setPrimitivan(primitive);
+        procesService.save(subp);
+
+        p.getProcesList().add(subp);
+        procesService.save(p);
+        user.getIdPodsistema().getProcesList().add(p);
+        subsystemService.sacuvajPodsistem(user.getIdPodsistema());
+
+        return "redirect:/processes/adm/overview";
+
+    }
+
     @RequestMapping(path = "adm/update/{id}", method = RequestMethod.POST)
     public ModelAndView update(@PathVariable("id") long id, String procesname, String procesdescription, boolean isprimitive) {
 
@@ -232,6 +287,18 @@ public class ProcesController {
         sviProcesi = procesService.findAll();
         mv.addObject("processes", sviProcesi);
         return mv;
+    }
+
+    @RequestMapping(path = "adm/update", method = RequestMethod.POST)
+    public String updateFromTree(long id, String name, String description, boolean primitive) {
+        Proces p = procesService.findOne(id);
+        p.setNaziv(name);
+        p.setOpis(description);
+        p.setPrimitivan(primitive);
+        procesService.save(p);
+        Podsistem ps = p.getIdPodsistema();
+        subsystemService.sacuvajPodsistem(ps);
+        return "redirect:/processes/adm/overview";
     }
 
     @RequestMapping(path = "usr/overviewusers", method = RequestMethod.GET)
@@ -289,13 +356,13 @@ public class ProcesController {
         Proces akt = procesService.findOne(id);
         ModelAndView mv = new ModelAndView();
         try {
-                Podsistem p = akt.getIdPodsistema();
-                procesService.delete(akt);
-                p.getProcesList().remove(akt);
-                subsystemService.sacuvajPodsistem(p);
+            Podsistem p = akt.getIdPodsistema();
+            procesService.delete(akt);
+            p.getProcesList().remove(akt);
+            subsystemService.sacuvajPodsistem(p);
 
-                mv = new ModelAndView("admin_home");
-                return mv;
+            mv = new ModelAndView("admin_home");
+            return mv;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             mv = new ModelAndView("error");

@@ -1,7 +1,6 @@
 TODO General:
 !!!!!main!!! - prikaz procesa, aktivnosti!!!!
-- Brisanje objekata, analiza sta i kako brisati
-	-brisanje - useri
+
 -display dokumenata - ako stignemo
 -Admin overview - action???
 validacija
@@ -26,7 +25,7 @@ DONE:
 -Update activity		
 -Update document type
 -update subsystem
--delete dokumenata, aktivnosti - aktivnosti te pita za potvrdu!
+-delete dokumenata, aktivnosti - aktivnosti te pita za potvrdu! usera
 -download dokumenata
 -update procesa
 

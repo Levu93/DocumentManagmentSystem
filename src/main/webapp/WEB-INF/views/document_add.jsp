@@ -98,9 +98,7 @@
                             <div class="col-lg-6">
 
                             </div>
-                            <!-- /.col-lg-6 (nested) -->
                         </div>
-                        <!-- /.row (nested) -->
                     </div>
                 </div>
             </div>

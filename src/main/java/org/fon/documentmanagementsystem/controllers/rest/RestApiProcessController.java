@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
-
 @RestController
 @RequestMapping("/api/processes")
 public class RestApiProcessController {
@@ -49,20 +48,26 @@ public class RestApiProcessController {
         System.out.println("U rest kontroleru sam");
         List<Proces> processes = activeUser.getIdPodsistema().getProcesList();
         List<TreeDto> data = new ArrayList<>();
+        boolean hasChildren;
         for (Proces process : processes) {
             TreeDto p;
             String icon;
             icon = TreeDto.PROCESS_ICON;
-            if (process.getIdNadProcesa() == null) {
-                p = new TreeDto(process.getId(), "#", process.getNaziv(), icon, process.getPrimitivan());
+            if (!process.getProcesList().isEmpty() || !process.getAktivnostList().isEmpty()) {
+                hasChildren = true;
             } else {
-                p = new TreeDto(process.getId(), process.getIdNadProcesa().getId() + "", process.getNaziv(), icon, process.getPrimitivan());
+                hasChildren = false;
+            }
+            if (process.getIdNadProcesa() == null) {
+                p = new TreeDto(process.getId() + "p", "#", process.getNaziv(), icon, process.getPrimitivan(), process.getOznaka(), process.getOpis(), hasChildren);
+            } else {
+                p = new TreeDto(process.getId() + "p", process.getIdNadProcesa().getId() + "p", process.getNaziv(), icon, process.getPrimitivan(), process.getOznaka(), process.getOpis(), hasChildren);
             }
             data.add(p);
             if (process.getPrimitivan() && process.getAktivnostList() != null) {
                 icon = TreeDto.ACTIVITY_ICON;
                 for (Aktivnost activity : process.getAktivnostList()) {
-                    p = new TreeDto(activity.getId(), process.getId() + "", activity.getNaziv(), icon);
+                    p = new TreeDto(activity.getId() + "a", process.getId() + "p", activity.getNaziv(), icon, activity.getOznaka(), activity.getOpis());
                     data.add(p);
                 }
             }
