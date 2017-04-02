@@ -11,11 +11,13 @@ import java.util.List;
 import org.fon.documentmanagementsystem.domain.Aktivnost;
 import org.fon.documentmanagementsystem.domain.Podsistem;
 import org.fon.documentmanagementsystem.domain.Proces;
+import org.fon.documentmanagementsystem.domain.Tipdokumenta;
 import org.fon.documentmanagementsystem.domain.User;
 import org.fon.documentmanagementsystem.dto.TreeDto;
 import org.fon.documentmanagementsystem.dto.UserDto;
 import org.fon.documentmanagementsystem.services.PodsistemService;
 import org.fon.documentmanagementsystem.services.ProcesService;
+import org.fon.documentmanagementsystem.services.TipdokumentaService;
 import org.fon.documentmanagementsystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,6 +43,9 @@ public class ProcesController {
 
     @Autowired
     PodsistemService subsystemService;
+
+    @Autowired
+    TipdokumentaService tipDokumenataService;
 
     @RequestMapping(path = "adm/overview", method = RequestMethod.GET)
     public ModelAndView showAllProcesses() {
@@ -312,7 +317,10 @@ public class ProcesController {
                 zeljeni.add(proces);
             }
         }
+        List<Tipdokumenta> tipovi = tipDokumenataService.findAll();
+
         //ovde sam vise da ubacimo da ih trazi po nivoima, nego sve pa da izbacujemo, al nisam uspela to da uradim
+        mv.addObject("documenttypes", tipovi);
         mv.addObject("processes", zeljeni);
         return mv;
     }

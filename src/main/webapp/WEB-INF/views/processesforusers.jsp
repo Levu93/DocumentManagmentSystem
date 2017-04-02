@@ -73,6 +73,8 @@
                         </div>
                         <div class="col-md-6">
                             podaci o aktivnostima
+                            <%@include file="tree-form-documents.jsp" %>
+                            <%@include file="tree-form-activity_details.jsp" %>
                         </div>
 
                     </div>

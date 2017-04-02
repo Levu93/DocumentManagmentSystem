@@ -127,6 +127,61 @@ public class DocumentController {
 
         return mv;
     }
+    
+    @RequestMapping(path = "add_new_tree", method = RequestMethod.POST)
+    public String addNewDocumentForActivityTree(long parent, String name, String description, long documenttype, MultipartFile file) {
+
+        Aktivnost aktivnost = activityService.findOne(parent);
+
+        Dokument doc = new Dokument();
+        doc.setNaziv(name);
+        doc.setNapomena(description);
+        doc.setDatumKreiranja(new Date());
+        doc.setIdAktivnosti(aktivnost);
+
+        Tipdokumenta docType = tipDokumentaService.findOne(documenttype);
+        doc.setIdTipaDokumenta(docType);
+
+        String putanja = "n/a";
+        String nazivFajla = "n/a";
+        String ct = "n/a";
+        if (!daLiJePrazan(file)) {
+
+            try {
+                byte[] bytes = file.getBytes();
+                putanja = "C:" + File.separator + "wamp" + File.separator + "www" + File.separator + "DMS" + File.separator + "files";
+                File dir = new File(putanja);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+
+                nazivFajla = file.getOriginalFilename();
+                
+                int li = nazivFajla.lastIndexOf("\\");
+                //nazivFajla = nazivFajla.substring(li+1, nazivFajla.length());
+                
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + nazivFajla); //mozda ovde da bude ime dokumenta umesto naziv fajla
+                try (BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile))) {
+                    stream.write(bytes);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+               // return new ModelAndView("error", "error", "Error uploading file! " + " => " + e.getMessage());
+
+            }
+        }
+
+        doc.setFajl(putanja + File.separator + nazivFajla);
+
+        dokumentService.save(doc);
+
+        aktivnost.getDokumentList().add(doc);
+        activityService.save(aktivnost);
+
+        return "redirect:/processes/usr/overviewusers";
+    }
 
     //@RequestParam(value = "file") MultipartFile[] files
     private boolean daLiJePrazan(MultipartFile file) {

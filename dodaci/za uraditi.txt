@@ -1,16 +1,13 @@
 TODO General:
-!!!!!main!!! - prikaz procesa, aktivnosti!!!!
 
+- prikaz dokumenata procesa
 -display dokumenata - ako stignemo
 -Admin overview - action???
-validacija
+- Validacija
 - Pretraga dokumenata - i live search bi bio super
 - Istestirati sve slucajeve koriscenja
 - Dokumentacija
 
-
-TODO Nevena:
-- JS Tree - u 3 pm -.-
 
 TODO Vukasin:
 - Action kod admina

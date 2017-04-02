@@ -1,13 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<form role="form" method="POST" id="add_document_form" enctype="multipart/form-data" action="/dms/documents/add_new/${activity.id}">
+<form role="form" method="POST" id="tree_form_documents" enctype="multipart/form-data" action="/dms/documents/add_new_tree" style="display: none;">
+    <input name="parent" id="parent" type="hidden">
     <div class="form-group">
         <label>Name</label>
-        <input class="form-control" name="documentname">
+        <input class="form-control" name="name">
         <p class="help-block">Example: Equipment Order</p>                                         
     </div>
     <div class="form-group">
         <label>Description</label>
-        <input class="form-control" name="documentdescritption">
+        <input class="form-control" name="description">
         <p class="help-block">Example: Order for equipment</p>                                         
     </div>
     <div class="form-group">
