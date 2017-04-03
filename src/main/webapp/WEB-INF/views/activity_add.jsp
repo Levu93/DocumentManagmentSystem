@@ -6,7 +6,7 @@
         <title>Document Management System</title>
         <%@include file="header.jsp" %>
         <script>
-            function confirmDelete() { // <--- changed here
+            function confirmDelete() {
                 var answer = confirm("Are you sure you want to delete ${aktivnost.naziv}? It may have documents connected!!!");
                 if (answer) {
                     document.myForm.action = "/dms/activity/adm/delete/${aktivnost.id}";

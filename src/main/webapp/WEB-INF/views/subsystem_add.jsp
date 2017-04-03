@@ -16,7 +16,19 @@
             </title>
         </c:if>
 
-        <script src="../resources/js/scripts.js"></script>
+        <script>
+            function clearContents(element) {
+                if (element.value == 'Default description') {
+                    element.value = '';
+                }
+            }
+
+            function backContents(element) {
+                if (element.value === '') {
+                    element.value = 'Default description';
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -98,8 +110,8 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" method="POST" id="add_sub_form" action="<c:if test="${subsystem == null}">
-                                          /dms/subsystems/add_new_subsystem                            
+                                    <form role="form" name="myform" method="POST" id="add_sub_form" action = "<c:if test="${subsystem == null}">
+                                          /dms/subsystems/add_new_subsystem
                                         </c:if>
                                         <c:if test="${subsystem != null}">
                                             /dms/subsystems/add_new_subsystem/${subsystem.id}
@@ -107,18 +119,18 @@
                                         <div class="form-group">
                                             <label>Subsystem name</label>
                                             <c:if test="${subsystem == null}">
-                                                <input class="form-control" name="subsystemname">
+                                                <input class="form-control" name="subsystemname" id="subsystemname" required>
                                                 <p class="help-block">Example: NLB bank</p>
                                             </c:if>
                                             <c:if test="${subsystem != null}">
-                                                <input class="form-control" name="subsystemname" value="${subsystem.naziv}" id="naziv">
+                                                <input class="form-control" name="subsystemname" value="${subsystem.naziv}" id="naziv" required>
                                                 <p class="help-block">Example: ${subsystem.naziv}</p>
                                             </c:if>                                            
                                         </div>
                                         <div class="form-group">
                                             <label>Subsystem sign</label>
                                             <c:if test="${subsystem == null}">
-                                                <input class="form-control" name="subsystemsign">
+                                                <input class="form-control" name="subsystemsign" required>
                                                 <p class="help-block">Example: NLBBNK</p>
                                             </c:if>
                                             <c:if test="${subsystem != null}">
@@ -128,10 +140,10 @@
                                         <div class="form-group">
                                             <label>Subsystem description</label>
                                             <c:if test="${subsystem == null}">
-                                                <textarea class="form-control" rows="5" name="subsystemdescription" onfocus="clearContents(this);">Default description</textarea>
+                                                <textarea class="form-control" rows="5" name="subsystemdescription" onfocus="clearContents(this);" onblur="backContents(this);" required>Default description</textarea>
                                             </c:if>
                                             <c:if test="${subsystem != null}">
-                                                <textarea class="form-control" rows="5" name="subsystemdescription" id="opis">${subsystem.opis}</textarea>
+                                                <textarea class="form-control" rows="5" name="subsystemdescription" id="opis" required>${subsystem.opis}</textarea>
                                             </c:if>      
                                         </div>
                                         <c:if test="${subsystem == null}">

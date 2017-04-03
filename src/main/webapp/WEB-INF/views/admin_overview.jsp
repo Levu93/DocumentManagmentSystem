@@ -116,9 +116,7 @@
                                                                                     <td>${users.ime}</td>
                                                                                     <td>${users.prezime}</td>
                                                                                     <td>${rola.nazivRole}</td>
-                                                                                    <td><a href="#" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-cog"></i></a></td>
                                                                                     <td><a href="/dms/admins/adm/delete/${users.username}" class="btn btn-default btn-sm"><i class="fa fa-trash-o fa-fw"></i></a></td>
-
                                                                                 </tr>
                                                                             </c:if>
                                                                         </c:forEach>

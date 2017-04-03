@@ -63,10 +63,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <h4> ${aktivnost.naziv} </h4>
-                            <h4>${aktivnost.oznaka}</h4>
-                            <h4>${aktivnost.naziv}</h4>
-                            <button class="btn btn-github"><a href="/dms/documents//add_new/${aktivnost.id}">Add document</a></button>
+                            <button class="btn btn-github"><a href="/dms/documents/add_new/${aktivnost.id}">Add document</a></button>
                             <div class="table-responsive">
                                 <form action="sve" method="POST">
                                     <table class="table table-striped table-bordered table-hover">

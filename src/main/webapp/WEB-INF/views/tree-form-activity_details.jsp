@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<form action="#" method="POST" id="tree-form-activity-details" style="display: none">
-    <input name="id" id="idAct" type="hidden">
+<form action="/dms/activity/user/userdetails" method="GET" id="tree-form-activity-details" style="display: none">
+    <input name="idActivity" id="idAct" type="hidden">
     <input name="parent" id="parentAct" type="hidden">
     <div class="form-group">
         <input class="form-control" name="nameAct" id="nameAct">
@@ -11,6 +11,7 @@
     <div class="form-group">
         <textarea class="form-control" rows="5" name="description" id="descriptionAct" onfocus="clearContents(this);" onblur="backContents(this);">Activity is for...</textarea>
     </div>
+    <!--
     <table class="table table-striped table-bordered table-hover" >
         <thead>
             <tr>
@@ -32,5 +33,6 @@
             </tr>                                            
         </c:forEach>
         </tbody>
-    </table>
+    </table>-->
+    <input type="submit" value="More data"/>
 </form>

@@ -166,6 +166,21 @@ public class ActivityController {
 
         return mv;
     }
+    
+    @RequestMapping(path = "/user/userdetails", method = RequestMethod.GET)
+    public ModelAndView activityDetailsForUsersTree(long idActivity) {
+
+        Aktivnost target = activityService.findOne(idActivity);
+
+        UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userKojiCuva = userService.findOne(userdetail.getUsername());
+        Podsistem podsistemusera = userKojiCuva.getIdPodsistema();
+
+        ModelAndView mv = new ModelAndView("activity_details");
+        mv.addObject("aktivnost", target);
+
+        return mv;
+    }
 
     @RequestMapping(path = "/adm/add_new/{id}", method = RequestMethod.POST)
     public ModelAndView addNewActivityForProcess(@PathVariable("id") long id, String activityname, String activitysign, String activitydescription) {

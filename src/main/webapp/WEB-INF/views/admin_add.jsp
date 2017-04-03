@@ -5,7 +5,6 @@
     <head>
         <title>Document Management System</title>
         <%@include file="header.jsp" %>
-        <script src="../resources/js/bootstrap-select.js"></script>
     </head>
     <body>
         <sec:authentication var="admin" property="principal"/>
@@ -82,25 +81,25 @@
                                     <h1 style="color: red; font-weight: bold">${error}</h1>
                                     <br>
                                 </c:if>
-                                <form role="form" method="POST" id="add_admin_form" action="/dms/admins/adm/add_new_admin">
+                                <form role="form" method="POST" name="add_admin_form" id="add_admin_form" onsubmit="validate()">
                                     <div class="form-group">
                                         <label>First Name</label>
-                                        <input class="form-control" name="adminname" value="<c:if test="${not empty ime}">${ime}</c:if>">
+                                        <input class="form-control" name="adminname" value="<c:if test="${not empty ime}">${ime}</c:if>" required>
                                             <p class="help-block">Example: John</p>                                         
                                         </div>
                                         <div class="form-group">
                                             <label>Last Name</label>
-                                            <input class="form-control" name="adminlastname" value="<c:if test="${not empty prezime}">${ime}</c:if>">
+                                            <input class="form-control" name="adminlastname" value="<c:if test="${not empty prezime}">${ime}</c:if>" required>
                                             <p class="help-block">Example: West</p>                                         
                                         </div>
                                         <div class="form-group">
                                             <label>Username</label>
-                                            <input class="form-control" name="adminusername">
+                                            <input class="form-control" name="adminusername" required>
                                             <p class="help-block">Example: username</p>                                         
                                         </div>
                                         <div class="form-group">
                                             <label>Password</label>
-                                            <input type="password" class="form-control" name="adminpass">
+                                            <input type="password" class="form-control" id="adminpass" name="adminpass" required>
                                             <p class="help-block" style="color: red">8 characters minimum!!!</p>                                         
                                         </div>
                                         <div class="form-group">
@@ -111,7 +110,7 @@
                                             </c:forEach>
                                         </select>       
                                     </div>
-                                    <button type="submit" class="btn btn-default">Add new admin</button>    
+                                            <button type="submit" class="btn btn-default" name="addbutton">Add new admin</button>    
                                     <button type="reset" class="btn btn-default">Reset</button>                                                                                                                                                   
                                 </form>
                             </div>
