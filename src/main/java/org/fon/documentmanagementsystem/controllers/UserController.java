@@ -86,9 +86,6 @@ public class UserController {
     @RequestMapping(path = "usr/add_new_user", method = RequestMethod.GET)
     public ModelAndView addUserPage() {
         ModelAndView mv = new ModelAndView("user_add");
-//        List<Podsistem> sviPodsistemi;
-//        sviPodsistemi = podsistemService.findAll();
-//        mv.addObject("subsystems", sviPodsistemi);
         return mv;
     }
 
@@ -103,6 +100,26 @@ public class UserController {
         if (x != null) {
             ModelAndView mv = new ModelAndView("admin_add");
             mv.addObject("error", "Username already exists!!!");
+            mv.addObject("ime", adminname);
+            mv.addObject("prezime", adminlastname);
+
+            mv.addObject("subsystems", sviPodsistemi);
+
+            return mv;
+        }
+        if (adminpass == null || adminpass.isEmpty()) {
+            ModelAndView mv = new ModelAndView("admin_add");
+            mv.addObject("passgreska", true);
+            mv.addObject("ime", adminname);
+            mv.addObject("prezime", adminlastname);
+
+            mv.addObject("subsystems", sviPodsistemi);
+
+            return mv;
+        }
+        if (adminpass.length() < 8) {
+            ModelAndView mv = new ModelAndView("admin_add");
+            mv.addObject("passgreska", true);
             mv.addObject("ime", adminname);
             mv.addObject("prezime", adminlastname);
 
@@ -158,7 +175,24 @@ public class UserController {
 
             return mv;
         }
+        
+                if (adminpass == null || adminpass.isEmpty()) {
+            ModelAndView mv = new ModelAndView("user_add");
+            mv.addObject("passgreska", true);
+            mv.addObject("ime", adminname);
+            mv.addObject("prezime", adminlastname);
 
+            return mv;
+        }
+        if (adminpass.length() < 8) {
+            ModelAndView mv = new ModelAndView("user_add");
+            mv.addObject("passgreska", true);
+            mv.addObject("ime", adminname);
+            mv.addObject("prezime", adminlastname);
+
+            return mv;
+        }
+        
         UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userKojiCuva = userService.findOne(userdetail.getUsername());
 

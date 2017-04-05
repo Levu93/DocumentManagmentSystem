@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package org.fon.documentmanagementsystem.controllers;
 
 import java.util.ArrayList;
@@ -292,7 +288,6 @@ public class ActivityController {
         podsistemService.sacuvajPodsistem(sub);
 
         ModelAndView mv = new ModelAndView("admin_home");
-        // mv.addObject("aktivnost", njegovaakt);
 
         return mv;
     }

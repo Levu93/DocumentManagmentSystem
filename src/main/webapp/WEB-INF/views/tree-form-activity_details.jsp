@@ -11,28 +11,5 @@
     <div class="form-group">
         <textarea class="form-control" rows="5" name="description" id="descriptionAct" onfocus="clearContents(this);" onblur="backContents(this);">Activity is for...</textarea>
     </div>
-    <!--
-    <table class="table table-striped table-bordered table-hover" >
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Code</th>
-                <th>Description</th>
-                <th>Download</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="dokument" items="${aktivnost.dokumentList}">
-            <tr>
-                <td>${dokument.naziv}</td>
-                <td>${dokument.datumKreiranja}</td>
-                <td>${dokument.napomena}</td>
-                <td><a href="/dms/documents/download/${dokument.idDokumenta}">Download</a></td>
-                <td><a href="/dms/documents/delete/${dokument.idDokumenta}">Delete</a></td>
-            </tr>                                            
-        </c:forEach>
-        </tbody>
-    </table>-->
-    <input type="submit" value="More data"/>
+    <input type="submit" class="btn btn-default" value="More data"/>
 </form>

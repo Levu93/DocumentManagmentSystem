@@ -25,7 +25,10 @@ import org.fon.documentmanagementsystem.domain.User;
 import org.fon.documentmanagementsystem.dto.UserDto;
 import org.fon.documentmanagementsystem.services.ActivityService;
 import org.fon.documentmanagementsystem.services.DokumentService;
+import org.fon.documentmanagementsystem.services.PodsistemService;
+import org.fon.documentmanagementsystem.services.ProcesService;
 import org.fon.documentmanagementsystem.services.TipdokumentaService;
+import org.fon.documentmanagementsystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -56,9 +59,17 @@ public class DocumentController {
     @Autowired
     TipdokumentaService tipDokumentaService;
 
-    @RequestMapping(path = "/add_new/{id}", method = RequestMethod.GET)
-    public ModelAndView addDocument(@PathVariable("id") long id) {
+    @Autowired
+    ProcesService procesService;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    PodsistemService subsystemService;
+
+    @RequestMapping(path = "add_new/{id}", method = RequestMethod.GET)
+    public ModelAndView addDocument(@PathVariable("id") long id) {
         Aktivnost target = activityService.findOne(id);
 
         List<Tipdokumenta> documenttypes = tipDokumentaService.findAll();
@@ -69,14 +80,12 @@ public class DocumentController {
         return mv;
     }
 
-    @RequestMapping(path = "/add_new/{id}", method = RequestMethod.POST)
+    @RequestMapping(path = "add_new/{id}", method = RequestMethod.POST)
     public ModelAndView addNewDocumentForActivity(@PathVariable("id") long id, String documentname, String documentdescritption, long documenttype, MultipartFile file) {
 
-        //long idDokumenta = dokumentService.findAll().size() + 1;
         Aktivnost aktivnost = activityService.findOne(id);
 
         Dokument doc = new Dokument();
-        //doc.setIdDokumenta(idDokumenta);
         doc.setNaziv(documentname);
         doc.setNapomena(documentdescritption);
         doc.setDatumKreiranja(new Date());
@@ -99,10 +108,10 @@ public class DocumentController {
                 }
 
                 nazivFajla = file.getOriginalFilename();
-                
+
                 int li = nazivFajla.lastIndexOf("\\");
                 //nazivFajla = nazivFajla.substring(li+1, nazivFajla.length());
-                
+
                 File serverFile = new File(dir.getAbsolutePath()
                         + File.separator + nazivFajla); //mozda ovde da bude ime dokumenta umesto naziv fajla
                 try (BufferedOutputStream stream = new BufferedOutputStream(
@@ -127,7 +136,7 @@ public class DocumentController {
 
         return mv;
     }
-    
+
     @RequestMapping(path = "add_new_tree", method = RequestMethod.POST)
     public String addNewDocumentForActivityTree(long parent, String name, String description, long documenttype, MultipartFile file) {
 
@@ -156,10 +165,10 @@ public class DocumentController {
                 }
 
                 nazivFajla = file.getOriginalFilename();
-                
+
                 int li = nazivFajla.lastIndexOf("\\");
                 //nazivFajla = nazivFajla.substring(li+1, nazivFajla.length());
-                
+
                 File serverFile = new File(dir.getAbsolutePath()
                         + File.separator + nazivFajla); //mozda ovde da bude ime dokumenta umesto naziv fajla
                 try (BufferedOutputStream stream = new BufferedOutputStream(
@@ -168,7 +177,7 @@ public class DocumentController {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-               // return new ModelAndView("error", "error", "Error uploading file! " + " => " + e.getMessage());
+                // return new ModelAndView("error", "error", "Error uploading file! " + " => " + e.getMessage());
 
             }
         }
@@ -202,23 +211,22 @@ public class DocumentController {
 
             HttpHeaders header = new HttpHeaders();
             //header.setContentType(MediaType.valueOf(document.getFajlTip()));
-                       
-            
+
             String nazivfajla = document.getFajl();
             int li = nazivfajla.lastIndexOf('\\');
-            String subsnaziv = nazivfajla.substring(li+1, nazivfajla.length());
-            header.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + subsnaziv); 
+            String subsnaziv = nazivfajla.substring(li + 1, nazivfajla.length());
+            header.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + subsnaziv);
             File file = new File(nazivfajla);
-            
+
             Path path = file.toPath();
 
             byte[] outputByte = Files.readAllBytes(path);
-            
+
             String fajltype = Files.probeContentType(path);
-            System.out.println(fajltype+" je tip");
-            
+            System.out.println(fajltype + " je tip");
+
             header.setContentType(MediaType.valueOf(fajltype));
-            
+
             header.setContentLength(outputByte.length);
 
             return new ResponseEntity<>(outputByte, header, HttpStatus.OK);

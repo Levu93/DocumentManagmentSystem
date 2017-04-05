@@ -99,8 +99,9 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Password</label>
-                                            <input type="password" class="form-control" id="adminpass" name="adminpass" required>
-                                            <p class="help-block" style="color: red">8 characters minimum!!!</p>                                         
+                                            <input type="password" class="form-control" id="adminpass" name="adminpass" required>                                        
+                                            <p class="help-block" <c:if test="${passgreska == null}"></c:if>
+                                           <c:if test="${passgreska != null}">style="color: red;"</c:if>>8 characters minimum!!!</p>                                         
                                         </div>
                                         <div class="form-group">
                                             <label>Subsystem</label>

@@ -153,32 +153,32 @@
                                     <div class="form-group">
                                         <label>Name</label>
                                         <c:if test="${aktivnost == null}">
-                                            <input class="form-control" name="activityname" id="ajdi">
+                                            <input class="form-control" name="activityname" id="ajdi" required>
                                             <p class="help-block">Example: activity 1</p> 
                                         </c:if>        
                                         <c:if test="${aktivnost != null}">
-                                            <input class="form-control" name="activityname" id="ajdi" value="${aktivnost.naziv}">
+                                            <input class="form-control" name="activityname" id="ajdi" value="${aktivnost.naziv}" required>
                                             <p class="help-block">Example: ${aktivnost.naziv}</p> 
                                         </c:if>
                                     </div>
                                     <div class="form-group">
                                         <label>Sign</label>
                                         <c:if test="${aktivnost == null}">
-                                            <input class="form-control" name="activitysign">
+                                            <input class="form-control" name="activitysign" required>
                                             <p class="help-block">Example: A1</p> 
                                         </c:if>
                                         <c:if test="${aktivnost != null}">
-                                            <input class="form-control" name="activitysign" value="${aktivnost.oznaka}">
+                                            <input class="form-control" name="activitysign" value="${aktivnost.oznaka}" required>
                                             <p class="help-block">Example: ${aktivnost.oznaka}</p> 
                                         </c:if>                                        
                                     </div>
                                     <div class="form-group">
                                         <label>Activity description</label>
                                         <c:if test="${aktivnost == null}">
-                                            <textarea class="form-control" rows="5" name="activitydescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this);">Activity is for...</textarea>
+                                            <textarea class="form-control" rows="5" name="activitydescription" id="opis" onfocus="clearContents(this);" onblur="backContents(this);" required>Activity is for...</textarea>
                                         </c:if>
                                         <c:if test="${aktivnost != null}">
-                                            <textarea class="form-control" rows="5" name="activitydescription" id="opis" onfocus="clearContents(this);">${aktivnost.opis}</textarea>
+                                            <textarea class="form-control" rows="5" name="activitydescription" id="opis" onfocus="clearContents(this);" required>${aktivnost.opis}</textarea>
                                         </c:if>
                                     </div>
 

@@ -63,7 +63,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-github"><a href="/dms/documents/add_new/${aktivnost.id}">Add document</a></button>
+                            <a href="/dms/documents/add_new/${aktivnost.id}">Add document</a>
                             <div class="table-responsive">
                                 <form action="sve" method="POST">
                                     <table class="table table-striped table-bordered table-hover">

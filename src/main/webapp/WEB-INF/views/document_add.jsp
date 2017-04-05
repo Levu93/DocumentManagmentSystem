@@ -67,12 +67,12 @@
                                 <form role="form" method="POST" id="add_document_form" enctype="multipart/form-data" action="/dms/documents/add_new/${activity.id}">
                                     <div class="form-group">
                                         <label>Name</label>
-                                        <input class="form-control" name="documentname">
+                                        <input class="form-control" name="documentname" required>
                                         <p class="help-block">Example: Equipment Order</p>                                         
                                     </div>
                                     <div class="form-group">
                                         <label>Description</label>
-                                        <input class="form-control" name="documentdescritption">
+                                        <input class="form-control" name="documentdescritption" required>
                                         <p class="help-block">Example: Order for equipment</p>                                         
                                     </div>
                                     <div class="form-group">

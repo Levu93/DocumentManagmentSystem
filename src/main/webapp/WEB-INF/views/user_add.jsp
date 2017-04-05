@@ -102,23 +102,24 @@
                                 <form role="form" method="POST" id="add_admin_form" action="/dms/admins/usr/add_new_user">
                                     <div class="form-group">
                                         <label>First Name</label>
-                                        <input class="form-control" name="adminname" value="<c:if test="${not empty ime}">${ime}</c:if>">
+                                        <input class="form-control" name="adminname" value="<c:if test="${not empty ime}">${ime}</c:if>" required>
                                             <p class="help-block">Example: User</p>                                         
                                         </div>
                                         <div class="form-group">
                                             <label>Last Name</label>
-                                            <input class="form-control" name="adminlastname" value="<c:if test="${not empty prezime}">${ime}</c:if>">
+                                            <input class="form-control" name="adminlastname" value="<c:if test="${not empty prezime}">${prezime}</c:if>" required>
                                             <p class="help-block">Example: User</p>                                         
                                         </div>
                                         <div class="form-group">
                                             <label>Username</label>
-                                            <input class="form-control" name="adminusername">
+                                            <input class="form-control" name="adminusername" required>
                                             <p class="help-block">Example: username</p>                                         
                                         </div>
                                         <div class="form-group">
                                             <label>Password</label>
-                                            <input type="password" class="form-control" name="adminpass">
-                                            <p class="help-block" style="color: red">8 characters minimum!!!</p>                                         
+                                            <input type="password" class="form-control" name="adminpass" required>
+                                            <p class="help-block" <c:if test="${passgreska == null}"></c:if>
+                                           <c:if test="${passgreska != null}">style="color: red;"</c:if>>8 characters minimum!!!</p>                                             
                                         </div>    
 
                                         <button type="submit" class="btn btn-default">Add new user</button>

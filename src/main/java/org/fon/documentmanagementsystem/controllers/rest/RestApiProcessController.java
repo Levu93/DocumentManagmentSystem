@@ -46,7 +46,9 @@ public class RestApiProcessController {
         UserDto userdetail = (UserDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User activeUser = userService.findOne(userdetail.getUsername());
         System.out.println("U rest kontroleru sam");
+        //uzima samo procese iz njegovog podsistema
         List<Proces> processes = activeUser.getIdPodsistema().getProcesList();
+        
         List<TreeDto> data = new ArrayList<>();
         boolean hasChildren;
         for (Proces process : processes) {
@@ -75,57 +77,4 @@ public class RestApiProcessController {
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
-//    @RequestMapping(path = "/process/{id}", method = RequestMethod.GET)
-//    public ResponseEntity<Process> showProcess(@PathVariable("id") long id) throws Exception {
-//        Process process = processService.find(id);
-//        if (process == null) throw new Exception("There is no process with id " + id);
-//        return new ResponseEntity<>(process, HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(path = "/edit", method = RequestMethod.POST)
-//    public ResponseEntity<String> editProcess(Authentication authentication, Long id, String name, boolean primitive) {
-//        Process process = processService.find(id);
-//        if (process == null) return new ResponseEntity<>("Process is null", HttpStatus.OK);
-//        process.setName(name);
-//        if (process.isPrimitive() != primitive && primitive) deleteProcessFromCompany(authentication, process);
-//        if (process.isPrimitive() != primitive && !primitive) process.getActivityList().clear();
-//        process.setPrimitive(primitive);
-//        processService.save(process);
-//        return new ResponseEntity<>("Process successfully edited", HttpStatus.OK);
-//    }
-//
-//    private void deleteProcessFromCompany(Authentication authentication, Process process) {
-//        UserDto user = (UserDto) authentication.getPrincipal();
-//        Company company = userService.findOne(user.getUsername()).getCompany();
-//        List<Process> processes = company.getProcesses();
-//        deleteChildren(process, processes, true);
-//        companyService.save(company);
-//    }
-//
-//    private void deleteChildren(Process process, List<Process> processes, boolean root) {
-//        List<Process> children = getChildren(process, processes);
-//        for (Process child : children) {
-//            deleteChildren(child, processes, false);
-//        }
-//        if (!root) processes.remove(process);
-//    }
-//
-//    private List<Process> getChildren(Process p, List<Process> lista) {
-//        List<Process> children = new ArrayList<>();
-//        for (Process process : lista) {
-//            if (p != null && p.equals(process.getParent())) children.add(process);
-//        }
-//        return children;
-//    }
-//    
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<MessageDto> handleError(Exception ex, WebRequest request) {
-//        ex.printStackTrace();
-//        return new ResponseEntity<>(new MessageDto(MessageDto.MESSAGE_TYPE_ERROR, ex.getMessage()), HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @InitBinder
-//    public void initBinder(WebDataBinder binder) {
-//        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
-//    }
 }

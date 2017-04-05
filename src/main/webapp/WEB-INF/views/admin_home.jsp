@@ -57,9 +57,6 @@
                                 <li>
                                     <a href="/dms/activity/adm/add_new">Add new activity</a>
                                 </li> 
-                                <li>
-                                    <a href="/dms/processes/adm/test">Test</a>
-                                </li>  
                             </ul>
                         </li>
                         <li>
